@@ -1,0 +1,23 @@
+{
+  "actions": "Actions",
+  "addChild": "Add child",
+  "batchDelete": "Delete selected",
+  "collapseAll": "Collapse all",
+  "confirmBatchDelete": "Delete the {count} selected items?",
+  "confirmDelete": "Delete \"{name}\"?",
+  "createTime": "Created",
+  "deleted": "Deleted",
+  "disabledName": "Disabled \"{name}\"",
+  "enabledName": "Enabled \"{name}\"",
+  "expandAll": "Expand all",
+  "export": "Export",
+  "exportFailed": "Export failed. Try again later.",
+  "inputPlaceholder": "Enter",
+  "remark": "Remark",
+  "remarkPlaceholder": "Optional, up to 500 characters",
+  "save": "Save",
+  "saved": "Saved",
+  "selectPlaceholder": "Select",
+  "sort": "Sort order",
+  "status": "Status"
+}

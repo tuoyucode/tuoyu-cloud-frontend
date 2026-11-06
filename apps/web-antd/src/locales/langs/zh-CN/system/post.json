@@ -1,0 +1,15 @@
+{
+  "title": "岗位",
+  "list": "岗位列表",
+  "create": "新增岗位",
+  "edit": "编辑岗位",
+  "delete": "删除岗位",
+  "postCode": "岗位编码",
+  "postName": "岗位名称",
+  "postCategory": "类别编码",
+  "dept": "所属部门",
+  "postCodePlaceholder": "例如：qa",
+  "postNamePlaceholder": "例如：测试工程师",
+  "postCategoryPlaceholder": "例如：TECH",
+  "exportFileName": "岗位"
+}

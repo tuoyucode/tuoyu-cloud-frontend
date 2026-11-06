@@ -1,0 +1,112 @@
+<script lang="ts" setup>
+import type { VxeTableGridOptions } from '#/adapter/vxe-table';
+import type { UserApi } from '#/api/system/user';
+
+import { ref } from 'vue';
+
+import { useVbenModal } from '@vben/common-ui';
+
+import { message } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { assignRoleUsers, listUnallocatedUser } from '#/api/system/role';
+import { $t } from '#/locales';
+
+import { useUserColumns, useUserSearchSchema } from './data';
+
+const emit = defineEmits<{ success: [] }>();
+
+type RoleRef = { roleId: string; roleName: string };
+
+/** 要分配的角色 */
+const role = ref<RoleRef>();
+
+const selectedCount = ref(0);
+
+const [Grid, gridApi] = useVbenVxeGrid({
+  formOptions: {
+    schema: useUserSearchSchema(),
+    submitOnChange: false,
+    wrapperClass: 'grid-cols-1 md:grid-cols-2',
+  },
+  gridEvents: {
+    checkboxAll: updateSelectedCount,
+    checkboxChange: updateSelectedCount,
+  },
+  gridOptions: {
+    checkboxConfig: { highlight: true, reserve: true },
+    columns: useUserColumns(false),
+    height: 480,
+    pagerConfig: { pageSize: 10, pageSizes: [10, 20, 50, 100] },
+    proxyConfig: {
+      ajax: {
+        // 表格在弹窗打开后才渲染，此时已经能取到角色
+        query: async ({ page }, formValues) => {
+          const current = modalApi.getData() as RoleRef | undefined;
+          if (!current) {
+            return { rows: [], total: 0 };
+          }
+          return await listUnallocatedUser({
+            pageNum: page.currentPage,
+            pageSize: page.pageSize,
+            ...formValues,
+            roleId: current.roleId,
+          });
+        },
+      },
+    },
+    rowConfig: { isHover: true, keyField: 'userId' },
+    toolbarConfig: { refresh: true },
+  } as VxeTableGridOptions<UserApi.User>,
+});
+
+/** 已勾选的用户，翻页后保留 */
+function selectedUsers(): UserApi.User[] {
+  return [
+    ...gridApi.grid.getCheckboxReserveRecords(),
+    ...gridApi.grid.getCheckboxRecords(),
+  ] as UserApi.User[];
+}
+
+function updateSelectedCount() {
+  selectedCount.value = selectedUsers().length;
+}
+
+const [Modal, modalApi] = useVbenModal({
+  async onConfirm() {
+    const users = selectedUsers();
+    if (!role.value || users.length === 0) {
+      message.warning($t('system.role.noUserSelected'));
+      return;
+    }
+    modalApi.lock();
+    try {
+      await assignRoleUsers(
+        role.value.roleId,
+        users.map((user) => user.userId),
+      );
+      message.success($t('system.role.usersAdded', { count: users.length }));
+      emit('success');
+      modalApi.close();
+    } finally {
+      modalApi.unlock();
+    }
+  },
+  onOpenChange(isOpen) {
+    if (isOpen) {
+      role.value = modalApi.getData() as RoleRef;
+      selectedCount.value = 0;
+    }
+  },
+});
+</script>
+
+<template>
+  <Modal
+    :confirm-text="$t('system.role.addSelectedUsers', { count: selectedCount })"
+    :title="$t('system.role.selectUsersTitle', { name: role?.roleName ?? '' })"
+    class="w-full max-w-[880px]"
+  >
+    <Grid />
+  </Modal>
+</template>

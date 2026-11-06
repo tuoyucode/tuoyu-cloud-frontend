@@ -1,0 +1,15 @@
+{
+  "title": "Messages",
+  "all": "All",
+  "category": {
+    "system": "System",
+    "notice": "Announcement",
+    "workflow": "Workflow"
+  },
+  "markRead": "Mark as read",
+  "markAllRead": "Mark all as read",
+  "remove": "Remove",
+  "empty": "No messages",
+  "open": "Open related page",
+  "close": "Close"
+}

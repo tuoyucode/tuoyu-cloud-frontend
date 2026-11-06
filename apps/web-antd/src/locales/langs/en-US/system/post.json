@@ -1,0 +1,15 @@
+{
+  "title": "Post",
+  "list": "Posts",
+  "create": "New post",
+  "edit": "Edit post",
+  "delete": "Delete post",
+  "postCode": "Post code",
+  "postName": "Post name",
+  "postCategory": "Category code",
+  "dept": "Department",
+  "postCodePlaceholder": "e.g. qa",
+  "postNamePlaceholder": "e.g. QA engineer",
+  "postCategoryPlaceholder": "e.g. TECH",
+  "exportFileName": "posts"
+}

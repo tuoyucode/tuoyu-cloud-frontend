@@ -1,0 +1,22 @@
+{
+  "title": "参数",
+  "list": "参数列表",
+  "create": "新增参数",
+  "edit": "编辑参数",
+  "delete": "删除参数",
+  "configName": "参数名称",
+  "configKey": "参数键名",
+  "configValue": "参数值",
+  "configType": "系统内置",
+  "configTypeHelp": "系统内置的参数不能删除，可以修改参数值",
+  "configNamePlaceholder": "例如：账号自助-是否开启用户注册",
+  "configKeyPlaceholder": "例如：sys.account.registerUser",
+  "configValuePlaceholder": "最多 500 字",
+  "builtInCannotDelete": "系统内置参数不能删除",
+  "builtInSelected": "所选中包含系统内置参数（{names}），不能删除。请取消勾选后重试",
+  "nameSeparator": "、",
+  "refreshCache": "刷新缓存",
+  "refreshCacheHelp": "直接修改数据库中的参数后，点此让新值立即生效",
+  "cacheRefreshed": "已刷新参数缓存",
+  "exportFileName": "参数"
+}

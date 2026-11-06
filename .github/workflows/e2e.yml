@@ -1,0 +1,67 @@
+name: E2E
+
+# 端到端测试需要可访问的前端与后端（含数据库、Redis、Nacos），CI 中不自带后端，所以只能手动触发：
+# 在 GitHub 的 Actions 页面选择本工作流，填写已部署环境的前端地址后运行。
+# 登录账号放在仓库的 Secrets 中（E2E_USERNAME、E2E_PASSWORD），不要写进代码或输入框。
+# 测试会新增并删除一个编码以 e2e_ 开头的岗位，请只对测试环境运行。
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: 前端地址（已部署的测试环境，例如 https://test.example.com）
+        required: true
+        type: string
+      api_url:
+        description: 后端接口地址，默认为 <前端地址>/api
+        required: false
+        type: string
+      router_history:
+        description: 前端路由模式（生产构建为 hash）
+        required: false
+        default: hash
+        type: choice
+        options:
+          - hash
+          - history
+
+permissions:
+  contents: read
+
+env:
+  CI: true
+  TZ: Asia/Shanghai
+  TURBO_TELEMETRY_DISABLED: 1
+
+jobs:
+  e2e:
+    name: 端到端测试（Playwright）
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Install Playwright browser
+        run: pnpm -F @vben/web-antd exec playwright install --with-deps chromium
+
+      - name: Run e2e tests
+        env:
+          E2E_API_URL: ${{ inputs.api_url }}
+          E2E_BASE_URL: ${{ inputs.base_url }}
+          E2E_PASSWORD: ${{ secrets.E2E_PASSWORD }}
+          # 后端不可用或缺少账号时失败，不要“全部跳过”当作通过
+          E2E_REQUIRE_BACKEND: 'true'
+          E2E_ROUTER_HISTORY: ${{ inputs.router_history }}
+          E2E_USERNAME: ${{ secrets.E2E_USERNAME }}
+        run: pnpm -F @vben/web-antd run test:e2e
+
+      - name: Upload report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-report
+          path: apps/web-antd/e2e/.output
+          retention-days: 7

@@ -1,0 +1,20 @@
+{
+  "title": "Announcement",
+  "list": "Announcements",
+  "create": "New announcement",
+  "edit": "Edit announcement",
+  "delete": "Delete announcement",
+  "publish": "Publish",
+  "noticeTitle": "Title",
+  "noticeType": "Type",
+  "noticeContent": "Content",
+  "status": "Status",
+  "createByName": "Published by",
+  "createTime": "Published",
+  "createByNamePlaceholder": "Publisher's username",
+  "noticeTitlePlaceholder": "e.g. Scheduled maintenance tonight at 22:00",
+  "noticeContentPlaceholder": "Body of the announcement",
+  "pushHint": "Once published, it is pushed to all online users immediately",
+  "opened": "Opened \"{name}\"",
+  "closed": "Closed \"{name}\""
+}

@@ -1,0 +1,22 @@
+{
+  "list": "Process instances",
+  "running": "Running",
+  "finished": "Finished",
+  "activated": "Activated \"{name}\"",
+  "suspended": "Suspended \"{name}\". Its tasks cannot be handled while suspended",
+  "variables": "Variables",
+  "variablesTitle": "Process variables",
+  "variableKey": "Name",
+  "variableType": "Type",
+  "variableValue": "Value",
+  "variableEditHelp": "Edited values are saved as text, so only text variables can be edited",
+  "variableNotEditable": "Only text variables can be edited. Editing other types would change their type",
+  "invalid": "Void",
+  "invalidTitle": "Void \"{name}\"",
+  "invalidHelp": "The process ends immediately and cannot be resumed",
+  "invalidPlaceholder": "Reason, optional",
+  "invalidated": "Voided",
+  "delete": "Delete process instance",
+  "deleteHelp": "The process instance and its approval history are deleted permanently",
+  "confirmBatchDelete": "Delete the {count} selected process instances? Their approval history is deleted permanently"
+}

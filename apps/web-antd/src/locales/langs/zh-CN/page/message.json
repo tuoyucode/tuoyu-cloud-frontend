@@ -1,0 +1,15 @@
+{
+  "title": "消息中心",
+  "all": "全部",
+  "category": {
+    "system": "系统消息",
+    "notice": "通知公告",
+    "workflow": "工作流消息"
+  },
+  "markRead": "标为已读",
+  "markAllRead": "全部标为已读",
+  "remove": "移除",
+  "empty": "暂无消息",
+  "open": "查看相关页面",
+  "close": "关闭"
+}

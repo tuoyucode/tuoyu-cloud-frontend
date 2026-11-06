@@ -1,0 +1,12 @@
+{
+  "list": "Process categories",
+  "categoryName": "Category",
+  "categoryNamePlaceholder": "For example HR approvals",
+  "parent": "Parent category",
+  "root": "Top level",
+  "create": "New category",
+  "edit": "Edit category",
+  "delete": "Delete category",
+  "deleteHelp": "A category with subcategories or used by a process definition cannot be deleted",
+  "exportFileName": "process-categories"
+}

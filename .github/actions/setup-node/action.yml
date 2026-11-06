@@ -1,0 +1,25 @@
+name: 'Setup Node'
+
+description: '安装 pnpm 与 Node.js，并按锁文件安装依赖'
+
+runs:
+  using: 'composite'
+  steps:
+    # pnpm 版本取自 package.json 的 packageManager
+    - name: Install pnpm
+      uses: pnpm/action-setup@v6
+      with:
+        run_install: false
+
+    # Node 版本取自 .node-version（须满足 package.json 的 engines）
+    - name: Install Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version-file: .node-version
+        cache: 'pnpm'
+
+    # 仓库的 .npmrc 指向国内镜像（方便本地开发），GitHub 的 runner 在海外，访问它很慢，
+    # 大包（如 @iconify/json）会下载超时，所以 CI 中改用官方源；锁文件不记录下载地址，校验值两边相同
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile --registry=https://registry.npmjs.org

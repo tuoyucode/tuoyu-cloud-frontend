@@ -1,0 +1,20 @@
+{
+  "title": "在线用户",
+  "list": "在线会话",
+  "userName": "用户账号",
+  "dept": "部门",
+  "clientKey": "客户端",
+  "deviceType": "设备类型",
+  "ipaddr": "登录地址",
+  "loginLocation": "登录地点",
+  "browser": "浏览器",
+  "os": "操作系统",
+  "loginTime": "登录时间",
+  "exactPlaceholder": "完整输入，不支持模糊查询",
+  "self": "当前会话",
+  "forceLogout": "强制退出",
+  "forceLogoutShort": "强退",
+  "confirmForceLogout": "强制“{name}”的这个会话退出？",
+  "forceLogoutDesc": "该会话立即失效，需要重新登录；该用户的其他会话不受影响。",
+  "loggedOut": "已让“{name}”的会话退出"
+}

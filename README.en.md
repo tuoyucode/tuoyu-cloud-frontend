@@ -1,36 +1,53 @@
 # tuoyu-cloud-frontend
 
-#### Description
-{**When you're done, you can delete the content in this README and update the file with details for others getting started with your repository**}
+English | [简体中文](README.md)
 
-#### Software Architecture
-Software architecture description
+The admin frontend of tuoyu-cloud. tuoyu-cloud is a general-purpose Java microservice framework: one codebase runs as a monolith or as microservices, it is secure by default, and it is fully open source under the MIT license.
 
-#### Installation
+- Backend repository: [tuoyu-cloud](https://gitee.com/tuoyucode/tuoyu-cloud)
+- Stack: Vue 3, TypeScript, Vite, [Vben Admin 5](https://github.com/vbenjs/vue-vben-admin) (framework layer), Ant Design Vue
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## Requirements
 
-#### Instructions
+- Node.js `^22.18.0` or `^24.12.0`
+- pnpm `11` or later
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## Getting started
 
-#### Contribution
+```bash
+pnpm install
+pnpm dev:antd
+```
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+The dev server runs at `http://localhost:5666` and proxies `/api` to the local backend gateway at `http://localhost:8081` (see `apps/web-antd/vite.config.ts`). Start the gateway, auth, system and resource services first, as described in the backend repository.
 
+## Commands
 
-#### Gitee Feature
+| Command           | Description                                    |
+| ----------------- | ---------------------------------------------- |
+| `pnpm dev:antd`   | Start the dev server                           |
+| `pnpm build:antd` | Build for production into `apps/web-antd/dist` |
+| `pnpm lint`       | Lint                                           |
+| `pnpm check:type` | Type check                                     |
+| `pnpm test:unit`  | Unit tests (Vitest)                            |
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+## Layout
+
+| Directory | Contents |
+| --- | --- |
+| `apps/web-antd` | The admin app: pages, routes, API calls, theme |
+| `packages` | Framework layer: layouts, access control, components, preferences, utilities |
+| `internal` | Build and lint configuration |
+| `scripts` | Tooling scripts and deployment files |
+
+## API encryption
+
+Login, password changes and similar endpoints use the backend's API encryption protocol. The frontend stores no keys; it fetches the public key from the backend at runtime. See `docs/adr/0001-接口加密.md` in the backend repository.
+
+## Contributing
+
+Development conventions (layout and naming, page templates, request layer, checks and commit messages) are described in [CONTRIBUTING.md](CONTRIBUTING.md) (in Chinese).
+
+## License
+
+[MIT](LICENSE). Third-party code included in this project and its licenses are listed in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).

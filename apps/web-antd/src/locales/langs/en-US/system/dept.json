@@ -1,0 +1,23 @@
+{
+  "title": "Department",
+  "list": "Departments",
+  "create": "New department",
+  "edit": "Edit department",
+  "delete": "Delete department",
+  "deleteHelp": "Departments with sub-departments, users or posts cannot be deleted.",
+  "parent": "Parent department",
+  "deptName": "Department name",
+  "deptCategory": "Category code",
+  "leader": "Leader",
+  "leaderOption": "{nickName} ({userName})",
+  "leaderHelp": "Choose from the users of this department. Clear it and save to remove the leader.",
+  "leaderCreateHelp": "A new department has no users yet. Save it first, then edit it to choose a leader.",
+  "phone": "Phone",
+  "email": "Email",
+  "emailInvalid": "Invalid email address, e.g. name{'@'}example.com",
+  "statusHelp": "To disable a department, first disable all its sub-departments and move its users out.",
+  "deptNamePlaceholder": "e.g. R&D",
+  "deptCategoryPlaceholder": "e.g. RD",
+  "phonePlaceholder": "e.g. 13800000000",
+  "emailPlaceholder": "e.g. dept{'@'}example.com"
+}

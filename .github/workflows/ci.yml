@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [master, dev]
+  pull_request:
+    branches: [master, dev]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: true
+  TZ: Asia/Shanghai
+  TURBO_TELEMETRY_DISABLED: 1
+
+jobs:
+  check:
+    name: 检查（lint、类型检查、单元测试）
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Typecheck
+        run: pnpm -F @vben/web-antd run typecheck
+
+      - name: Unit tests
+        run: pnpm run test:unit
+
+      # 端到端测试需要后端，在 e2e.yml 中手动触发；这里只确认测试文件能被 Playwright 正常加载
+      - name: E2E tests load
+        run: pnpm -F @vben/web-antd exec playwright test --list
+
+  build:
+    name: 构建
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
+
+      - name: Build
+        run: pnpm run build:antd

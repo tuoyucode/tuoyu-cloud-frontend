@@ -1,39 +1,53 @@
 # tuoyu-cloud-frontend
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+[English](README.en.md) | 简体中文
 
-#### 软件架构
-软件架构说明
+tuoyu-cloud 的管理端前端。tuoyu-cloud 是通用的 Java 微服务框架，同一套代码同时支持单体部署和微服务部署，默认安全，MIT 协议完全开源。
 
+- 后端仓库：[tuoyu-cloud](https://gitee.com/tuoyucode/tuoyu-cloud)
+- 技术栈：Vue 3、TypeScript、Vite、[Vben Admin 5](https://github.com/vbenjs/vue-vben-admin)（框架层）、Ant Design Vue
 
-#### 安装教程
+## 环境要求
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+- Node.js `^22.18.0` 或 `^24.12.0`
+- pnpm `11` 及以上
 
-#### 使用说明
+## 快速开始
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+```bash
+pnpm install
+pnpm dev:antd
+```
 
-#### 参与贡献
+开发服务器默认在 `http://localhost:5666`，`/api` 请求代理到本地后端网关 `http://localhost:8081`（见 `apps/web-antd/vite.config.ts`）。请先按后端仓库的说明启动网关、认证、系统、资源四个核心服务。
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+## 常用命令
 
+| 命令              | 说明                                    |
+| ----------------- | --------------------------------------- |
+| `pnpm dev:antd`   | 启动开发服务器                          |
+| `pnpm build:antd` | 构建生产包，输出到 `apps/web-antd/dist` |
+| `pnpm lint`       | 代码检查                                |
+| `pnpm check:type` | 类型检查                                |
+| `pnpm test:unit`  | 单元测试（Vitest）                      |
 
-#### 特技
+## 目录结构
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+| 目录            | 说明                                     |
+| --------------- | ---------------------------------------- |
+| `apps/web-antd` | 管理端应用：页面、路由、接口、主题配置   |
+| `packages`      | 框架层：布局、权限、组件、偏好设置、工具 |
+| `internal`      | 构建与 lint 配置                         |
+| `scripts`       | 工程脚本与部署文件                       |
+
+## 接口加密
+
+登录、修改密码等接口按后端的接口加密协议传输，前端不保存任何密钥，公钥运行时从后端获取。协议见后端仓库的 `docs/adr/0001-接口加密.md`。
+
+## 参与贡献
+
+开发约定（目录与命名、页面模板、请求层、检查与提交规范）见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+## 协议
+
+[MIT](LICENSE)。本项目包含的第三方代码及其协议见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。

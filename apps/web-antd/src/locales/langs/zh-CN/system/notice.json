@@ -1,0 +1,20 @@
+{
+  "title": "通知公告",
+  "list": "通知公告列表",
+  "create": "发布通知公告",
+  "edit": "编辑通知公告",
+  "delete": "删除通知公告",
+  "publish": "发布",
+  "noticeTitle": "标题",
+  "noticeType": "类型",
+  "noticeContent": "内容",
+  "status": "状态",
+  "createByName": "发布人",
+  "createTime": "发布时间",
+  "createByNamePlaceholder": "发布人账号",
+  "noticeTitlePlaceholder": "例如：系统将于今晚 22:00 停机维护",
+  "noticeContentPlaceholder": "通知公告的正文",
+  "pushHint": "发布后会立即推送给所有在线用户",
+  "opened": "已开启“{name}”",
+  "closed": "已关闭“{name}”"
+}

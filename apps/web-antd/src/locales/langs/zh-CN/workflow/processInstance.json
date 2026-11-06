@@ -1,0 +1,22 @@
+{
+  "list": "流程实例",
+  "running": "运行中",
+  "finished": "已结束",
+  "activated": "已激活“{name}”",
+  "suspended": "已挂起“{name}”，挂起期间不能办理",
+  "variables": "变量",
+  "variablesTitle": "流程变量",
+  "variableKey": "变量名",
+  "variableType": "类型",
+  "variableValue": "值",
+  "variableEditHelp": "修改后的值按文本保存，只能修改文本类型的变量",
+  "variableNotEditable": "只能修改文本类型的变量，修改其他类型会改变它的类型",
+  "invalid": "作废",
+  "invalidTitle": "作废“{name}”",
+  "invalidHelp": "作废后流程直接结束，不能恢复",
+  "invalidPlaceholder": "作废原因，选填",
+  "invalidated": "已作废",
+  "delete": "删除流程实例",
+  "deleteHelp": "删除流程实例与审批记录，不能恢复",
+  "confirmBatchDelete": "确定删除所选的 {count} 个流程实例？审批记录一并删除，不能恢复"
+}

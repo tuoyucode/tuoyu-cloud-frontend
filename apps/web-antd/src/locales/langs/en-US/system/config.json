@@ -1,0 +1,22 @@
+{
+  "title": "Setting",
+  "list": "System settings",
+  "create": "New setting",
+  "edit": "Edit setting",
+  "delete": "Delete setting",
+  "configName": "Name",
+  "configKey": "Key",
+  "configValue": "Value",
+  "configType": "Built-in",
+  "configTypeHelp": "Built-in settings cannot be deleted, but their values can be changed",
+  "configNamePlaceholder": "e.g. Self-service: allow user registration",
+  "configKeyPlaceholder": "e.g. sys.account.registerUser",
+  "configValuePlaceholder": "Up to 500 characters",
+  "builtInCannotDelete": "Built-in settings cannot be deleted",
+  "builtInSelected": "The selection includes built-in settings ({names}), which cannot be deleted. Deselect them and try again.",
+  "nameSeparator": ", ",
+  "refreshCache": "Refresh cache",
+  "refreshCacheHelp": "After changing settings directly in the database, click here to apply the new values immediately",
+  "cacheRefreshed": "Settings cache refreshed",
+  "exportFileName": "settings"
+}

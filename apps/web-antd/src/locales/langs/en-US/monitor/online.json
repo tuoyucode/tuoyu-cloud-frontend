@@ -1,0 +1,20 @@
+{
+  "title": "Online users",
+  "list": "Online sessions",
+  "userName": "Username",
+  "dept": "Department",
+  "clientKey": "Client",
+  "deviceType": "Device type",
+  "ipaddr": "IP address",
+  "loginLocation": "Location",
+  "browser": "Browser",
+  "os": "OS",
+  "loginTime": "Login time",
+  "exactPlaceholder": "Exact match only",
+  "self": "This session",
+  "forceLogout": "Sign out session",
+  "forceLogoutShort": "Sign out",
+  "confirmForceLogout": "Sign out this session of \"{name}\"?",
+  "forceLogoutDesc": "The session ends immediately and must sign in again. Other sessions of this user are not affected.",
+  "loggedOut": "Signed out the session of \"{name}\""
+}

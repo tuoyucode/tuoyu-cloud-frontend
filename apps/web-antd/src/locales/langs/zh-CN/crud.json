@@ -1,0 +1,23 @@
+{
+  "actions": "操作",
+  "addChild": "新增下级",
+  "batchDelete": "删除所选",
+  "collapseAll": "全部收起",
+  "confirmBatchDelete": "确定删除所选的 {count} 项？",
+  "confirmDelete": "确定删除“{name}”？",
+  "createTime": "创建时间",
+  "deleted": "已删除",
+  "disabledName": "已停用“{name}”",
+  "enabledName": "已启用“{name}”",
+  "expandAll": "全部展开",
+  "export": "导出",
+  "exportFailed": "导出失败，请稍后重试",
+  "inputPlaceholder": "请输入",
+  "remark": "备注",
+  "remarkPlaceholder": "选填，最多 500 字",
+  "save": "保存",
+  "saved": "已保存",
+  "selectPlaceholder": "请选择",
+  "sort": "显示顺序",
+  "status": "状态"
+}

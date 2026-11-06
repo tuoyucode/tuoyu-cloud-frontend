@@ -1,0 +1,13 @@
+{
+  "title": "Tenant package",
+  "list": "Tenant packages",
+  "create": "New package",
+  "edit": "Edit package",
+  "delete": "Delete package",
+  "packageName": "Package name",
+  "packageNamePlaceholder": "e.g. Standard",
+  "statusHelp": "A disabled package cannot be assigned to tenants. Tenants already using it are not affected",
+  "menus": "Package menus",
+  "menusHelp": "Roles in a tenant can only be granted menus in its package. After saving, the admins of tenants using this package get the updated menus",
+  "menuUnavailable": "Cannot load the menu tree; the menu query permission may be missing. Menus stay unchanged when you save"
+}

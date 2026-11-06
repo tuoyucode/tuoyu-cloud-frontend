@@ -1,0 +1,16 @@
+{
+  "list": "Process expressions",
+  "componentName": "Component",
+  "componentNameHelp": "Spring bean name. Leave empty when the expression only references a process variable",
+  "methodName": "Method",
+  "methodParams": "Parameters",
+  "methodParamsHelp": "Process variable names separated by commas, for example initiatorDeptId",
+  "viewSpel": "Expression",
+  "viewSpelHelp": "Referenced when choosing assignees in the process designer, for example #{'{'}{'@'}spelRuleComponent.selectDeptLeaderById(#initiatorDeptId){'}'}, or the variable ${'{'}initiator{'}'}",
+  "remarkPlaceholder": "Describe who this expression selects. The designer shows this text",
+  "compose": "Build expression from component and method",
+  "composeHelp": "Fill in the component and method. To reference a process variable, fill in only one parameter",
+  "create": "New expression",
+  "edit": "Edit expression",
+  "delete": "Delete expression"
+}

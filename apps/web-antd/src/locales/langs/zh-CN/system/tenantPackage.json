@@ -1,0 +1,13 @@
+{
+  "title": "租户套餐",
+  "list": "租户套餐列表",
+  "create": "新增套餐",
+  "edit": "编辑套餐",
+  "delete": "删除套餐",
+  "packageName": "套餐名称",
+  "packageNamePlaceholder": "例如：标准版",
+  "statusHelp": "停用的套餐不能再分配给租户，已使用它的租户不受影响",
+  "menus": "套餐菜单",
+  "menusHelp": "租户内的角色只能分配套餐中的菜单；保存后，使用该套餐的租户管理员的菜单随之更新",
+  "menuUnavailable": "无法加载菜单树，可能缺少菜单查询权限；保存时菜单保持不变"
+}

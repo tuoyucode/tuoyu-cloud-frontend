@@ -1,0 +1,16 @@
+{
+  "list": "流程表达式",
+  "componentName": "组件名",
+  "componentNameHelp": "Spring 容器中的 Bean 名称；只引用流程变量时留空",
+  "methodName": "方法名",
+  "methodParams": "参数",
+  "methodParamsHelp": "流程变量名，多个用逗号分隔，例如 initiatorDeptId",
+  "viewSpel": "表达式",
+  "viewSpelHelp": "在流程设计器中选择办理人时引用，例如 #{'{'}{'@'}spelRuleComponent.selectDeptLeaderById(#initiatorDeptId){'}'}，或流程变量 ${'{'}initiator{'}'}",
+  "remarkPlaceholder": "说明这个表达式选出的是谁，设计器中按它显示",
+  "compose": "按组件与方法生成表达式",
+  "composeHelp": "请填写组件名与方法名；只引用流程变量时只填一个参数",
+  "create": "新增表达式",
+  "edit": "修改表达式",
+  "delete": "删除表达式"
+}

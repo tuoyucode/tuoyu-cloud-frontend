@@ -1,0 +1,12 @@
+{
+  "list": "流程分类",
+  "categoryName": "分类名称",
+  "categoryNamePlaceholder": "例如 人事审批",
+  "parent": "上级分类",
+  "root": "顶级分类",
+  "create": "新增分类",
+  "edit": "修改分类",
+  "delete": "删除分类",
+  "deleteHelp": "有下级分类或已被流程定义使用的分类不能删除",
+  "exportFileName": "流程分类"
+}

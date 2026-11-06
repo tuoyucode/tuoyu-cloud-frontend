@@ -1,0 +1,23 @@
+{
+  "title": "部门",
+  "list": "部门列表",
+  "create": "新增部门",
+  "edit": "编辑部门",
+  "delete": "删除部门",
+  "deleteHelp": "有下级部门、用户或岗位的部门不能删除",
+  "parent": "上级部门",
+  "deptName": "部门名称",
+  "deptCategory": "类别编码",
+  "leader": "负责人",
+  "leaderOption": "{nickName}（{userName}）",
+  "leaderHelp": "从本部门的用户中选择；清空后保存表示不设负责人",
+  "leaderCreateHelp": "新部门还没有用户，保存后再编辑部门选择负责人",
+  "phone": "联系电话",
+  "email": "邮箱",
+  "emailInvalid": "邮箱格式不正确，例如 name{'@'}example.com",
+  "statusHelp": "停用前，需先停用全部下级部门，并移出部门中的用户",
+  "deptNamePlaceholder": "例如：研发部",
+  "deptCategoryPlaceholder": "例如：RD",
+  "phonePlaceholder": "例如：13800000000",
+  "emailPlaceholder": "例如：dept{'@'}example.com"
+}
