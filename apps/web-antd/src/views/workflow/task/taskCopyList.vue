@@ -11,6 +11,7 @@ import { Button } from 'ant-design-vue';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { listMyCopyTask } from '#/api/workflow/task';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 
 import ProcessDrawer from '../components/process-drawer.vue';
 import { useCopyColumns, useTaskSearchSchema } from './data';
@@ -37,8 +38,7 @@ const [Grid] = useVbenVxeGrid({
       ajax: {
         query: async ({ page }, formValues) =>
           await listMyCopyTask({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           }),
       },

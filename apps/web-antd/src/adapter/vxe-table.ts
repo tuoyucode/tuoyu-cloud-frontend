@@ -32,11 +32,11 @@ setupVbenVxeTable({
         },
         proxyConfig: {
           autoLoad: true,
-          // 后端分页结果 PageResult：{ rows, total }
+          // 后端分页结果 PageResult：{ items, total }
           response: {
-            result: 'rows',
+            result: 'items',
             total: 'total',
-            list: 'rows',
+            list: 'items',
           },
           showActiveMsg: true,
           showResponseMsg: false,

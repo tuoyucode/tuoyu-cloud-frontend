@@ -17,6 +17,7 @@ import {
   removeOperlog,
 } from '#/api/monitor/operlog';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 import { hasPermission } from '#/utils/permission';
 
 import { toQuery, useColumns, useSearchSchema } from './data';
@@ -51,18 +52,11 @@ const [Grid, gridApi] = useVbenVxeGrid({
     pagerConfig: { pageSize: 10, pageSizes: [10, 20, 50, 100] },
     proxyConfig: {
       ajax: {
-        query: async ({ page, sort }, formValues) => {
+        query: async ({ page, sorts }, formValues) => {
           selectedCount.value = 0;
           return await listOperlog({
             ...toQuery(formValues),
-            ...(sort?.order
-              ? {
-                  isAsc: sort.order as 'asc' | 'desc',
-                  orderByColumn: sort.field,
-                }
-              : {}),
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page, sorts),
           });
         },
       },

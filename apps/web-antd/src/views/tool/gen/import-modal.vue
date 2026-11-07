@@ -11,6 +11,7 @@ import { message } from 'ant-design-vue';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { importTables, listDbTable } from '#/api/tool/gen';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 
 import { useImportColumns, useImportSearchSchema } from './data';
 
@@ -50,8 +51,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
           }
           updateSelectedCount();
           return await listDbTable({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
             dataName: next,
           });

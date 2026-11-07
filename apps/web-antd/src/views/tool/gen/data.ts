@@ -79,12 +79,6 @@ export function useColumns(): VxeTableGridOptions<GenApi.Table>['columns'] {
       title: $t('tool.gen.tableComment'),
     },
     { field: 'className', minWidth: 140, title: $t('tool.gen.className') },
-    {
-      field: 'frontendType',
-      formatter: ({ cellValue }) => frontendTypeLabel(cellValue),
-      title: $t('tool.gen.frontendType'),
-      width: 130,
-    },
     { field: 'createTime', title: $t('crud.createTime'), width: 170 },
     { field: 'updateTime', title: $t('tool.gen.updateTime'), width: 170 },
     {
@@ -138,27 +132,6 @@ export function useImportColumns(): VxeTableGridOptions<GenApi.DbTable>['columns
     },
     { field: 'createTime', title: $t('crud.createTime'), width: 170 },
   ];
-}
-
-/** 前端模板的显示名称 */
-export function frontendTypeLabel(value?: string) {
-  switch (value) {
-    case 'react': {
-      return 'React';
-    }
-    case 'vue': {
-      return 'Element Plus';
-    }
-    case undefined:
-    case '':
-    case null:
-    case 'vben': {
-      return 'Vben（Ant Design Vue）';
-    }
-    default: {
-      return value;
-    }
-  }
 }
 
 /**
@@ -250,20 +223,6 @@ export function useGenerateFormSchema(): VbenFormSchema[] {
       defaultValue: 'crud',
       fieldName: 'tplCategory',
       label: $t('tool.gen.tplCategory'),
-      rules: 'selectRequired',
-    },
-    {
-      component: 'Select',
-      componentProps: {
-        options: ['vben', 'vue', 'react'].map((value) => ({
-          label: frontendTypeLabel(value),
-          value,
-        })),
-      },
-      defaultValue: 'vben',
-      fieldName: 'frontendType',
-      help: $t('tool.gen.frontendTypeHelp'),
-      label: $t('tool.gen.frontendType'),
       rules: 'selectRequired',
     },
     {

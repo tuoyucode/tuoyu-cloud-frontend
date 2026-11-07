@@ -16,6 +16,7 @@ import {
   removeInstance,
 } from '#/api/workflow/instance';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 import { hasPermission } from '#/utils/permission';
 
 import ProcessDrawer from '../components/process-drawer.vue';
@@ -44,8 +45,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
       ajax: {
         query: async ({ page }, formValues) =>
           await listMyInstance({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           }),
       },

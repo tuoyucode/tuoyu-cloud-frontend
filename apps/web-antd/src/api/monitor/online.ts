@@ -46,7 +46,7 @@ export function forceLogout(sessionId: string) {
 /** 本人的在线会话（只要求登录），current 标出当前浏览器的会话 */
 export async function listMyOnline() {
   const result = await requestClient.get<PageResult<OnlineApi.Online>>(BASE);
-  return result?.rows ?? [];
+  return result?.items ?? [];
 }
 
 /** 让本人的某个会话下线（后端只在本人的会话中查找） */

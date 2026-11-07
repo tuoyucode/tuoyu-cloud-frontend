@@ -195,10 +195,10 @@ describe('createEventStream', () => {
     expect(fetchMock).toHaveBeenCalledTimes(4);
   });
 
-  it('后端返回未登录（HTTP 200 + code 401）时停止，不重连', async () => {
+  it('后端返回未登录（HTTP 401）时停止，不重连', async () => {
     const onStop = vi.fn();
     const fetchMock = vi.fn(async () =>
-      jsonResponse({ code: 401, msg: '未登录' }),
+      jsonResponse({ code: 401, message: '未登录', traceId: 't1' }, 401),
     );
     const stream = createEventStream({
       fetch: fetchMock as unknown as typeof fetch,
@@ -216,7 +216,7 @@ describe('createEventStream', () => {
   it('接口不存在（关闭了消息推送）时停止，不反复请求', async () => {
     const onStop = vi.fn();
     const fetchMock = vi.fn(async () =>
-      jsonResponse({ code: 404, msg: 'Not Found' }, 404),
+      jsonResponse({ code: 404, message: 'Not Found', traceId: 't2' }, 404),
     );
     const stream = createEventStream({
       fetch: fetchMock as unknown as typeof fetch,
@@ -230,12 +230,31 @@ describe('createEventStream', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
-  it('服务暂时不可用（5xx 或 code 500）时重连', async () => {
+  it('返回的不是事件流（例如普通 JSON）时停止，不反复请求', async () => {
+    const onStop = vi.fn();
+    const fetchMock = vi.fn(async () =>
+      jsonResponse({ code: 0, data: null, message: 'ok', traceId: 't4' }),
+    );
+    const stream = createEventStream({
+      fetch: fetchMock as unknown as typeof fetch,
+      headers: () => HEADERS,
+      onEvent: vi.fn(),
+      onStop,
+      url: '/s',
+    });
+    stream.start();
+    await vi.waitFor(() => expect(onStop).toHaveBeenCalledWith('unavailable'));
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('服务暂时不可用（5xx）时重连', async () => {
     vi.useFakeTimers();
     const fetchMock = vi
       .fn()
       .mockResolvedValueOnce(new Response('', { status: 503 }))
-      .mockResolvedValueOnce(jsonResponse({ code: 500, msg: 'down' }))
+      .mockResolvedValueOnce(
+        jsonResponse({ code: 500, message: 'down', traceId: 't3' }, 500),
+      )
       .mockImplementation(async (_url: string, init?: RequestInit) =>
         sseResponse([], true, init?.signal ?? undefined),
       );

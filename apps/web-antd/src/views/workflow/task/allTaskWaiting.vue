@@ -19,6 +19,7 @@ import {
   urgeTask,
 } from '#/api/workflow/task';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 import { hasPermission } from '#/utils/permission';
 
 import ProcessDrawer from '../components/process-drawer.vue';
@@ -88,8 +89,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           const query = {
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           };
           return await (tab.value === 'waiting'

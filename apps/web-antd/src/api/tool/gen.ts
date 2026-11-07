@@ -2,17 +2,14 @@ import type { PageQuery, PageResult } from '#/api/types';
 
 import { downloadFileFromBlobPart } from '@vben/utils';
 
-import { message } from 'ant-design-vue';
-
 import { requestClient } from '#/api/request';
-import { $t } from '#/locales';
 
 export namespace GenApi {
   /** 模板类型：crud 单表，tree 树表 */
   export type TplCategory = 'crud' | 'tree';
 
-  /** 前端模板：vben（默认，与本前端的页面约定一致）、vue（Element Plus）、react */
-  export type FrontendType = 'react' | 'vben' | 'vue';
+  /** 前端模板：只有 vben，与本前端的页面约定一致 */
+  export type FrontendType = 'vben';
 
   /**
    * 生成选项（保存在 gen_table.options 中）。
@@ -48,7 +45,7 @@ export namespace GenApi {
     enableSort?: boolean;
     enableStatus?: boolean;
     enableUnique?: boolean;
-    frontendType?: FrontendType | string;
+    frontendType?: FrontendType;
     functionAuthor?: string;
     functionName?: string;
     moduleName?: string;
@@ -120,10 +117,10 @@ export namespace GenApi {
     tableName?: string;
   }
 
-  /** 详情：info 为业务表，rows 为字段 */
+  /** 详情：info 为业务表，columns 为全部字段（不分页） */
   export interface Detail {
+    columns: Column[];
     info: Table;
-    rows: Column[];
   }
 
   /** 保存生成配置的参数：业务表、全部字段与生成选项 */
@@ -202,10 +199,5 @@ export async function downloadGenCode(tableIds: string[], fileName: string) {
       tableIds.length === 1 ? undefined : { tableIdStr: tableIds.join(',') },
     timeout: 0,
   });
-  if (blob.type.includes('json')) {
-    const body = JSON.parse(await blob.text());
-    message.error(body?.msg || $t('tool.gen.downloadFailed'));
-    throw new Error(body?.msg);
-  }
   downloadFileFromBlobPart({ fileName, source: blob });
 }

@@ -17,6 +17,7 @@ import {
   syncGenTable,
 } from '#/api/tool/gen';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 import { hasPermission } from '#/utils/permission';
 
 import {
@@ -70,8 +71,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           return await listGenTable({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...toQuery(formValues ?? {}),
           });
         },

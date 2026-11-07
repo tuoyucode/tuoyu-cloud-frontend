@@ -19,6 +19,7 @@ import {
 import { DictType } from '#/api/system/dict';
 import DictTag from '#/components/dict-tag.vue';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 import { hasPermission } from '#/utils/permission';
 
 import ClientDrawer from './client-drawer.vue';
@@ -62,8 +63,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           return await listClient({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           });
         },

@@ -140,14 +140,14 @@ export function cancelInstance(businessId: string, message?: string) {
 
 /** 激活（true）或挂起（false） */
 export function activeInstance(id: string, active: boolean) {
-  return requestClient.put<boolean>(`${BASE}/active/${id}`, null, {
+  return requestClient.put<null>(`${BASE}/active/${id}`, null, {
     params: { active },
   });
 }
 
 /** 作废 */
 export function invalidInstance(id: string, comment?: string) {
-  return requestClient.post<boolean>(`${BASE}/invalid`, { comment, id });
+  return requestClient.post<null>(`${BASE}/invalid`, { comment, id });
 }
 
 export function getInstanceVariables(instanceId: string) {

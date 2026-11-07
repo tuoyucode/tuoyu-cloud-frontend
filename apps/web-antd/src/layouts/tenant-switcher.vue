@@ -67,8 +67,8 @@ async function load() {
 async function loadTenants() {
   loading.value = true;
   try {
-    const page = await listTenant({ pageNum: 1, pageSize: MAX_TENANTS });
-    tenants.value = page.rows;
+    const page = await listTenant({ page: 1, pageSize: MAX_TENANTS });
+    tenants.value = page.items;
   } catch {
     // 没有租户查询权限时只显示当前租户与“退出租户”
   } finally {

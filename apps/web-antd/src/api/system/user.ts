@@ -1,13 +1,16 @@
 import type { PostApi } from '#/api/system/post';
 import type { RoleApi } from '#/api/system/role';
 import type { PageQuery, PageResult, TreeNode } from '#/api/types';
+import type { ApiResult } from '#/utils/api-result';
 
 import {
   exportExcel,
   postEncrypted,
   putEncrypted,
   requestClient,
+  silentErrors,
 } from '#/api/request';
+import { errorMessageOf, isSuccess } from '#/utils/api-result';
 
 export namespace UserApi {
   /** 用户（SysUserVo） */
@@ -98,7 +101,7 @@ export namespace UserApi {
     user: User;
   }
 
-  /** 导入结果：后端把结果写在 msg 中 */
+  /** 导入结果：后端把成功或失败的明细写在 message 中 */
   export interface ImportResult {
     message: string;
     success: boolean;
@@ -171,7 +174,8 @@ export function downloadUserImportTemplate(fileName: string) {
 }
 
 /**
- * 导入用户。后端把成功或失败的明细都写在 msg 中，这里取完整返回体，由页面展示明细
+ * 导入用户。成功时明细在 message 中（data 为 null）；失败时 HTTP 状态为 4xx，明细在错误响应的 message 中。
+ * 这里不弹出提示，由页面展示明细
  *
  * @param file Excel 文件
  * @param updateSupport 账号已存在时是否更新
@@ -180,13 +184,17 @@ export async function importUser(
   file: Blob,
   updateSupport: boolean,
 ): Promise<UserApi.ImportResult> {
-  const body = await requestClient.upload<{ code: number; msg?: string }>(
-    `${BASE}/importData`,
-    { file, updateSupport },
-    // 导入可能较慢，放宽超时
-    { responseReturn: 'body', timeout: 5 * 60 * 1000 },
-  );
-  return { message: body?.msg ?? '', success: body?.code === 200 };
+  try {
+    const body = await requestClient.upload<ApiResult<null>>(
+      `${BASE}/importData`,
+      { file, updateSupport },
+      // 取完整返回体以读取 message；导入可能较慢，放宽超时
+      silentErrors({ responseReturn: 'body', timeout: 5 * 60 * 1000 }),
+    );
+    return { message: body?.message ?? '', success: isSuccess(body) };
+  } catch (error) {
+    return { message: errorMessageOf(error, ''), success: false };
+  }
 }
 
 /** 分配角色页面：用户信息与全部角色 */

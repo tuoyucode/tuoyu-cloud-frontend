@@ -1,0 +1,6 @@
+{
+  "payloadTooLarge": "The request is too large. Reduce the file or content size and try again",
+  "serviceUnavailable": "The service is temporarily unavailable. Please try again later",
+  "tooManyRequests": "Too many requests. Please try again later",
+  "traceId": "Trace ID: {traceId}"
+}

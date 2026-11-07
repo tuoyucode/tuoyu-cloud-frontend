@@ -66,15 +66,11 @@ export function messageStreamUrl() {
  * 消息只是辅助功能：失败时（包括消息服务不可用）不弹出提示，由调用方决定如何处理
  */
 export async function getMessageBox(): Promise<MessageApi.MessageBox> {
-  const body = await requestClient.get<{
-    code: number;
-    data?: MessageApi.MessageBox;
-    msg?: string;
-  }>('/resource/message/box', silentErrors({ responseReturn: 'body' }));
-  if (body?.code !== 200) {
-    throw new Error(body?.msg || 'message box unavailable');
-  }
-  return body.data ?? {};
+  const box = await requestClient.get<MessageApi.MessageBox | null>(
+    '/resource/message/box',
+    silentErrors({}),
+  );
+  return box ?? {};
 }
 
 /**

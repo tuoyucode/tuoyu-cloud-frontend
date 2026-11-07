@@ -1,9 +1,12 @@
 /**
- * 请求层：适配后端统一返回结构 R（code / msg / data），并支持接口加密
+ * 请求层：适配后端统一返回结构 ApiResult（code / message / data / traceId），并支持接口加密。
+ * 成功为 HTTP 200 + code 0，取 data；失败时 HTTP 状态码表达错误类别，响应体结构相同
  */
 import type { RequestClientConfig, RequestClientOptions } from '@vben/request';
 
 import type { Bytes } from '#/utils/api-crypto';
+
+import { h } from 'vue';
 
 import { useAppConfig } from '@vben/hooks';
 import { preferences } from '@vben/preferences';
@@ -15,7 +18,7 @@ import {
 import { useAccessStore } from '@vben/stores';
 import { downloadFileFromBlobPart } from '@vben/utils';
 
-import { message } from 'ant-design-vue';
+import { message, Typography } from 'ant-design-vue';
 
 import { $t } from '#/locales';
 import { useAuthStore } from '#/store';
@@ -25,6 +28,7 @@ import {
   encryptRequest,
   resolveSubtle,
 } from '#/utils/api-crypto';
+import { isSuccess, parseBlobBody, requestErrorInfo } from '#/utils/api-result';
 
 import { clearApiCryptoPublicKey, getApiCryptoPublicKey } from './core/crypto';
 
@@ -32,9 +36,6 @@ const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
 
 /** 后端客户端 ID（sys_client.client_id），登录和每个请求都要带上 */
 export const CLIENT_ID: string = import.meta.env.VITE_APP_CLIENT_ID;
-
-/** 后端成功码 */
-const SUCCESS_CODE = 200;
 
 /** 后端解密失败时的统一提示，见接口加密协议 */
 const DECRYPT_FAILED = '请求解密失败';
@@ -57,6 +58,58 @@ export function formatToken(token: null | string) {
 /** 后端按 zh_CN 的形式解析语言 */
 export function contentLanguage() {
   return preferences.app.locale.replace('-', '_');
+}
+
+/** 后端没有返回 message 时，按 HTTP 状态码给出的提示（Vben 没有提供的状态） */
+function statusMessage(status?: number): string | undefined {
+  switch (status) {
+    case 413: {
+      return $t('request.payloadTooLarge');
+    }
+    case 429: {
+      return $t('request.tooManyRequests');
+    }
+    case 502:
+    case 503:
+    case 504: {
+      return $t('request.serviceUnavailable');
+    }
+    default: {
+      return undefined;
+    }
+  }
+}
+
+/** 提示中附带 traceId 的时长（秒）：比普通提示长，鼠标悬停时不会关闭，便于复制 */
+const TRACE_MESSAGE_DURATION = 8;
+
+/**
+ * 显示请求错误：优先用后端的 message。服务端错误（5xx）附上可复制的 traceId，便于对照日志排查；
+ * 4xx 的 message 已经说明了原因，不附加
+ */
+function showRequestError(error: unknown, fallback: string) {
+  const info = requestErrorInfo(error);
+  const text = info.message ?? statusMessage(info.status) ?? fallback;
+  const serverError = info.status === undefined || info.status >= 500;
+  if (!info.traceId || !serverError) {
+    message.error(text);
+    return;
+  }
+  message.error({
+    content: h('span', { class: 'inline-flex flex-col items-start' }, [
+      h('span', text),
+      h(
+        Typography.Text,
+        {
+          class: 'text-xs',
+          copyable: { text: info.traceId },
+          type: 'secondary',
+        },
+        () => $t('request.traceId', { traceId: info.traceId }),
+      ),
+    ]),
+    duration: TRACE_MESSAGE_DURATION,
+  });
 }
 
 function createRequestClient(baseURL: string, options?: RequestClientOptions) {
@@ -93,29 +146,49 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
     },
   });
 
-  // 加密响应：用请求时生成的 AES 密钥解密，之后按普通响应处理
+  /**
+   * 加密响应：用请求时生成的 AES 密钥解密，之后按普通响应处理。
+   * 加密接口失败时（例如登录失败）响应体同样是密文，出错时也要解密
+   */
+  async function decryptIfNeeded(response: any) {
+    const context = (response?.config as Record<string, unknown> | undefined)?.[
+      CRYPTO_CONTEXT
+    ] as CryptoContext | undefined;
+    if (
+      context &&
+      response.headers?.[API_CRYPTO_HEADER.toLowerCase()] === '1'
+    ) {
+      const plain = await decryptResponse(
+        context.subtle,
+        response.data,
+        context.aesKey,
+        context.nonce,
+      );
+      response.data = JSON.parse(plain);
+    }
+  }
+
   client.addResponseInterceptor({
     fulfilled: async (response) => {
-      const context = (response.config as unknown as Record<string, unknown>)[
-        CRYPTO_CONTEXT
-      ] as CryptoContext | undefined;
-      if (
-        context &&
-        response.headers[API_CRYPTO_HEADER.toLowerCase()] === '1'
-      ) {
-        const plain = await decryptResponse(
-          context.subtle,
-          response.data,
-          context.aesKey,
-          context.nonce,
-        );
-        response.data = JSON.parse(plain);
-      }
+      await decryptIfNeeded(response);
       return response;
+    },
+    rejected: async (error) => {
+      const response = error?.response;
+      if (response) {
+        try {
+          await decryptIfNeeded(response);
+        } catch {
+          // 错误响应无法解密时保留原样，按状态码提示
+        }
+        // 下载类请求出错时响应体是 Blob，解析成 JSON 以便读取 message
+        response.data = await parseBlobBody(response.data);
+      }
+      throw error;
     },
   });
 
-  // 统一返回结构：code 为 200 时取 data；分页接口（TableDataInfo）没有 data，整体返回
+  // 统一返回结构：code 为 0 时取 data；HTTP 成功但 code 不为 0 时按失败处理
   client.addResponseInterceptor({
     fulfilled: (response) => {
       const { config, data: body } = response;
@@ -125,22 +198,21 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
       if (config.responseReturn === 'body') {
         return body;
       }
-      if (body?.code === SUCCESS_CODE) {
-        return Object.hasOwn(body, 'data') ? body.data : body;
+      if (isSuccess(body)) {
+        return body.data;
       }
-      if (body?.msg === DECRYPT_FAILED) {
+      throw Object.assign({}, response, { response });
+    },
+    rejected: (error) => {
+      if (requestErrorInfo(error).message === DECRYPT_FAILED) {
         // 可能遇到了密钥轮换，下次请求重新获取公钥
         clearApiCryptoPublicKey();
       }
-      // 后端的未登录也以 HTTP 200 + code 401 返回，转成 401 交给下面的认证拦截器处理
-      const status = body?.code === 401 ? 401 : response.status;
-      throw Object.assign({}, response, {
-        response: { ...response, status },
-      });
+      throw error;
     },
   });
 
-  // 登录失效
+  // 登录失效（HTTP 401）
   client.addResponseInterceptor(
     authenticateResponseInterceptor({
       client,
@@ -151,14 +223,13 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
     }),
   );
 
-  // 其他错误：优先显示后端返回的 msg，没有时按 HTTP 状态码提示；用 silentErrors 发出的请求不提示
+  // 其他错误：优先显示后端返回的 message，没有时按 HTTP 状态码提示；用 silentErrors 发出的请求不提示
   client.addResponseInterceptor(
-    errorMessageResponseInterceptor((msg: string, error) => {
+    errorMessageResponseInterceptor((fallback: string, error) => {
       if (error?.config?.[SILENT_ERRORS_KEY]) {
         return;
       }
-      const serverMessage = error?.response?.data?.msg;
-      message.error(serverMessage || msg);
+      showRequestError(error, fallback);
     }),
   );
 
@@ -174,6 +245,8 @@ export function silentErrors<T extends RequestClientConfig>(config: T): T {
 }
 
 export const requestClient = createRequestClient(apiURL, {
+  // 数组参数按 sort=a&sort=b 发送（不带 []），后端按可重复参数接收
+  paramsSerializer: { indexes: null },
   responseReturn: 'data',
 });
 
@@ -224,7 +297,7 @@ async function sendEncrypted<T>(
 }
 
 /**
- * 导出 Excel 并保存为文件。后端出错时返回的是 JSON，转换为错误提示
+ * 导出 Excel 并保存为文件。后端出错时（例如超过导出行数上限）由请求层提示
  *
  * @param url 导出接口，例如 /system/post/export
  * @param params 查询条件，与列表查询相同
@@ -239,10 +312,5 @@ export async function exportExcel(
     method: 'POST',
     params,
   });
-  if (blob.type.includes('json')) {
-    const body = JSON.parse(await blob.text());
-    message.error(body?.msg || $t('crud.exportFailed'));
-    throw new Error(body?.msg);
-  }
   downloadFileFromBlobPart({ fileName, source: blob });
 }

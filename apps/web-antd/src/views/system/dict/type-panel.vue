@@ -17,6 +17,7 @@ import {
   removeDictType,
 } from '#/api/system/dict';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 import { hasPermission } from '#/utils/permission';
 
 import { useTypeColumns, useTypeSearchSchema } from './data';
@@ -68,8 +69,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           return await listDictType({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           });
         },

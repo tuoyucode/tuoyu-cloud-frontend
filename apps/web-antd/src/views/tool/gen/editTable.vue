@@ -53,6 +53,9 @@ import {
 
 defineOptions({ name: 'ToolGenEdit' });
 
+/** 前端模板：只提供与本前端页面约定一致的 vben 模板 */
+const FRONTEND_TYPE: GenApi.FrontendType = 'vben';
+
 const route = useRoute();
 const router = useRouter();
 
@@ -205,7 +208,7 @@ async function load() {
       loadMenus(),
     ]);
     info.value = detail.info;
-    columns.value = detail.rows ?? [];
+    columns.value = detail.columns ?? [];
     dictTypes.value = types ?? [];
     const options = columnOptions(columns.value);
     generateFormApi.updateSchema(
@@ -217,7 +220,6 @@ async function load() {
     await basicFormApi.setValues(detail.info);
     await generateFormApi.setValues({
       businessName: detail.info.businessName,
-      frontendType: detail.info.frontendType || 'vben',
       functionName: detail.info.functionName,
       moduleName: detail.info.moduleName,
       packageName: detail.info.packageName,
@@ -290,7 +292,7 @@ async function onSave() {
     ...info.value,
     ...basicValues,
     businessName: generateValues.businessName,
-    frontendType: generateValues.frontendType,
+    frontendType: FRONTEND_TYPE,
     functionName: generateValues.functionName,
     moduleName: generateValues.moduleName,
     packageName: generateValues.packageName,

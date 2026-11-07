@@ -26,6 +26,7 @@ import {
   removeRole,
 } from '#/api/system/role';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 import { hasPermission } from '#/utils/permission';
 
 import { searchFieldMappingTime, useColumns, useSearchSchema } from './data';
@@ -81,8 +82,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           return await listRole({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           });
         },

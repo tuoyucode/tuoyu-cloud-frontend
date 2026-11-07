@@ -224,7 +224,7 @@ export function listNextNodes(
 
 /** 终止流程 */
 export function terminateTask(taskId: string, comment?: string) {
-  return requestClient.post<boolean>(`${BASE}/terminationTask`, {
+  return requestClient.post<null>(`${BASE}/terminationTask`, {
     comment,
     taskId,
   });

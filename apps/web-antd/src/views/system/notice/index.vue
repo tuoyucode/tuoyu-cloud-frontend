@@ -11,6 +11,7 @@ import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { listNotice, removeNotice, updateNotice } from '#/api/system/notice';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
@@ -54,8 +55,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           return await listNotice({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           });
         },

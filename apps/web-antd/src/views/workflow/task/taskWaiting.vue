@@ -11,6 +11,7 @@ import { Button } from 'ant-design-vue';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { listMyWaitingTask } from '#/api/workflow/task';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 
 import ProcessDrawer from '../components/process-drawer.vue';
 import { useTaskSearchSchema, useWaitingColumns } from './data';
@@ -37,8 +38,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
       ajax: {
         query: async ({ page }, formValues) =>
           await listMyWaitingTask({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           }),
       },

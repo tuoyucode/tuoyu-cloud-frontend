@@ -2,10 +2,7 @@ import type { PageQuery, PageResult } from '#/api/types';
 
 import { downloadFileFromBlobPart } from '@vben/utils';
 
-import { message } from 'ant-design-vue';
-
 import { requestClient } from '#/api/request';
-import { $t } from '#/locales';
 
 export namespace DefinitionApi {
   /** 发布状态：0 未发布，1 已发布，9 已失效（发布了新版本后旧版本失效） */
@@ -78,11 +75,11 @@ export function getDefinition(id: string) {
 }
 
 export function addDefinition(data: DefinitionApi.Form) {
-  return requestClient.post<boolean>(BASE, data);
+  return requestClient.post<null>(BASE, data);
 }
 
 export function updateDefinition(data: DefinitionApi.Form) {
-  return requestClient.put<boolean>(BASE, data);
+  return requestClient.put<null>(BASE, data);
 }
 
 /** 删除：已有流程实例使用时后端拒绝 */
@@ -92,28 +89,28 @@ export function removeDefinition(ids: string[]) {
 
 /** 发布：有中间节点未配置办理人时后端拒绝，提示节点名称 */
 export function publishDefinition(id: string) {
-  return requestClient.put<boolean>(`${BASE}/publish/${id}`);
+  return requestClient.put<null>(`${BASE}/publish/${id}`);
 }
 
 export function unpublishDefinition(id: string) {
-  return requestClient.put<boolean>(`${BASE}/unPublish/${id}`);
+  return requestClient.put<null>(`${BASE}/unPublish/${id}`);
 }
 
 /** 复制为新的未发布版本 */
 export function copyDefinition(id: string) {
-  return requestClient.post<boolean>(`${BASE}/copy/${id}`);
+  return requestClient.post<null>(`${BASE}/copy/${id}`);
 }
 
 /** 激活（true）或挂起（false） */
 export function activeDefinition(id: string, active: boolean) {
-  return requestClient.put<boolean>(`${BASE}/active/${id}`, null, {
+  return requestClient.put<null>(`${BASE}/active/${id}`, null, {
     params: { active },
   });
 }
 
 /** 导入流程定义（导出的 JSON 文件），归入指定分类 */
 export function importDefinition(file: File, category: string) {
-  return requestClient.upload<boolean>(`${BASE}/importDef`, { category, file });
+  return requestClient.upload<null>(`${BASE}/importDef`, { category, file });
 }
 
 /** 导出流程定义为 JSON 文件 */
@@ -121,11 +118,5 @@ export async function exportDefinition(id: string, fileName: string) {
   const blob = await requestClient.download<Blob>(`${BASE}/exportDef/${id}`, {
     method: 'POST',
   });
-  // 后端出错时返回 R（application/json），导出成功时为 application/text
-  if (blob.type.includes('json')) {
-    const body = JSON.parse(await blob.text());
-    message.error(body?.msg || $t('crud.exportFailed'));
-    throw new Error(body?.msg);
-  }
   downloadFileFromBlobPart({ fileName, source: blob });
 }

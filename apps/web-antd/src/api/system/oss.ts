@@ -2,10 +2,7 @@ import type { PageQuery, PageResult } from '#/api/types';
 
 import { downloadFileFromBlobPart } from '@vben/utils';
 
-import { message } from 'ant-design-vue';
-
 import { requestClient } from '#/api/request';
-import { $t } from '#/locales';
 
 export namespace OssApi {
   /** 文件（SysOssVo） */
@@ -128,17 +125,12 @@ export function uploadOss(
 }
 
 /**
- * 下载文件并按原文件名保存。后端出错时返回的是 JSON，转换为错误提示
+ * 下载文件并按原文件名保存。后端出错时由请求层提示
  */
 export async function downloadOss(ossId: string, fileName: string) {
   const blob = await requestClient.download<Blob>(`${BASE}/download/${ossId}`, {
     timeout: 0,
   });
-  if (blob.type.includes('json')) {
-    const body = JSON.parse(await blob.text());
-    message.error(body?.msg || $t('system.oss.downloadFailed'));
-    throw new Error(body?.msg);
-  }
   downloadFileFromBlobPart({ fileName, source: blob });
 }
 

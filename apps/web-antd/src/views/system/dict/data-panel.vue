@@ -16,6 +16,7 @@ import {
   removeDictData,
 } from '#/api/system/dict';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 import { hasPermission } from '#/utils/permission';
 
 import { LIST_CLASS_COLORS, useDataColumns, useDataSearchSchema } from './data';
@@ -56,11 +57,10 @@ const [Grid, gridApi] = useVbenVxeGrid({
           selectedCount.value = 0;
           const dictType = props.dictType?.dictType;
           if (!dictType) {
-            return { rows: [], total: 0 };
+            return { items: [], total: 0 };
           }
           return await listDictData({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
             dictType,
           });

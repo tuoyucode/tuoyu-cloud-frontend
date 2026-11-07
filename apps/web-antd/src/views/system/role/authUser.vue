@@ -18,6 +18,7 @@ import {
   listAllocatedUser,
 } from '#/api/system/role';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 
 import { useUserColumns, useUserSearchSchema } from './data';
 import RoleUserSelectModal from './role-user-select-modal.vue';
@@ -59,11 +60,10 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           if (!roleId.value) {
-            return { rows: [], total: 0 };
+            return { items: [], total: 0 };
           }
           return await listAllocatedUser({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
             roleId: roleId.value,
           });

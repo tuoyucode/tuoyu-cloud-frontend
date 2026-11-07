@@ -17,6 +17,7 @@ import {
   removeTenant,
 } from '#/api/system/tenant';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 import { hasPermission } from '#/utils/permission';
 
 import { loadPackageOptions, useColumns, useSearchSchema } from './data';
@@ -67,8 +68,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           return await listTenant({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           });
         },

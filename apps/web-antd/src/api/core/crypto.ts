@@ -1,6 +1,8 @@
 import type { ApiCryptoPublicKey } from '#/utils/api-crypto';
+import type { ApiResult } from '#/utils/api-result';
 
 import { baseRequestClient } from '#/api/request';
+import { isSuccess } from '#/utils/api-result';
 
 /** 公钥缓存时间。后端轮换密钥后，旧公钥最晚在这个时间后失效 */
 const CACHE_MILLIS = 10 * 60 * 1000;
@@ -14,13 +16,13 @@ export async function getApiCryptoPublicKey(): Promise<ApiCryptoPublicKey> {
   if (cached && cached.expiresAt > Date.now()) {
     return cached.value;
   }
-  // baseRequestClient 返回完整响应，data 才是后端的 R
+  // baseRequestClient 返回完整响应，data 才是后端的 ApiResult
   const response = await baseRequestClient.get<{
-    data: { code: number; data: ApiCryptoPublicKey; msg: string };
+    data: ApiResult<ApiCryptoPublicKey>;
   }>('/auth/crypto/public-key');
   const body = response.data;
-  if (body?.code !== 200 || !body.data) {
-    throw new Error(body?.msg || '获取接口加密公钥失败');
+  if (!isSuccess(body) || !body.data) {
+    throw new Error(body?.message || '获取接口加密公钥失败');
   }
   cached = { expiresAt: Date.now() + CACHE_MILLIS, value: body.data };
   return body.data;

@@ -198,32 +198,15 @@ export interface EventStream {
 }
 
 /**
- * 按响应判断连接结果：后端未登录时以 HTTP 200 + JSON（code 401）返回；
- * 网关或服务暂时不可用（5xx）时重连；其他（404、403 等）视为服务端没有开启推送
+ * 按 HTTP 状态判断连接结果：401 为未登录；网关或服务暂时不可用（5xx）时重连；
+ * 其他（404、403，或成功但不是事件流）视为服务端没有开启推送
  */
-async function classifyFailedResponse(
-  response: Response,
-): Promise<AttemptOutcome> {
+function classifyFailedResponse(response: Response): AttemptOutcome {
   if (response.status === 401) {
     return 'unauthorized';
   }
   if (response.status >= 500) {
     return 'retry';
-  }
-  const type = response.headers.get('content-type') ?? '';
-  if (type.includes('json')) {
-    try {
-      const body = await response.json();
-      const code = Number(body?.code);
-      if (code === 401) {
-        return 'unauthorized';
-      }
-      if (code >= 500) {
-        return 'retry';
-      }
-    } catch {
-      // 不是合法的 JSON，按不可用处理
-    }
   }
   return 'unavailable';
 }
@@ -291,7 +274,7 @@ export function createEventStream(options: EventStreamOptions): EventStream {
       if (!response.ok || !type.includes('text/event-stream')) {
         return {
           opened: false,
-          outcome: await classifyFailedResponse(response),
+          outcome: classifyFailedResponse(response),
         };
       }
       if (!response.body) {

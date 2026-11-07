@@ -67,7 +67,7 @@ const [Modal, modalApi] = useVbenModal({
     }
     modalApi.lock();
     try {
-      // 行数上限等由后端校验，失败原因在返回的 msg 中
+      // 行数上限等由后端校验，失败原因在返回的 message 中
       result.value = await importUser(file.value, updateSupport.value);
       if (result.value.success) {
         // 清空已导入的文件，避免重复导入

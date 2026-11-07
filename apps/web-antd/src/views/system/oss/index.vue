@@ -19,6 +19,7 @@ import {
   removeOss,
 } from '#/api/system/oss';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 import { hasPermission } from '#/utils/permission';
 
 import {
@@ -69,8 +70,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues: FileSearchValues) => {
           selectedCount.value = 0;
           return await listOss({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...toFileQuery(formValues),
           });
         },

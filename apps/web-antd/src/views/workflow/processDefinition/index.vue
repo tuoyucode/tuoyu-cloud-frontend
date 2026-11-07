@@ -33,6 +33,7 @@ import {
   unpublishDefinition,
 } from '#/api/workflow/definition';
 import { $t } from '#/locales';
+import { toPageQuery } from '#/utils/page-query';
 import { hasPermission } from '#/utils/permission';
 
 import CategoryTree from '../components/category-tree.vue';
@@ -94,8 +95,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           const query = {
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
             category: category.value,
           };

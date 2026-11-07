@@ -8,6 +8,7 @@ import { Button, message, Result, Spin } from 'ant-design-vue';
 
 import { bindSocial } from '#/api/system/social';
 import { $t } from '#/locales';
+import { errorMessageOf } from '#/utils/api-result';
 
 import { parseSocialCallback, socialPlatformName } from './data';
 
@@ -32,11 +33,7 @@ function backToProfile() {
 
 /** 后端返回的失败原因（请求层已经弹出提示，这里同时显示在页面上） */
 function errorMessage(reason: unknown): string {
-  const msg = (reason as { response?: { data?: { msg?: unknown } } })?.response
-    ?.data?.msg;
-  return typeof msg === 'string' && msg !== ''
-    ? msg
-    : $t('page.profile.bindFailedDesc');
+  return errorMessageOf(reason, $t('page.profile.bindFailedDesc'));
 }
 
 onMounted(async () => {

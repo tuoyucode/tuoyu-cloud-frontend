@@ -50,7 +50,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
           setTimeout(() =>
             expandAfterQuery(rows, !!formValues?.categoryName, first),
           );
-          return { rows };
+          return { items: rows };
         },
       },
     },
