@@ -2,7 +2,7 @@
 
 tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个通用的 Java 微服务框架，同一套代码既能按微服务部署，也能按单体部署，不面向任何具体业务。项目采用 MIT 协议。
 
-本文写的是在这个仓库里写代码时需要遵守的约定。接口契约（Controller、VO、BO、返回格式）以后端仓库 [tuoyu-cloud](https://gitee.com/tuoyucode/tuoyu-cloud) 的代码为准；后端的设计决定记录在它的 `docs/adr/` 下。
+本文写的是在这个仓库里写代码时需要遵守的约定。接口契约（Controller、VO、BO、返回格式）以后端仓库 [tuoyu-cloud](https://gitee.com/tuoyucode/tuoyu-cloud) 的代码为准。
 
 仓库同时托管在 Gitee 与 GitHub，两边提交历史一致，CI（GitHub Actions）在 GitHub 上运行。
 
@@ -155,7 +155,7 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 
 ## 接口加密
 
-按后端仓库 `docs/adr/0001-接口加密.md` 实现（RSA-OAEP-256 + AES-256-GCM）。
+协议 v1（RSA-OAEP-256 + AES-256-GCM）以后端仓库 `tuoyu-framework/tuoyu-common-encrypt` 中的 `ApiCryptoCodec` 为准。
 
 - 公钥运行时从 `/auth/crypto/public-key` 获取，前端不保存、不配置任何密钥。
 - HTTPS 或 `localhost` 下用 WebCrypto；非 HTTPS 且后端允许时，按需加载 MIT / BSD 协议的 JavaScript 加密库。

@@ -1,6 +1,6 @@
 /**
  * 接口加密协议 v1（RSA-OAEP-256 + AES-256-GCM）的浏览器端实现。
- * 协议以后端仓库 docs/adr/0001-接口加密.md 为准；前端不保存任何密钥，公钥运行时从后端获取。
+ * 协议以后端仓库 tuoyu-common-encrypt 中的 ApiCryptoCodec 与测试向量为准；前端不保存任何密钥，公钥运行时从后端获取。
  */
 
 /** 字节数组。WebCrypto 只接受以 ArrayBuffer 为底层的视图 */
