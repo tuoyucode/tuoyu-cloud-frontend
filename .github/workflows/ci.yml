@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [master, dev]
+    branches: [master, dev, business]
   pull_request:
-    branches: [master, dev]
+    branches: [master, dev, business]
 
 permissions:
   contents: read
@@ -26,6 +26,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
+        with:
+          # 业务分支要与 dev 比较，需要完整历史
+          fetch-depth: 0
+
+      - name: 框架与业务分开（见 CONTRIBUTING.md“分支”）
+        # push 时检查当前分支，PR 时按合并的目标分支检查
+        run: python3 scripts/ci/check_branch_scope.py "${{ github.base_ref || github.ref_name }}"
 
       - name: Setup Node
         uses: ./.github/actions/setup-node

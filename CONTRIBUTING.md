@@ -33,6 +33,24 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
    - 环境变量文件里只放地址这类非敏感项，本地的敏感值写在不提交的 `.env.*.local` 中。
 4. 依赖协议：新增依赖前先确认协议，不引入 GPL、AGPL、LGPL 协议的依赖。
 5. 不跳过类型检查、lint 和测试。
+6. 框架与业务分开：`dev` / `master` 只放框架；业务页面只放在 `business` 分支，框架的改动先进 `dev`，再合并到 `business`，不反向合并。详见下一节，CI 会检查。
+
+## 分支
+
+与后端仓库相同，框架与基于它构建的业务系统放在两条分支上：
+
+| 分支 | 内容 | 用途 |
+| --- | --- | --- |
+| `master` | 框架 | 发布版本 |
+| `dev` | 框架 | 日常开发，合并到 `master` 后发布 |
+| `business` | `dev` 的全部内容加上业务页面 | 业务系统（目前是制造执行 MES）的开发 |
+
+- **框架的改动只进 `dev`**：共享包、请求层、布局与组件适配、框架自带的页面（系统、监控、工具、工作流等）、文档与 CI。从 `dev` 开功能分支，合回 `dev`。在 `business` 上发现框架的问题，也回到 `dev` 修。
+- **业务的改动只进 `business`**：业务页面、接口与文案放在各自模块的目录下（例如 `views/mes`、`packages/shared/src/api/mes`、`locales/langs/*/mes`），这些目录登记在 `scripts/ci/business-scope.txt` 中；接入业务模块必须改动的框架文件也要在那里登记（`integration:`）。
+- **只能由 `dev` 合并到 `business`**（`git merge dev`）；不要把 `business` 合并、也不要把其中的提交挑到 `dev` / `master`。
+- 一次改动两边都涉及时，拆成两个提交：先在 `dev` 提交框架部分，合并到 `business` 后再提交业务部分。
+- **新增业务模块**：先在 `dev` 上把它的目录登记到 `scripts/ci/business-scope.txt`，再在 `business` 上添加页面。
+- CI 执行 `scripts/ci/check_branch_scope.py`：`dev` / `master` 上出现业务目录即失败；`business` 上相对 `dev` 改动了未登记的框架文件即失败。提交前可以在本地执行 `python scripts/ci/check_branch_scope.py <当前分支>`。
 
 ## 开发环境与检查
 
