@@ -201,13 +201,20 @@ async function load() {
     });
     await nextTick();
     renderCharts();
+  } catch {
+    // 失败原因已由请求层提示，保留上一次的数据
   } finally {
     loading.value = false;
   }
 }
 
 async function loadWorkshops() {
-  workshopOptions.value = toSelectOptions(await getMesOptions('workshop'));
+  try {
+    workshopOptions.value = toSelectOptions(await getMesOptions('workshop'));
+  } catch {
+    // 失败原因已由请求层提示，车间下拉为空时看板按全部车间统计
+    workshopOptions.value = [];
+  }
 }
 
 // 切换明暗模式后，主题色等变量随之变化，重新绘制
