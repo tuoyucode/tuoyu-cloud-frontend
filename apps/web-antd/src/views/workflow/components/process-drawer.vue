@@ -1,14 +1,27 @@
 <script lang="ts" setup>
-import type { ProcessDrawerData } from '../task/task-utils';
+import type { UserApi } from '@tuoyu/shared/api/system/user';
+import type { InstanceApi } from '@tuoyu/shared/api/workflow/instance';
+import type { TaskApi } from '@tuoyu/shared/api/workflow/task';
 
-import type { UserApi } from '#/api/system/user';
-import type { InstanceApi } from '#/api/workflow/instance';
-import type { TaskApi } from '#/api/workflow/task';
+import type { ProcessDrawerData } from '../task/task-utils';
 
 import { computed, reactive, ref } from 'vue';
 
 import { useVbenDrawer, useVbenModal } from '@vben/common-ui';
 
+import { DictType } from '@tuoyu/shared/api/system/dict';
+import { getInstanceHistory } from '@tuoyu/shared/api/workflow/instance';
+import {
+  backTask,
+  ButtonCode,
+  completeTask,
+  getTask,
+  listBackNodes,
+  listNextNodes,
+  listTaskAssignees,
+  operateTask,
+  terminateTask,
+} from '@tuoyu/shared/api/workflow/task';
 import {
   Alert,
   Button,
@@ -28,19 +41,6 @@ import {
   TimelineItem,
 } from 'ant-design-vue';
 
-import { DictType } from '#/api/system/dict';
-import { getInstanceHistory } from '#/api/workflow/instance';
-import {
-  backTask,
-  ButtonCode,
-  completeTask,
-  getTask,
-  listBackNodes,
-  listNextNodes,
-  listTaskAssignees,
-  operateTask,
-  terminateTask,
-} from '#/api/workflow/task';
 import DictTag from '#/components/dict-tag.vue';
 import { $t } from '#/locales';
 

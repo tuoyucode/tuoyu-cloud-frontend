@@ -1,13 +1,10 @@
 <script lang="ts" setup>
-import type { RoleApi } from '#/api/system/role';
+import type { RoleApi } from '@tuoyu/shared/api/system/role';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
-import { Alert, message } from 'ant-design-vue';
-
-import { useVbenForm } from '#/adapter/form';
 import {
   addRole,
   getMenuTree,
@@ -16,7 +13,10 @@ import {
   getRoleMenuTree,
   updateRole,
   updateRolePermission,
-} from '#/api/system/role';
+} from '@tuoyu/shared/api/system/role';
+import { Alert, message } from 'ant-design-vue';
+
+import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { DictApi } from '#/api/system/dict';
+import type { DictApi } from '@tuoyu/shared/api/system/dict';
 
 import { ref } from 'vue';
 

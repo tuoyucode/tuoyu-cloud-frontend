@@ -1,8 +1,10 @@
+import type { OperlogApi } from '@tuoyu/shared/api/monitor/operlog';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { OperlogApi } from '#/api/monitor/operlog';
 
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 /** 查询条件：第一行 4 个，其余折叠 */

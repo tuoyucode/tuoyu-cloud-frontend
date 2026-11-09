@@ -1,18 +1,23 @@
 <script lang="ts" setup>
+import type { NoticeApi } from '@tuoyu/shared/api/system/notice';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { NoticeApi } from '#/api/system/notice';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
+import {
+  listNotice,
+  removeNotice,
+  updateNotice,
+} from '@tuoyu/shared/api/system/notice';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { listNotice, removeNotice, updateNotice } from '#/api/system/notice';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
 import NoticeDrawer from './notice-drawer.vue';

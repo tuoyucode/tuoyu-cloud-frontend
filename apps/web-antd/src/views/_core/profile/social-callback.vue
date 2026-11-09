@@ -4,11 +4,11 @@ import { useRoute, useRouter } from 'vue-router';
 
 import { Page } from '@vben/common-ui';
 
+import { bindSocial } from '@tuoyu/shared/api/system/social';
+import { errorMessageOf } from '@tuoyu/shared/utils/api-result';
 import { Button, message, Result, Spin } from 'ant-design-vue';
 
-import { bindSocial } from '#/api/system/social';
 import { $t } from '#/locales';
-import { errorMessageOf } from '#/utils/api-result';
 
 import { parseSocialCallback, socialPlatformName } from './data';
 

@@ -1,26 +1,27 @@
 <script lang="ts" setup>
+import type { UserApi } from '@tuoyu/shared/api/system/user';
+import type { TaskApi } from '@tuoyu/shared/api/workflow/task';
+
 import type { ProcessDrawerData } from './task-utils';
 
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { UserApi } from '#/api/system/user';
-import type { TaskApi } from '#/api/workflow/task';
 
 import { computed, reactive, ref } from 'vue';
 
 import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
 
-import { Button, Checkbox, Input, message, Modal, Radio } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   listAllFinishedTask,
   listAllWaitingTask,
   updateTaskAssignee,
   urgeTask,
-} from '#/api/workflow/task';
+} from '@tuoyu/shared/api/workflow/task';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, Checkbox, Input, message, Modal, Radio } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import ProcessDrawer from '../components/process-drawer.vue';
 import UserSelectModal from '../components/user-select-modal.vue';

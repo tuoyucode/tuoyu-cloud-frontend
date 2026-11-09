@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { PostApi } from '#/api/system/post';
+import type { PostApi } from '@tuoyu/shared/api/system/post';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { addPost, getPost, updatePost } from '@tuoyu/shared/api/system/post';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addPost, getPost, updatePost } from '#/api/system/post';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';

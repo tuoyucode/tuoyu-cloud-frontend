@@ -1,4 +1,4 @@
-import type { TaskApi } from '#/api/workflow/task';
+import type { TaskApi } from '@tuoyu/shared/api/workflow/task';
 
 /**
  * 流程详情与办理抽屉的参数：传入 taskId 且 approve 为 true 时可以办理

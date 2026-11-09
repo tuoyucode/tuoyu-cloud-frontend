@@ -1,13 +1,10 @@
 <script lang="ts" setup>
-import type { DeptApi } from '#/api/system/dept';
+import type { DeptApi } from '@tuoyu/shared/api/system/dept';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
-
-import { useVbenForm } from '#/adapter/form';
 import {
   addDept,
   getDept,
@@ -15,11 +12,14 @@ import {
   listDeptExcludeChild,
   listDeptUsers,
   updateDept,
-} from '#/api/system/dept';
-import { DictType, getDictOptions } from '#/api/system/dict';
+} from '@tuoyu/shared/api/system/dept';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { listToTree } from '@tuoyu/shared/utils/tree';
+import { message } from 'ant-design-vue';
+
+import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
-import { listToTree } from '#/utils/tree';
 
 import {
   isRootDept,

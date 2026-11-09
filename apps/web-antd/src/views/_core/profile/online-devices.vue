@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-import type { OnlineApi } from '#/api/monitor/online';
+import type { OnlineApi } from '@tuoyu/shared/api/monitor/online';
 
 import { onMounted, ref } from 'vue';
 
 import { formatDateTime } from '@vben/utils';
 
+import { listMyOnline, logoutMyOnline } from '@tuoyu/shared/api/monitor/online';
+import { DictType } from '@tuoyu/shared/api/system/dict';
 import {
   Button,
   Empty,
@@ -14,8 +16,6 @@ import {
   Tag,
 } from 'ant-design-vue';
 
-import { listMyOnline, logoutMyOnline } from '#/api/monitor/online';
-import { DictType } from '#/api/system/dict';
 import DictTag from '#/components/dict-tag.vue';
 import { $t } from '#/locales';
 

@@ -1,15 +1,17 @@
 <script lang="ts" setup>
+import type { UserApi } from '@tuoyu/shared/api/system/user';
 import type { UploadProps } from 'ant-design-vue';
-
-import type { UserApi } from '#/api/system/user';
 
 import { computed, ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import {
+  downloadUserImportTemplate,
+  importUser,
+} from '@tuoyu/shared/api/system/user';
 import { Alert, Button, Checkbox, message, Upload } from 'ant-design-vue';
 
-import { downloadUserImportTemplate, importUser } from '#/api/system/user';
 import { $t } from '#/locales';
 
 const emit = defineEmits<{ success: [] }>();

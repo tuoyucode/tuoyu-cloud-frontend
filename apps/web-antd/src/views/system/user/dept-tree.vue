@@ -1,13 +1,12 @@
 <script lang="ts" setup>
+import type { TreeNode } from '@tuoyu/shared/api/types';
 import type { TreeProps } from 'ant-design-vue';
-
-import type { TreeNode } from '#/api/types';
 
 import { computed, onMounted, ref, watch } from 'vue';
 
+import { getUserDeptTree } from '@tuoyu/shared/api/system/user';
 import { Button, Empty, Input, Spin, Tree } from 'ant-design-vue';
 
-import { getUserDeptTree } from '#/api/system/user';
 import { $t } from '#/locales';
 
 const emit = defineEmits<{ change: [deptId: string | undefined] }>();

@@ -1,23 +1,24 @@
 <script lang="ts" setup>
+import type { DictApi } from '@tuoyu/shared/api/system/dict';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { DictApi } from '#/api/system/dict';
 
 import { computed, ref, watch } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Modal, Popconfirm, Tag } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportDictData,
   listDictData,
   removeDictData,
-} from '#/api/system/dict';
+} from '@tuoyu/shared/api/system/dict';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Tag } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { LIST_CLASS_COLORS, useDataColumns, useDataSearchSchema } from './data';
 import DataDrawer from './data-drawer.vue';

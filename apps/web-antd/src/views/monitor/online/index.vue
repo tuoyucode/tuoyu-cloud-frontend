@@ -1,15 +1,16 @@
 <script lang="ts" setup>
+import type { OnlineApi } from '@tuoyu/shared/api/monitor/online';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { OnlineApi } from '#/api/monitor/online';
 
 import { Page } from '@vben/common-ui';
 
+import { forceLogout, listOnline } from '@tuoyu/shared/api/monitor/online';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Popconfirm, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { forceLogout, listOnline } from '#/api/monitor/online';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
 

@@ -1,26 +1,27 @@
 <script lang="ts" setup>
+import type { OssApi } from '@tuoyu/shared/api/system/oss';
+
 import type { FileSearchValues } from './data';
 
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { OssApi } from '#/api/system/oss';
 
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { Page, useVbenModal } from '@vben/common-ui';
 
-import { Button, Image, message, Modal, Popconfirm } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   downloadOss,
   getOssPreviewEnabled,
   listOss,
   removeOss,
-} from '#/api/system/oss';
+} from '@tuoyu/shared/api/system/oss';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, Image, message, Modal, Popconfirm } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import {
   CONFIG_PAGE_PATH,

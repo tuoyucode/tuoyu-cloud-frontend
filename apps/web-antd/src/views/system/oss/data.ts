@@ -1,8 +1,10 @@
+import type { OssApi } from '@tuoyu/shared/api/system/oss';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { OssApi } from '#/api/system/oss';
 
-import { DictType } from '#/api/system/dict';
+import { DictType } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 /** 是 / 否（字典 sys_yes_no 的值） */

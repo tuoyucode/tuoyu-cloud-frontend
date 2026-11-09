@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-import type { TenantApi } from '#/api/system/tenant';
+import type { TenantApi } from '@tuoyu/shared/api/system/tenant';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
-
-import { useVbenForm } from '#/adapter/form';
 import {
   addTenant,
   getTenant,
   isDefaultTenant,
   updateTenant,
-} from '#/api/system/tenant';
+} from '@tuoyu/shared/api/system/tenant';
+import { ApiCryptoUnavailableError } from '@tuoyu/shared/utils/api-crypto';
+import { message } from 'ant-design-vue';
+
+import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
-import { ApiCryptoUnavailableError } from '#/utils/api-crypto';
 
 import { loadFormOptions, useFormSchema } from './data';
 

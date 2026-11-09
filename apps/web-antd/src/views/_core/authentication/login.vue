@@ -1,24 +1,24 @@
 <script lang="ts" setup>
+import type { AuthApi } from '@tuoyu/shared/api';
+import type { LoginTenantState } from '@tuoyu/shared/utils/tenant';
+
 import type { VbenFormSchema } from '@vben/common-ui';
 import type { Recordable } from '@vben/types';
-
-import type { AuthApi } from '#/api';
-import type { LoginTenantState } from '#/utils/tenant';
 
 import { computed, h, nextTick, onMounted, ref, useTemplateRef } from 'vue';
 
 import { AuthenticationLogin, z } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
-
-import { getCaptchaApi, getLoginTenantsApi } from '#/api';
-import { $t } from '#/locales';
-import { useAuthStore } from '#/store';
+import { getCaptchaApi, getLoginTenantsApi } from '@tuoyu/shared/api';
 import {
   readRememberedTenant,
   rememberTenant,
   resolveLoginTenant,
-} from '#/utils/tenant';
+} from '@tuoyu/shared/utils/tenant';
+import { message } from 'ant-design-vue';
+
+import { $t } from '#/locales';
+import { useAuthStore } from '#/store';
 
 defineOptions({ name: 'Login' });
 

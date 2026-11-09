@@ -1,14 +1,27 @@
 <script lang="ts" setup>
+import type { DefinitionApi } from '@tuoyu/shared/api/workflow/definition';
+
 import type { PublishTab } from './data';
 
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { DefinitionApi } from '#/api/workflow/definition';
 
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
 
+import {
+  activeDefinition,
+  copyDefinition,
+  exportDefinition,
+  listDefinition,
+  listUnpublishedDefinition,
+  publishDefinition,
+  removeDefinition,
+  unpublishDefinition,
+} from '@tuoyu/shared/api/workflow/definition';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import {
   Button,
   Dropdown,
@@ -22,19 +35,7 @@ import {
 } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import {
-  activeDefinition,
-  copyDefinition,
-  exportDefinition,
-  listDefinition,
-  listUnpublishedDefinition,
-  publishDefinition,
-  removeDefinition,
-  unpublishDefinition,
-} from '#/api/workflow/definition';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import CategoryTree from '../components/category-tree.vue';
 import {

@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import type { DictApi } from '#/api/system/dict';
+import type { DictApi } from '@tuoyu/shared/api/system/dict';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import {
+  addDictData,
+  getDictData,
+  updateDictData,
+} from '@tuoyu/shared/api/system/dict';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addDictData, getDictData, updateDictData } from '#/api/system/dict';
 import { $t } from '#/locales';
 
 import { loadDataFormOptions, useDataFormSchema } from './data';

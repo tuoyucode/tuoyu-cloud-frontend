@@ -1,16 +1,20 @@
 <script lang="ts" setup>
+import type { DictApi } from '@tuoyu/shared/api/system/dict';
+import type { GenApi } from '@tuoyu/shared/api/tool/gen';
 import type { TableColumnsType } from 'ant-design-vue';
 
 import type { FlagField } from './edit-utils';
-
-import type { DictApi } from '#/api/system/dict';
-import type { GenApi } from '#/api/tool/gen';
 
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Page } from '@vben/common-ui';
 
+import { listDictTypeOptions } from '@tuoyu/shared/api/system/dict';
+import { listMenu } from '@tuoyu/shared/api/system/menu';
+import { getGenTable, updateGenTable } from '@tuoyu/shared/api/tool/gen';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { listToTree } from '@tuoyu/shared/utils/tree';
 import {
   Alert,
   Button,
@@ -24,12 +28,7 @@ import {
 } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { listDictTypeOptions } from '#/api/system/dict';
-import { listMenu } from '#/api/system/menu';
-import { getGenTable, updateGenTable } from '#/api/tool/gen';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
-import { listToTree } from '#/utils/tree';
 
 import {
   FIELD_SELECT_NAMES,

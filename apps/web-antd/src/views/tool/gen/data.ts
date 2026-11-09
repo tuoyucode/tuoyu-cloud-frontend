@@ -1,8 +1,10 @@
+import type { GenApi } from '@tuoyu/shared/api/tool/gen';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { GenApi } from '#/api/tool/gen';
 
-import { listDataNames } from '#/api/tool/gen';
+import { listDataNames } from '@tuoyu/shared/api/tool/gen';
+
 import { $t } from '#/locales';
 
 /** 编辑生成配置页面的路由（菜单“修改生成配置”，隐藏） */

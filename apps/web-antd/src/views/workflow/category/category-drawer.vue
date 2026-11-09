@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import type { CategoryApi } from '#/api/workflow/category';
+import type { CategoryApi } from '@tuoyu/shared/api/workflow/category';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
-
-import { useVbenForm } from '#/adapter/form';
 import {
   addCategory,
   getCategory,
   listCategory,
   updateCategory,
-} from '#/api/workflow/category';
+} from '@tuoyu/shared/api/workflow/category';
+import { message } from 'ant-design-vue';
+
+import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 
 import { buildParentTree, useFormSchema } from './data';

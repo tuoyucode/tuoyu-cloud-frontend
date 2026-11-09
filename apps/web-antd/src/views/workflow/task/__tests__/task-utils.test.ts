@@ -1,4 +1,4 @@
-import type { TaskApi } from '#/api/workflow/task';
+import type { TaskApi } from '@tuoyu/shared/api/workflow/task';
 
 import { describe, expect, it } from 'vitest';
 

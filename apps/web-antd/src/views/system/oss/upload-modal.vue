@@ -7,11 +7,11 @@ import { ref } from 'vue';
 import { useVbenModal } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
+import { uploadOss } from '@tuoyu/shared/api/system/oss';
+import { errorMessageOf } from '@tuoyu/shared/utils/api-result';
 import { UploadDragger } from 'ant-design-vue';
 
-import { uploadOss } from '#/api/system/oss';
 import { $t } from '#/locales';
-import { errorMessageOf } from '#/utils/api-result';
 
 import { UPLOAD_ACCEPT } from './data';
 

@@ -1,11 +1,13 @@
+import type { TenantApi } from '@tuoyu/shared/api/system/tenant';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { TenantApi } from '#/api/system/tenant';
+
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { TENANT_ID_PATTERN } from '@tuoyu/shared/api/system/tenant';
+import { listTenantPackageOptions } from '@tuoyu/shared/api/system/tenantPackage';
 
 import { z } from '#/adapter/form';
-import { DictType, getDictOptions } from '#/api/system/dict';
-import { TENANT_ID_PATTERN } from '#/api/system/tenant';
-import { listTenantPackageOptions } from '#/api/system/tenantPackage';
 import { $t } from '#/locales';
 
 /** 管理员账号、口令长度，与后端 SysTenantBo 一致 */

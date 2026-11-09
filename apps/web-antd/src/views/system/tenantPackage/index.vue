@@ -1,23 +1,24 @@
 <script lang="ts" setup>
+import type { TenantPackageApi } from '@tuoyu/shared/api/system/tenantPackage';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { TenantPackageApi } from '#/api/system/tenantPackage';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
-import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   getTenantPackage,
   listTenantPackage,
   removeTenantPackage,
   updateTenantPackage,
-} from '#/api/system/tenantPackage';
+} from '@tuoyu/shared/api/system/tenantPackage';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
 import TenantPackageDrawer from './tenant-package-drawer.vue';

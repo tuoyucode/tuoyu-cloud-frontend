@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import type { ProfileApi } from '#/api/system/profile';
+import type { ProfileApi } from '@tuoyu/shared/api/system/profile';
 
 import { onMounted, ref, watch } from 'vue';
 
 import { useUserStore } from '@vben/stores';
 
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { updateProfile } from '@tuoyu/shared/api/system/profile';
 import { Button, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { DictType, getDictOptions } from '#/api/system/dict';
-import { updateProfile } from '#/api/system/profile';
 import { $t } from '#/locales';
 
 import { toFormValues, toProfileForm, useBaseSchema } from './data';

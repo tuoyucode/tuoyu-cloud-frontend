@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { MenuRecordRaw } from '@vben/types';
+import type { HomeApi } from '@tuoyu/shared/api/system/home';
 
-import type { HomeApi } from '#/api/system/home';
+import type { MenuRecordRaw } from '@vben/types';
 
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -10,10 +10,10 @@ import { Page } from '@vben/common-ui';
 import { useAccessStore, useUserStore } from '@vben/stores';
 import { formatDateTime } from '@vben/utils';
 
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { getHomeOverview } from '@tuoyu/shared/api/system/home';
 import { Button, Card, Table, Tag } from 'ant-design-vue';
 
-import { DictType, getDictOptions } from '#/api/system/dict';
-import { getHomeOverview } from '#/api/system/home';
 import { $t } from '#/locales';
 
 defineOptions({ name: 'Home' });

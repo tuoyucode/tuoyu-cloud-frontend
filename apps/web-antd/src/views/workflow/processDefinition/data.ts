@@ -1,8 +1,10 @@
+import type { DefinitionApi } from '@tuoyu/shared/api/workflow/definition';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { DefinitionApi } from '#/api/workflow/definition';
 
-import { getCategoryTree } from '#/api/workflow/category';
+import { getCategoryTree } from '@tuoyu/shared/api/workflow/category';
+
 import { $t } from '#/locales';
 
 /** 流程定义列表的路由 */

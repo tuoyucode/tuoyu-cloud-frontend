@@ -1,18 +1,19 @@
 <script lang="ts" setup>
+import type { SpelApi } from '@tuoyu/shared/api/workflow/spel';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { SpelApi } from '#/api/workflow/spel';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
+import { listSpel, removeSpel } from '@tuoyu/shared/api/workflow/spel';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { listSpel, removeSpel } from '#/api/workflow/spel';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
 import SpelDrawer from './spel-drawer.vue';

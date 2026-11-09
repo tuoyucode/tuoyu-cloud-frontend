@@ -1,9 +1,11 @@
+import type { CategoryApi } from '@tuoyu/shared/api/workflow/category';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { CategoryApi } from '#/api/workflow/category';
+
+import { listToTree } from '@tuoyu/shared/utils/tree';
 
 import { $t } from '#/locales';
-import { listToTree } from '#/utils/tree';
 
 /** 顶级分类的上级 ID */
 export const ROOT_PARENT_ID = 0;
