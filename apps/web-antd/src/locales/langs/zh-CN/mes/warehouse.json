@@ -1,0 +1,29 @@
+{
+  "title": "仓库与库位",
+  "list": "仓库",
+  "create": "新增仓库",
+  "edit": "编辑仓库",
+  "delete": "删除仓库",
+  "factory": "所属工厂",
+  "warehouseCode": "仓库编码",
+  "warehouseName": "仓库名称",
+  "warehouseType": "仓库类型",
+  "warehouseTypeHelp": "完工入库只能入成品仓",
+  "warehouseCodePlaceholder": "例如：WH-RAW",
+  "warehouseNamePlaceholder": "例如：原材料仓",
+  "exportFileName": "仓库",
+  "location": {
+    "list": "库位",
+    "listOf": "“{name}”的库位",
+    "create": "新增库位",
+    "edit": "编辑库位",
+    "delete": "删除库位",
+    "warehouse": "所属仓库",
+    "locationCode": "库位编码",
+    "locationName": "库位名称",
+    "locationCodeHelp": "同一仓库内不能重复",
+    "locationCodePlaceholder": "例如：A-01-01",
+    "locationNamePlaceholder": "例如：A 区 1 排 1 层",
+    "selectWarehouse": "请在左侧选择仓库"
+  }
+}

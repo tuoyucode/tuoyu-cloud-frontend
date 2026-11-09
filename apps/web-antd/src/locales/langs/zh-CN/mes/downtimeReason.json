@@ -1,0 +1,12 @@
+{
+  "title": "停机原因",
+  "list": "停机原因列表",
+  "create": "新增停机原因",
+  "edit": "编辑停机原因",
+  "delete": "删除停机原因",
+  "reasonCode": "原因编码",
+  "reasonName": "原因名称",
+  "reasonType": "原因分类",
+  "reasonCodePlaceholder": "例如：DT01",
+  "reasonNamePlaceholder": "例如：设备故障"
+}

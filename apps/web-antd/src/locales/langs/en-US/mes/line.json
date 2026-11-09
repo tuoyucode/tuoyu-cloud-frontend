@@ -1,0 +1,15 @@
+{
+  "title": "Production line",
+  "list": "Production lines",
+  "create": "New line",
+  "edit": "Edit line",
+  "delete": "Delete line",
+  "factory": "Factory",
+  "workshop": "Workshop",
+  "workshopHelp": "The factory follows the selected workshop",
+  "lineCode": "Line code",
+  "lineName": "Line name",
+  "lineCodePlaceholder": "e.g. L01",
+  "lineNamePlaceholder": "e.g. Assembly line 1",
+  "exportFileName": "lines"
+}

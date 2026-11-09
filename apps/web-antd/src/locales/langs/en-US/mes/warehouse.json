@@ -1,0 +1,29 @@
+{
+  "title": "Warehouses and locations",
+  "list": "Warehouses",
+  "create": "New warehouse",
+  "edit": "Edit warehouse",
+  "delete": "Delete warehouse",
+  "factory": "Factory",
+  "warehouseCode": "Warehouse code",
+  "warehouseName": "Warehouse name",
+  "warehouseType": "Warehouse type",
+  "warehouseTypeHelp": "Finished goods can only be received into finished goods warehouses",
+  "warehouseCodePlaceholder": "e.g. WH-RAW",
+  "warehouseNamePlaceholder": "e.g. Raw materials",
+  "exportFileName": "warehouses",
+  "location": {
+    "list": "Locations",
+    "listOf": "Locations of “{name}”",
+    "create": "New location",
+    "edit": "Edit location",
+    "delete": "Delete location",
+    "warehouse": "Warehouse",
+    "locationCode": "Location code",
+    "locationName": "Location name",
+    "locationCodeHelp": "Must be unique within the warehouse",
+    "locationCodePlaceholder": "e.g. A-01-01",
+    "locationNamePlaceholder": "e.g. Zone A, row 1, level 1",
+    "selectWarehouse": "Select a warehouse on the left"
+  }
+}

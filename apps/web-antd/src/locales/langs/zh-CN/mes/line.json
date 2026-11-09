@@ -1,0 +1,15 @@
+{
+  "title": "产线",
+  "list": "产线列表",
+  "create": "新增产线",
+  "edit": "编辑产线",
+  "delete": "删除产线",
+  "factory": "所属工厂",
+  "workshop": "所属车间",
+  "workshopHelp": "所属工厂按车间自动确定",
+  "lineCode": "产线编码",
+  "lineName": "产线名称",
+  "lineCodePlaceholder": "例如：L01",
+  "lineNamePlaceholder": "例如：总装一线",
+  "exportFileName": "产线"
+}
