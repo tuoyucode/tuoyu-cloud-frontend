@@ -1,7 +1,8 @@
+import type { OnlineApi } from '@tuoyu/shared/api/monitor/online';
+import type { ProfileApi } from '@tuoyu/shared/api/system/profile';
+import type { SocialApi } from '@tuoyu/shared/api/system/social';
+
 import type { VbenFormSchema } from '#/adapter/form';
-import type { OnlineApi } from '#/api/monitor/online';
-import type { ProfileApi } from '#/api/system/profile';
-import type { SocialApi } from '#/api/system/social';
 
 import { z } from '#/adapter/form';
 import { $t } from '#/locales';

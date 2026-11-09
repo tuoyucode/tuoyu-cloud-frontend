@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import type { InspectionApi } from '#/api/mes/inspection';
+import type { InspectionApi } from '@tuoyu/shared/api/mes/inspection';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { addInspection } from '@tuoyu/shared/api/mes/inspection';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addInspection } from '#/api/mes/inspection';
 import { $t } from '#/locales';
 
 import { useFormSchema } from './data';

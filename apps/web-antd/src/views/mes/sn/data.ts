@@ -1,8 +1,10 @@
+import type { SnApi } from '@tuoyu/shared/api/mes/sn';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { SnApi } from '#/api/mes/sn';
 
-import { getMesOptions, toSelectOptions } from '#/api/mes/common';
+import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+
 import { $t } from '#/locales';
 
 import { enumOptions } from '../_shared/enums';

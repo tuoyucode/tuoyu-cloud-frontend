@@ -1,10 +1,12 @@
+import type { InstanceApi } from '@tuoyu/shared/api/workflow/instance';
+import type { TaskApi } from '@tuoyu/shared/api/workflow/task';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { InstanceApi } from '#/api/workflow/instance';
-import type { TaskApi } from '#/api/workflow/task';
 
-import { DictType } from '#/api/system/dict';
-import { getCategoryTree } from '#/api/workflow/category';
+import { DictType } from '@tuoyu/shared/api/system/dict';
+import { getCategoryTree } from '@tuoyu/shared/api/workflow/category';
+
 import { $t } from '#/locales';
 
 /** 任务列表的查询条件：一行最多 4 个 */

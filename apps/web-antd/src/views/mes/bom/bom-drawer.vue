@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import type { BomApi } from '#/api/mes/bom';
-import type { MesApi } from '#/api/mes/common';
+import type { BomApi } from '@tuoyu/shared/api/mes/bom';
+import type { MesApi } from '@tuoyu/shared/api/mes/common';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { addBom, getBom, updateBom } from '@tuoyu/shared/api/mes/bom';
 import { Button, Input, InputNumber, message, Table } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addBom, getBom, updateBom } from '#/api/mes/bom';
 import { $t } from '#/locales';
 
 import MaterialSelect from '../material/material-select.vue';

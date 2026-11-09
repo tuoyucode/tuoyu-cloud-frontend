@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { useVbenModal } from '@vben/common-ui';
 
+import { generateMaterialRequest } from '@tuoyu/shared/api/mes/materialRequest';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { generateMaterialRequest } from '#/api/mes/materialRequest';
 import { $t } from '#/locales';
 
 import { useGenerateSchema } from './data';

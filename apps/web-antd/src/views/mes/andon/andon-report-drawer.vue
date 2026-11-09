@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import type { AndonApi } from '#/api/mes/andon';
+import type { AndonApi } from '@tuoyu/shared/api/mes/andon';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { reportAndon } from '@tuoyu/shared/api/mes/andon';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { reportAndon } from '#/api/mes/andon';
 import { $t } from '#/locales';
 
 import { useReportSchema } from './data';

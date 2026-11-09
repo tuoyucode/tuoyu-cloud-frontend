@@ -1,24 +1,25 @@
 <script lang="ts" setup>
+import type { MaterialApi } from '@tuoyu/shared/api/mes/material';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { MaterialApi } from '#/api/mes/material';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportMaterial,
   listMaterial,
   removeMaterial,
   updateMaterial,
-} from '#/api/mes/material';
+} from '@tuoyu/shared/api/mes/material';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import EnumTag from '../_shared/enum-tag.vue';
 import { useColumns, useSearchSchema } from './data';

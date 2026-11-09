@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { LineApi } from '#/api/mes/line';
+import type { LineApi } from '@tuoyu/shared/api/mes/line';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { addLine, getLine, updateLine } from '@tuoyu/shared/api/mes/line';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addLine, getLine, updateLine } from '#/api/mes/line';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';

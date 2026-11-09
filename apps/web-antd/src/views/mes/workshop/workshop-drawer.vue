@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import type { WorkshopApi } from '#/api/mes/workshop';
+import type { WorkshopApi } from '@tuoyu/shared/api/mes/workshop';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import {
+  addWorkshop,
+  getWorkshop,
+  updateWorkshop,
+} from '@tuoyu/shared/api/mes/workshop';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addWorkshop, getWorkshop, updateWorkshop } from '#/api/mes/workshop';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';

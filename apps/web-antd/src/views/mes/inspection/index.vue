@@ -1,22 +1,23 @@
 <script lang="ts" setup>
+import type { InspectionApi } from '@tuoyu/shared/api/mes/inspection';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { InspectionApi } from '#/api/mes/inspection';
 
 import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Popconfirm } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportInspection,
   getInspectionLogs,
   listInspection,
   removeInspection,
-} from '#/api/mes/inspection';
+} from '@tuoyu/shared/api/mes/inspection';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Popconfirm } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 import StatusLogModal from '#/views/mes/material-request/status-log-modal.vue';
 

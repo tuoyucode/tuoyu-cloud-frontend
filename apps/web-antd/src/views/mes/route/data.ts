@@ -1,10 +1,12 @@
+import type { RouteApi } from '@tuoyu/shared/api/mes/route';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { RouteApi } from '#/api/mes/route';
 
 import { markRaw } from 'vue';
 
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 import MaterialSelect from '../material/material-select.vue';

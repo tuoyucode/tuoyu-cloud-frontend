@@ -1,6 +1,7 @@
 <script lang="ts" setup>
+import type { RoleApi } from '@tuoyu/shared/api/system/role';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { RoleApi } from '#/api/system/role';
 
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -8,6 +9,14 @@ import { useRouter } from 'vue-router';
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
+import {
+  changeRoleStatus,
+  exportRole,
+  listRole,
+  removeRole,
+} from '@tuoyu/shared/api/system/role';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import {
   Button,
   Dropdown,
@@ -19,15 +28,7 @@ import {
 } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import {
-  changeRoleStatus,
-  exportRole,
-  listRole,
-  removeRole,
-} from '#/api/system/role';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { searchFieldMappingTime, useColumns, useSearchSchema } from './data';
 import RoleDataScopeDrawer from './role-data-scope-drawer.vue';

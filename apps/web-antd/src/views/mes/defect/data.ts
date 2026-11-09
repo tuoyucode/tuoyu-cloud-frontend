@@ -1,8 +1,10 @@
+import type { DefectApi } from '@tuoyu/shared/api/mes/defect';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { DefectApi } from '#/api/mes/defect';
 
-import { getMesOptions, toSelectOptions } from '#/api/mes/common';
+import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+
 import { $t } from '#/locales';
 import { enumOptions } from '#/views/mes/_shared/enums';
 

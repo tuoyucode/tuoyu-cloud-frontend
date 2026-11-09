@@ -1,19 +1,24 @@
 <script lang="ts" setup>
+import type { RouteApi } from '@tuoyu/shared/api/mes/route';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { RouteApi } from '#/api/mes/route';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
+import {
+  exportRoute,
+  listRoute,
+  removeRoute,
+} from '@tuoyu/shared/api/mes/route';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { exportRoute, listRoute, removeRoute } from '#/api/mes/route';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
 import RouteDrawer from './route-drawer.vue';

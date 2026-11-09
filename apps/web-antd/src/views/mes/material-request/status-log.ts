@@ -1,4 +1,5 @@
-import type { MesApi } from '#/api/mes/common';
+import type { MesApi } from '@tuoyu/shared/api/mes/common';
+
 import type { MesEnumType } from '#/views/mes/_shared/enums';
 
 /** 状态履历弹窗的参数：标题、状态枚举类型与读取履历的方法 */

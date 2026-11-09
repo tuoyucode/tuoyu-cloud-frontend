@@ -1,8 +1,10 @@
+import type { WorkorderApi } from '@tuoyu/shared/api/mes/workorder';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { WorkorderApi } from '#/api/mes/workorder';
 
-import { getMesOptions, toSelectOptions } from '#/api/mes/common';
+import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+
 import { $t } from '#/locales';
 import { enumOptions } from '#/views/mes/_shared/enums';
 

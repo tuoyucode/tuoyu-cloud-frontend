@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import type { DeviceApi } from '#/api/mes/device';
+import type { DeviceApi } from '@tuoyu/shared/api/mes/device';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import {
+  addDevice,
+  getDevice,
+  updateDevice,
+} from '@tuoyu/shared/api/mes/device';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addDevice, getDevice, updateDevice } from '#/api/mes/device';
 import { $t } from '#/locales';
 
 import { loadFormOptions, LOCATION_FIELDS, useFormSchema } from './data';

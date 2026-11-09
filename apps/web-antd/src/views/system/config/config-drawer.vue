@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import type { ConfigApi } from '#/api/system/config';
+import type { ConfigApi } from '@tuoyu/shared/api/system/config';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import {
+  addConfig,
+  getConfig,
+  updateConfig,
+} from '@tuoyu/shared/api/system/config';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addConfig, getConfig, updateConfig } from '#/api/system/config';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';

@@ -1,20 +1,21 @@
 <script lang="ts" setup>
+import type { OperationTaskApi } from '@tuoyu/shared/api/mes/operationTask';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { OperationTaskApi } from '#/api/mes/operationTask';
 
 import { Page, useVbenModal } from '@vben/common-ui';
 
-import { Button, message, Popconfirm } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   completeOperationTask,
   getOperationTaskLogs,
   listOperationTask,
-} from '#/api/mes/operationTask';
+} from '@tuoyu/shared/api/mes/operationTask';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Popconfirm } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 import StatusLogModal from '#/views/mes/workorder/status-log-modal.vue';
 

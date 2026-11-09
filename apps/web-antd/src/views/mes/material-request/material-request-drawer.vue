@@ -1,10 +1,16 @@
 <script lang="ts" setup>
-import type { MaterialRequestApi } from '#/api/mes/materialRequest';
+import type { MaterialRequestApi } from '@tuoyu/shared/api/mes/materialRequest';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import {
+  addMaterialRequest,
+  getMaterialRequest,
+  updateMaterialRequest,
+} from '@tuoyu/shared/api/mes/materialRequest';
 import {
   Button,
   Input,
@@ -15,12 +21,6 @@ import {
 } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { getMesOptions, toSelectOptions } from '#/api/mes/common';
-import {
-  addMaterialRequest,
-  getMaterialRequest,
-  updateMaterialRequest,
-} from '#/api/mes/materialRequest';
 import { $t } from '#/locales';
 
 import { formatQty, loadLocationOptions, useFormSchema } from './data';

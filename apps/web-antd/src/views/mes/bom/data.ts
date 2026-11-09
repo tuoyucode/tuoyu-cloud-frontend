@@ -1,10 +1,12 @@
+import type { BomApi } from '@tuoyu/shared/api/mes/bom';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { BomApi } from '#/api/mes/bom';
 
 import { markRaw } from 'vue';
 
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 import MaterialSelect from '../material/material-select.vue';

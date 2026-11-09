@@ -1,7 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router';
 
+import { SOCIAL_CALLBACK_PATH } from '@tuoyu/shared/utils/social-callback';
+
 import { $t } from '#/locales';
-import { SOCIAL_CALLBACK_PATH } from '#/utils/social-callback';
 
 /**
  * 个人中心：所有登录用户可用，不在菜单中显示，从头像菜单进入。

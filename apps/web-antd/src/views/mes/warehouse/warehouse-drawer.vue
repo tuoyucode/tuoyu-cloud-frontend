@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import type { WarehouseApi } from '#/api/mes/warehouse';
+import type { WarehouseApi } from '@tuoyu/shared/api/mes/warehouse';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
-
-import { useVbenForm } from '#/adapter/form';
 import {
   addWarehouse,
   getWarehouse,
   updateWarehouse,
-} from '#/api/mes/warehouse';
+} from '@tuoyu/shared/api/mes/warehouse';
+import { message } from 'ant-design-vue';
+
+import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useWarehouseFormSchema } from './data';

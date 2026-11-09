@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { MesApi } from '#/api/mes/common';
+import type { MesApi } from '@tuoyu/shared/api/mes/common';
 
 import { computed, ref } from 'vue';
 
+import { getMesOptions } from '@tuoyu/shared/api/mes/common';
 import { Select } from 'ant-design-vue';
 
-import { getMesOptions } from '#/api/mes/common';
 import { $t } from '#/locales';
 
 /**

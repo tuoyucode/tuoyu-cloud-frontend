@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { TeamApi } from '#/api/mes/team';
+import type { TeamApi } from '@tuoyu/shared/api/mes/team';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { addTeam, getTeam, updateTeam } from '@tuoyu/shared/api/mes/team';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addTeam, getTeam, updateTeam } from '#/api/mes/team';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';

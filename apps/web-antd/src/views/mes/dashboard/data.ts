@@ -1,6 +1,6 @@
-import type { ECOption } from '@vben/plugins/echarts';
+import type { DashboardApi } from '@tuoyu/shared/api/mes/dashboard';
 
-import type { DashboardApi } from '#/api/mes/dashboard';
+import type { ECOption } from '@vben/plugins/echarts';
 
 import { $t } from '#/locales';
 

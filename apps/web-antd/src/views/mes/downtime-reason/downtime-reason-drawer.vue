@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import type { DowntimeReasonApi } from '#/api/mes/downtimeReason';
+import type { DowntimeReasonApi } from '@tuoyu/shared/api/mes/downtimeReason';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
-
-import { useVbenForm } from '#/adapter/form';
 import {
   addDowntimeReason,
   getDowntimeReason,
   updateDowntimeReason,
-} from '#/api/mes/downtimeReason';
+} from '@tuoyu/shared/api/mes/downtimeReason';
+import { message } from 'ant-design-vue';
+
+import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';

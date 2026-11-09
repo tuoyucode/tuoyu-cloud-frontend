@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import type { SpelApi } from '#/api/workflow/spel';
+import type { SpelApi } from '@tuoyu/shared/api/workflow/spel';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { addSpel, getSpel, updateSpel } from '@tuoyu/shared/api/workflow/spel';
 import { Button, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { DictType, getDictOptions } from '#/api/system/dict';
-import { addSpel, getSpel, updateSpel } from '#/api/workflow/spel';
 import { $t } from '#/locales';
 
 import { composeSpel, useFormSchema } from './data';

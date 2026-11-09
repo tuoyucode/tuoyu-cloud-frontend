@@ -1,9 +1,11 @@
+import type { MenuApi } from '@tuoyu/shared/api/system/menu';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { MenuApi } from '#/api/system/menu';
+
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
 
 import { z } from '#/adapter/form';
-import { DictType, getDictOptions } from '#/api/system/dict';
 import { $t } from '#/locales';
 
 /** 菜单类型 */

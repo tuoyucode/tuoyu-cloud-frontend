@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { EchartsUIType } from '@vben/plugins/echarts';
+import type { DashboardApi } from '@tuoyu/shared/api/mes/dashboard';
 
-import type { DashboardApi } from '#/api/mes/dashboard';
+import type { EchartsUIType } from '@vben/plugins/echarts';
 
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
@@ -9,10 +9,10 @@ import { Page } from '@vben/common-ui';
 import { EchartsUI, useEcharts } from '@vben/plugins/echarts';
 import { usePreferences } from '@vben/preferences';
 
+import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { getDashboardOverview } from '@tuoyu/shared/api/mes/dashboard';
 import { Button, Card, Progress, Select, Table, Tag } from 'ant-design-vue';
 
-import { getMesOptions, toSelectOptions } from '#/api/mes/common';
-import { getDashboardOverview } from '#/api/mes/dashboard';
 import { $t } from '#/locales';
 
 import { enumLabel } from '../_shared/enums';

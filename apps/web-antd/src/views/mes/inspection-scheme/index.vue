@@ -1,22 +1,23 @@
 <script lang="ts" setup>
+import type { InspectionSchemeApi } from '@tuoyu/shared/api/mes/inspectionScheme';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { InspectionSchemeApi } from '#/api/mes/inspectionScheme';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
-import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   listInspectionScheme,
   removeInspectionScheme,
   updateInspectionScheme,
-} from '#/api/mes/inspectionScheme';
+} from '@tuoyu/shared/api/mes/inspectionScheme';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 
 import { useColumns, useSearchSchema } from './data';

@@ -3,10 +3,10 @@ import { computed, ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import { previewGenCode } from '@tuoyu/shared/api/tool/gen';
 import { useClipboard } from '@vueuse/core';
 import { Button, Empty, message, Spin, Tabs } from 'ant-design-vue';
 
-import { previewGenCode } from '#/api/tool/gen';
 import { $t } from '#/locales';
 
 import { templateLabel, templateLanguage } from './data';

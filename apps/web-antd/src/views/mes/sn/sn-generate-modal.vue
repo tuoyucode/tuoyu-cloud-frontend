@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import type { SnApi } from '#/api/mes/sn';
+import type { SnApi } from '@tuoyu/shared/api/mes/sn';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import { generateSn } from '@tuoyu/shared/api/mes/sn';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { generateSn } from '#/api/mes/sn';
 import { $t } from '#/locales';
 
 import { useGenerateSchema } from './data';

@@ -1,4 +1,4 @@
-import type { GenApi } from '#/api/tool/gen';
+import type { GenApi } from '@tuoyu/shared/api/tool/gen';
 
 /** Java 类型（与后端 GenConstants 一致） */
 export const JAVA_TYPES = [

@@ -1,8 +1,10 @@
+import type { DowntimeReasonApi } from '@tuoyu/shared/api/mes/downtimeReason';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { DowntimeReasonApi } from '#/api/mes/downtimeReason';
 
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 import { enumOptions } from '../_shared/enums';

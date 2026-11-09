@@ -1,6 +1,7 @@
+import type { ProductionReportApi } from '@tuoyu/shared/api/mes/productionReport';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { ProductionReportApi } from '#/api/mes/productionReport';
 
 import { $t } from '#/locales';
 import { enumOptions } from '#/views/mes/_shared/enums';

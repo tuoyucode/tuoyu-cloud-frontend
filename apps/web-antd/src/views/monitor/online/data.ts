@@ -1,10 +1,12 @@
+import type { OnlineApi } from '@tuoyu/shared/api/monitor/online';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { OnlineApi } from '#/api/monitor/online';
 
 import { formatDateTime } from '@vben/utils';
 
-import { DictType } from '#/api/system/dict';
+import { DictType } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 /** 查询条件：后端按完全相同匹配 */

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { WarehouseApi } from '#/api/mes/warehouse';
+import type { WarehouseApi } from '@tuoyu/shared/api/mes/warehouse';
 
 import { ref } from 'vue';
 

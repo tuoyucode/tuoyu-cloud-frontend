@@ -1,8 +1,6 @@
+import type { WorkorderApi } from '@tuoyu/shared/api/mes/workorder';
+
 import type { ReasonModalData } from './data';
-
-import type { WorkorderApi } from '#/api/mes/workorder';
-
-import { message, Modal } from 'ant-design-vue';
 
 import {
   cancelWorkorder,
@@ -11,9 +9,11 @@ import {
   pauseWorkorder,
   releaseWorkorder,
   resumeWorkorder,
-} from '#/api/mes/workorder';
+} from '@tuoyu/shared/api/mes/workorder';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { message, Modal } from 'ant-design-vue';
+
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 /** 工单的状态动作（权限码为 mes:workorder:<动作>） */
 export type WorkorderAction =

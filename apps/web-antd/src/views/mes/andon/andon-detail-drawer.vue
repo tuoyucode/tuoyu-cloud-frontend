@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import type { AndonApi } from '#/api/mes/andon';
-import type { MesApi } from '#/api/mes/common';
+import type { AndonApi } from '@tuoyu/shared/api/mes/andon';
+import type { MesApi } from '@tuoyu/shared/api/mes/common';
 
 import { ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { getAndon, getAndonLogs } from '@tuoyu/shared/api/mes/andon';
 import {
   Descriptions,
   DescriptionsItem,
@@ -14,7 +15,6 @@ import {
   TimelineItem,
 } from 'ant-design-vue';
 
-import { getAndon, getAndonLogs } from '#/api/mes/andon';
 import { $t } from '#/locales';
 
 import EnumTag from '../_shared/enum-tag.vue';

@@ -1,22 +1,23 @@
 <script lang="ts" setup>
+import type { DowntimeReasonApi } from '@tuoyu/shared/api/mes/downtimeReason';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { DowntimeReasonApi } from '#/api/mes/downtimeReason';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
-import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   listDowntimeReason,
   removeDowntimeReason,
   updateDowntimeReason,
-} from '#/api/mes/downtimeReason';
+} from '@tuoyu/shared/api/mes/downtimeReason';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import EnumTag from '../_shared/enum-tag.vue';
 import { useColumns, useSearchSchema } from './data';

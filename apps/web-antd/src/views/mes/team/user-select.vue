@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { UserApi } from '#/api/system/user';
+import type { UserApi } from '@tuoyu/shared/api/system/user';
 
 import { computed, ref } from 'vue';
 
+import { listUserOptions } from '@tuoyu/shared/api/system/user';
 import { Select } from 'ant-design-vue';
 
-import { listUserOptions } from '#/api/system/user';
 import { $t } from '#/locales';
 
 /**

@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import type { CodeRuleApi } from '#/api/mes/codeRule';
+import type { CodeRuleApi } from '@tuoyu/shared/api/mes/codeRule';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import {
+  addCodeRule,
+  getCodeRule,
+  updateCodeRule,
+} from '@tuoyu/shared/api/mes/codeRule';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addCodeRule, getCodeRule, updateCodeRule } from '#/api/mes/codeRule';
 import { $t } from '#/locales';
 
 import { exampleCode, loadFormOptions, useFormSchema } from './data';

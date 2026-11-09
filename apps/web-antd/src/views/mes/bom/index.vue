@@ -1,19 +1,20 @@
 <script lang="ts" setup>
+import type { BomApi } from '@tuoyu/shared/api/mes/bom';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { BomApi } from '#/api/mes/bom';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
+import { exportBom, listBom, removeBom } from '@tuoyu/shared/api/mes/bom';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { exportBom, listBom, removeBom } from '#/api/mes/bom';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import BomDrawer from './bom-drawer.vue';
 import { useColumns, useSearchSchema } from './data';

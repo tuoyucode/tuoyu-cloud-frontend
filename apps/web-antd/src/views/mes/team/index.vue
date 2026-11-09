@@ -1,19 +1,25 @@
 <script lang="ts" setup>
+import type { TeamApi } from '@tuoyu/shared/api/mes/team';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { TeamApi } from '#/api/mes/team';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
+import {
+  exportTeam,
+  listTeam,
+  removeTeam,
+  updateTeam,
+} from '@tuoyu/shared/api/mes/team';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { exportTeam, listTeam, removeTeam, updateTeam } from '#/api/mes/team';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
 import MemberModal from './member-modal.vue';

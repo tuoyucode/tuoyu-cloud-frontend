@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-import type { TraceApi } from '#/api/mes/trace';
+import type { TraceApi } from '@tuoyu/shared/api/mes/trace';
 
 import { computed, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
+import { traceByKeyword } from '@tuoyu/shared/api/mes/trace';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import {
   Alert,
   Card,
@@ -15,9 +17,7 @@ import {
   TimelineItem,
 } from 'ant-design-vue';
 
-import { traceByKeyword } from '#/api/mes/trace';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import { enumLabel } from '../_shared/enums';
 import { eventColor, eventText } from './data';

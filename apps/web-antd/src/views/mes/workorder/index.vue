@@ -1,12 +1,20 @@
 <script lang="ts" setup>
+import type { WorkorderApi } from '@tuoyu/shared/api/mes/workorder';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { WorkorderApi } from '#/api/mes/workorder';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
+import {
+  exportWorkorder,
+  listWorkorder,
+  removeWorkorder,
+} from '@tuoyu/shared/api/mes/workorder';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import {
   Button,
   Dropdown,
@@ -19,14 +27,7 @@ import {
 } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import {
-  exportWorkorder,
-  listWorkorder,
-  removeWorkorder,
-} from '#/api/mes/workorder';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 
 import { toQuery, useColumns, useSearchSchema } from './data';

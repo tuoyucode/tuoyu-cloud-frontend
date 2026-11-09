@@ -1,20 +1,20 @@
 <script lang="ts" setup>
-import type { RoleApi } from '#/api/system/role';
-import type { TenantPackageApi } from '#/api/system/tenantPackage';
+import type { RoleApi } from '@tuoyu/shared/api/system/role';
+import type { TenantPackageApi } from '@tuoyu/shared/api/system/tenantPackage';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
-import { Alert, message } from 'ant-design-vue';
-
-import { useVbenForm } from '#/adapter/form';
-import { getMenuTree } from '#/api/system/role';
+import { getMenuTree } from '@tuoyu/shared/api/system/role';
 import {
   addTenantPackage,
   getTenantPackage,
   updateTenantPackage,
-} from '#/api/system/tenantPackage';
+} from '@tuoyu/shared/api/system/tenantPackage';
+import { Alert, message } from 'ant-design-vue';
+
+import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 import PermissionTree from '#/views/system/role/permission-tree.vue';
 import {

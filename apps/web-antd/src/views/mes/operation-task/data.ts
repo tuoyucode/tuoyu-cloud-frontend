@@ -1,9 +1,11 @@
+import type { OperationTaskApi } from '@tuoyu/shared/api/mes/operationTask';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { OperationTaskApi } from '#/api/mes/operationTask';
 
-import { getMesOptions, toSelectOptions } from '#/api/mes/common';
-import { listUserOptions } from '#/api/system/user';
+import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { listUserOptions } from '@tuoyu/shared/api/system/user';
+
 import { $t } from '#/locales';
 import { enumOptions } from '#/views/mes/_shared/enums';
 import { formatQty, workshopOptions } from '#/views/mes/workorder/data';

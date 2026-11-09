@@ -1,16 +1,20 @@
 <script lang="ts" setup>
-import type { AndonAction } from './data';
+import type { AndonApi } from '@tuoyu/shared/api/mes/andon';
 
-import type { AndonApi } from '#/api/mes/andon';
+import type { AndonAction } from './data';
 
 import { computed, ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import {
+  assignAndon,
+  closeAndon,
+  resolveAndon,
+} from '@tuoyu/shared/api/mes/andon';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { assignAndon, closeAndon, resolveAndon } from '#/api/mes/andon';
 import { $t } from '#/locales';
 
 import { useAssignSchema, useCloseSchema, useResolveSchema } from './data';

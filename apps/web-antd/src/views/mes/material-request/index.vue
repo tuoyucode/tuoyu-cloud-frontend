@@ -1,9 +1,19 @@
 <script lang="ts" setup>
+import type { MaterialRequestApi } from '@tuoyu/shared/api/mes/materialRequest';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { MaterialRequestApi } from '#/api/mes/materialRequest';
 
 import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
 
+import {
+  cancelMaterialRequest,
+  getMaterialRequestLogs,
+  listMaterialRequest,
+  removeMaterialRequest,
+  submitMaterialRequest,
+} from '@tuoyu/shared/api/mes/materialRequest';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import {
   Button,
   Dropdown,
@@ -15,16 +25,7 @@ import {
 } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import {
-  cancelMaterialRequest,
-  getMaterialRequestLogs,
-  listMaterialRequest,
-  removeMaterialRequest,
-  submitMaterialRequest,
-} from '#/api/mes/materialRequest';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 
 import CompleteModal from './complete-modal.vue';

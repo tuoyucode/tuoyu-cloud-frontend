@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import type { StationApi } from '#/api/mes/station';
+import type { StationApi } from '@tuoyu/shared/api/mes/station';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import {
+  addStation,
+  getStation,
+  updateStation,
+} from '@tuoyu/shared/api/mes/station';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addStation, getStation, updateStation } from '#/api/mes/station';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';

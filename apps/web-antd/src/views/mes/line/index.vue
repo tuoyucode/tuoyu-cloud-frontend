@@ -1,19 +1,25 @@
 <script lang="ts" setup>
+import type { LineApi } from '@tuoyu/shared/api/mes/line';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { LineApi } from '#/api/mes/line';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
+import {
+  exportLine,
+  listLine,
+  removeLine,
+  updateLine,
+} from '@tuoyu/shared/api/mes/line';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { exportLine, listLine, removeLine, updateLine } from '#/api/mes/line';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
 import LineDrawer from './line-drawer.vue';

@@ -1,8 +1,10 @@
+import type { CodeRuleApi } from '@tuoyu/shared/api/mes/codeRule';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { CodeRuleApi } from '#/api/mes/codeRule';
 
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 import { enumOptions } from '../_shared/enums';

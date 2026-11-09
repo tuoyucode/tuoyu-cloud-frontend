@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import type { LocationApi } from '#/api/mes/location';
+import type { LocationApi } from '@tuoyu/shared/api/mes/location';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import {
+  addLocation,
+  getLocation,
+  updateLocation,
+} from '@tuoyu/shared/api/mes/location';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addLocation, getLocation, updateLocation } from '#/api/mes/location';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useLocationFormSchema } from './data';

@@ -1,24 +1,25 @@
 <script lang="ts" setup>
+import type { WarehouseApi } from '@tuoyu/shared/api/mes/warehouse';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { WarehouseApi } from '#/api/mes/warehouse';
 
 import { ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportWarehouse,
   listWarehouse,
   removeWarehouse,
   updateWarehouse,
-} from '#/api/mes/warehouse';
+} from '@tuoyu/shared/api/mes/warehouse';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import EnumTag from '../_shared/enum-tag.vue';
 import { useWarehouseColumns, useWarehouseSearchSchema } from './data';

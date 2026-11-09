@@ -1,11 +1,20 @@
 <script lang="ts" setup>
+import type { CodeRuleApi } from '@tuoyu/shared/api/mes/codeRule';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { CodeRuleApi } from '#/api/mes/codeRule';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
+import {
+  listCodeRule,
+  previewCodeRule,
+  removeCodeRule,
+  updateCodeRule,
+} from '@tuoyu/shared/api/mes/codeRule';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import {
   Button,
   message,
@@ -16,15 +25,7 @@ import {
 } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import {
-  listCodeRule,
-  previewCodeRule,
-  removeCodeRule,
-  updateCodeRule,
-} from '#/api/mes/codeRule';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import EnumTag from '../_shared/enum-tag.vue';
 import CodeRuleDrawer from './code-rule-drawer.vue';

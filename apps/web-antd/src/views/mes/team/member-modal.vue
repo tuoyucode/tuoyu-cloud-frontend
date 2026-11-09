@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import type { TeamApi } from '#/api/mes/team';
-import type { UserApi } from '#/api/system/user';
+import type { TeamApi } from '@tuoyu/shared/api/mes/team';
+import type { UserApi } from '@tuoyu/shared/api/system/user';
 
 import { computed, ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import { listTeamMembers, updateTeamMembers } from '@tuoyu/shared/api/mes/team';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, Empty, message, Table } from 'ant-design-vue';
 
-import { listTeamMembers, updateTeamMembers } from '#/api/mes/team';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 import UserSelectModal from '#/views/workflow/components/user-select-modal.vue';
 
 /**

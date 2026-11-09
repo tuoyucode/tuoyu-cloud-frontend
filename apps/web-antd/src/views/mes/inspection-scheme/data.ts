@@ -1,9 +1,11 @@
+import type { InspectionSchemeApi } from '@tuoyu/shared/api/mes/inspectionScheme';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { InspectionSchemeApi } from '#/api/mes/inspectionScheme';
 
-import { getMesOptions, toSelectOptions } from '#/api/mes/common';
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 import { enumOptions } from '#/views/mes/_shared/enums';
 

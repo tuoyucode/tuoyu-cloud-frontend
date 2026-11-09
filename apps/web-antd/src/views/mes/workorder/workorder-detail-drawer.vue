@@ -1,12 +1,16 @@
 <script lang="ts" setup>
-import type { MesApi } from '#/api/mes/common';
-import type { OperationTaskApi } from '#/api/mes/operationTask';
-import type { WorkorderApi } from '#/api/mes/workorder';
+import type { MesApi } from '@tuoyu/shared/api/mes/common';
+import type { OperationTaskApi } from '@tuoyu/shared/api/mes/operationTask';
+import type { WorkorderApi } from '@tuoyu/shared/api/mes/workorder';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer, useVbenModal } from '@vben/common-ui';
 
+import {
+  getWorkorder,
+  getWorkorderLogs,
+} from '@tuoyu/shared/api/mes/workorder';
 import {
   Button,
   Descriptions,
@@ -17,7 +21,6 @@ import {
   Tabs,
 } from 'ant-design-vue';
 
-import { getWorkorder, getWorkorderLogs } from '#/api/mes/workorder';
 import { $t } from '#/locales';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 import { enumLabel } from '#/views/mes/_shared/enums';

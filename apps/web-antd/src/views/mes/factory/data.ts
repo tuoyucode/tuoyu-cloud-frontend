@@ -1,8 +1,10 @@
+import type { FactoryApi } from '@tuoyu/shared/api/mes/factory';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { FactoryApi } from '#/api/mes/factory';
 
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 /** 查询条件：一行最多 4 个 */

@@ -1,10 +1,12 @@
+import type { RoleApi } from '@tuoyu/shared/api/system/role';
+import type { UserApi } from '@tuoyu/shared/api/system/user';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { RoleApi } from '#/api/system/role';
-import type { UserApi } from '#/api/system/user';
+
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
 
 import { z } from '#/adapter/form';
-import { DictType, getDictOptions } from '#/api/system/dict';
 import { $t } from '#/locales';
 
 /** 自定义数据权限：按勾选的部门 */

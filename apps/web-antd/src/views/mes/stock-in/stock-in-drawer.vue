@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import type { StockInApi } from '#/api/mes/stockIn';
+import type { StockInApi } from '@tuoyu/shared/api/mes/stockIn';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { addStockIn } from '@tuoyu/shared/api/mes/stockIn';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addStockIn } from '#/api/mes/stockIn';
 import { $t } from '#/locales';
 
 import { useFormSchema } from './data';

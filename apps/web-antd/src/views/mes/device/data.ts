@@ -1,9 +1,11 @@
+import type { DeviceApi } from '@tuoyu/shared/api/mes/device';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { DeviceApi } from '#/api/mes/device';
 
-import { getMesOptions, toSelectOptions } from '#/api/mes/common';
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 /** 级联的位置字段：上级变化时清空下级 */

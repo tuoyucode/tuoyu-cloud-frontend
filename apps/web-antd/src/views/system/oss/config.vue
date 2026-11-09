@@ -1,23 +1,24 @@
 <script lang="ts" setup>
+import type { OssApi } from '@tuoyu/shared/api/system/oss';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { OssApi } from '#/api/system/oss';
 
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
-import { Button, message, Modal, Popconfirm, Tag } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   enableOssConfig,
   listOssConfig,
   removeOssConfig,
-} from '#/api/system/oss';
+} from '@tuoyu/shared/api/system/oss';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Tag } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import ConfigDrawer from './config-drawer.vue';
 import {

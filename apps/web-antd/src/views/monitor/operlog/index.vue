@@ -1,24 +1,25 @@
 <script lang="ts" setup>
+import type { OperlogApi } from '@tuoyu/shared/api/monitor/operlog';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { OperlogApi } from '#/api/monitor/operlog';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   cleanOperlog,
   exportOperlog,
   listOperlog,
   removeOperlog,
-} from '#/api/monitor/operlog';
+} from '@tuoyu/shared/api/monitor/operlog';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { toQuery, useColumns, useSearchSchema } from './data';
 import OperlogDrawer from './operlog-drawer.vue';

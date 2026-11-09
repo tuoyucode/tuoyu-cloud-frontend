@@ -1,10 +1,13 @@
 <script lang="ts" setup>
-import type { OperlogApi } from '#/api/monitor/operlog';
+import type { OperlogApi } from '@tuoyu/shared/api/monitor/operlog';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { removeOperlog } from '@tuoyu/shared/api/monitor/operlog';
+import { DictType } from '@tuoyu/shared/api/system/dict';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { useClipboard } from '@vueuse/core';
 import {
   Alert,
@@ -15,11 +18,8 @@ import {
   Popconfirm,
 } from 'ant-design-vue';
 
-import { removeOperlog } from '#/api/monitor/operlog';
-import { DictType } from '#/api/system/dict';
 import DictTag from '#/components/dict-tag.vue';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 const emit = defineEmits<{ success: [] }>();
 

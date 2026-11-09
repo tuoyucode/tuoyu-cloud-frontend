@@ -1,8 +1,10 @@
+import type { MaterialApi } from '@tuoyu/shared/api/mes/material';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { MaterialApi } from '#/api/mes/material';
 
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 import { enumOptions } from '../_shared/enums';

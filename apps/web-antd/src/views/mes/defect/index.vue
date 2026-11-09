@@ -1,17 +1,22 @@
 <script lang="ts" setup>
+import type { DefectApi } from '@tuoyu/shared/api/mes/defect';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { DefectApi } from '#/api/mes/defect';
 
 import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
+import {
+  exportDefect,
+  getDefectLogs,
+  listDefect,
+} from '@tuoyu/shared/api/mes/defect';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { exportDefect, getDefectLogs, listDefect } from '#/api/mes/defect';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 import StatusLogModal from '#/views/mes/material-request/status-log-modal.vue';
 

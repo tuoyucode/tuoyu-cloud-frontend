@@ -1,23 +1,24 @@
 <script lang="ts" setup>
+import type { ProductionReportApi } from '@tuoyu/shared/api/mes/productionReport';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { ProductionReportApi } from '#/api/mes/productionReport';
 
 import { Page, useVbenModal } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Popconfirm } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   cancelProductionReport,
   confirmProductionReport,
   exportProductionReport,
   getProductionReportLogs,
   listProductionReport,
-} from '#/api/mes/productionReport';
+} from '@tuoyu/shared/api/mes/productionReport';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Popconfirm } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 import ReasonModal from '#/views/mes/workorder/reason-modal.vue';
 import StatusLogModal from '#/views/mes/workorder/status-log-modal.vue';

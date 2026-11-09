@@ -1,20 +1,25 @@
 <script lang="ts" setup>
+import type { AndonApi } from '@tuoyu/shared/api/mes/andon';
+
 import type { AndonAction } from './data';
 
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { AndonApi } from '#/api/mes/andon';
 
 import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
 import { useUserStore } from '@vben/stores';
 import { formatDate } from '@vben/utils';
 
+import {
+  exportAndon,
+  listAndon,
+  processAndon,
+} from '@tuoyu/shared/api/mes/andon';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Popconfirm } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { exportAndon, listAndon, processAndon } from '#/api/mes/andon';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import EnumTag from '../_shared/enum-tag.vue';
 import AndonActionModal from './andon-action-modal.vue';

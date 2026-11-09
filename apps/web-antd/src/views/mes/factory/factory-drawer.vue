@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import type { FactoryApi } from '#/api/mes/factory';
+import type { FactoryApi } from '@tuoyu/shared/api/mes/factory';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import {
+  addFactory,
+  getFactory,
+  updateFactory,
+} from '@tuoyu/shared/api/mes/factory';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addFactory, getFactory, updateFactory } from '#/api/mes/factory';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';

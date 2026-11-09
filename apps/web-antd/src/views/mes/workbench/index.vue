@@ -1,11 +1,17 @@
 <script lang="ts" setup>
-import type { OperationTaskApi } from '#/api/mes/operationTask';
-import type { ProductionReportApi } from '#/api/mes/productionReport';
+import type { OperationTaskApi } from '@tuoyu/shared/api/mes/operationTask';
+import type { ProductionReportApi } from '@tuoyu/shared/api/mes/productionReport';
 
 import { computed, onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
+import { listMyOperationTask } from '@tuoyu/shared/api/mes/operationTask';
+import {
+  listProductionReport,
+  submitProductionReport,
+} from '@tuoyu/shared/api/mes/productionReport';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import {
   Alert,
   Button,
@@ -17,13 +23,7 @@ import {
   Spin,
 } from 'ant-design-vue';
 
-import { listMyOperationTask } from '#/api/mes/operationTask';
-import {
-  listProductionReport,
-  submitProductionReport,
-} from '#/api/mes/productionReport';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 import { enumLabel } from '#/views/mes/_shared/enums';
 import { formatQty } from '#/views/mes/workorder/data';

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import type { DefectApi } from '#/api/mes/defect';
+import type { DefectApi } from '@tuoyu/shared/api/mes/defect';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { addDefect } from '@tuoyu/shared/api/mes/defect';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addDefect } from '#/api/mes/defect';
 import { $t } from '#/locales';
 
 import { useFormSchema } from './data';

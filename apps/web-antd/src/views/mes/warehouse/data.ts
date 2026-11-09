@@ -1,10 +1,12 @@
+import type { LocationApi } from '@tuoyu/shared/api/mes/location';
+import type { WarehouseApi } from '@tuoyu/shared/api/mes/warehouse';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { LocationApi } from '#/api/mes/location';
-import type { WarehouseApi } from '#/api/mes/warehouse';
 
-import { getMesOptions, toSelectOptions } from '#/api/mes/common';
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 import { enumOptions } from '../_shared/enums';

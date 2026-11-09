@@ -1,17 +1,18 @@
 <script lang="ts" setup>
+import type { TaskApi } from '@tuoyu/shared/api/workflow/task';
+
 import type { ProcessDrawerData } from './task-utils';
 
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { TaskApi } from '#/api/workflow/task';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
+import { listMyFinishedTask } from '@tuoyu/shared/api/workflow/task';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
 import { Button } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { listMyFinishedTask } from '#/api/workflow/task';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
 
 import ProcessDrawer from '../components/process-drawer.vue';
 import { useFinishedColumns, useTaskSearchSchema } from './data';

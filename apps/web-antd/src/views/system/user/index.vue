@@ -1,6 +1,7 @@
 <script lang="ts" setup>
+import type { UserApi } from '@tuoyu/shared/api/system/user';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { UserApi } from '#/api/system/user';
 
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -8,6 +9,16 @@ import { useRouter } from 'vue-router';
 import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
+import {
+  changeUserStatus,
+  exportUser,
+  isSuperAdminUser,
+  listUser,
+  removeUser,
+  unlockUser,
+} from '@tuoyu/shared/api/system/user';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import {
   Button,
   Dropdown,
@@ -19,17 +30,7 @@ import {
 } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import {
-  changeUserStatus,
-  exportUser,
-  isSuperAdminUser,
-  listUser,
-  removeUser,
-  unlockUser,
-} from '#/api/system/user';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { searchFieldMappingTime, useColumns, useSearchSchema } from './data';
 import DeptTree from './dept-tree.vue';

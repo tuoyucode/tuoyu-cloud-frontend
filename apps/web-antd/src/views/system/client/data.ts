@@ -1,8 +1,10 @@
+import type { ClientApi } from '@tuoyu/shared/api/system/client';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { ClientApi } from '#/api/system/client';
 
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 /** 查询条件：一行最多 4 个（后端均为精确匹配） */

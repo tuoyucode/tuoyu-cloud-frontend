@@ -1,25 +1,26 @@
 <script lang="ts" setup>
+import type { LogininfoApi } from '@tuoyu/shared/api/monitor/logininfo';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { LogininfoApi } from '#/api/monitor/logininfo';
 
 import { ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   cleanLogininfo,
   exportLogininfo,
   listLogininfo,
   removeLogininfo,
   unlockAccount,
-} from '#/api/monitor/logininfo';
+} from '@tuoyu/shared/api/monitor/logininfo';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { toQuery, useColumns, useSearchSchema } from './data';
 

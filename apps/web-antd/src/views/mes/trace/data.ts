@@ -1,4 +1,4 @@
-import type { TraceApi } from '#/api/mes/trace';
+import type { TraceApi } from '@tuoyu/shared/api/mes/trace';
 
 import { $t } from '#/locales';
 

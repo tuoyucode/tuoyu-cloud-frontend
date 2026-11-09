@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { SnApi } from '#/api/mes/sn';
+import type { SnApi } from '@tuoyu/shared/api/mes/sn';
 
 import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import { scrapSn } from '@tuoyu/shared/api/mes/sn';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { scrapSn } from '#/api/mes/sn';
 import { $t } from '#/locales';
 
 import { useScrapSchema } from './data';

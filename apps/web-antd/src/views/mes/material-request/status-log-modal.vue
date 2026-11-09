@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { StatusLogModalData } from './status-log';
+import type { MesApi } from '@tuoyu/shared/api/mes/common';
 
-import type { MesApi } from '#/api/mes/common';
+import type { StatusLogModalData } from './status-log';
 
 import { ref } from 'vue';
 

@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import type { WorkorderApi } from '#/api/mes/workorder';
+import type { WorkorderApi } from '@tuoyu/shared/api/mes/workorder';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
-
-import { useVbenForm } from '#/adapter/form';
 import {
   addWorkorder,
   getWorkorder,
   updateWorkorder,
-} from '#/api/mes/workorder';
+} from '@tuoyu/shared/api/mes/workorder';
+import { message } from 'ant-design-vue';
+
+import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 
 import { useFormSchema } from './data';

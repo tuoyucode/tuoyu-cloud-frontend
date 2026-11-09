@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import type { ClientApi } from '#/api/system/client';
+import type { ClientApi } from '@tuoyu/shared/api/system/client';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import {
+  addClient,
+  getClient,
+  updateClient,
+} from '@tuoyu/shared/api/system/client';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addClient, getClient, updateClient } from '#/api/system/client';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';

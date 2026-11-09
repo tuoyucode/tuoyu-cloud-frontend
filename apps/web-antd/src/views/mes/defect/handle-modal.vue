@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { DefectApi } from '#/api/mes/defect';
+import type { DefectApi } from '@tuoyu/shared/api/mes/defect';
 
 import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import { handleDefect } from '@tuoyu/shared/api/mes/defect';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { handleDefect } from '#/api/mes/defect';
 import { $t } from '#/locales';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 

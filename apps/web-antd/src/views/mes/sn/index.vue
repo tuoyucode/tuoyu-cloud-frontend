@@ -1,17 +1,18 @@
 <script lang="ts" setup>
+import type { SnApi } from '@tuoyu/shared/api/mes/sn';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { SnApi } from '#/api/mes/sn';
 
 import { Page, useVbenModal } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
+import { exportSn, listSn } from '@tuoyu/shared/api/mes/sn';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { exportSn, listSn } from '#/api/mes/sn';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import EnumTag from '../_shared/enum-tag.vue';
 import { SCRAPPABLE_STATUSES, useColumns, useSearchSchema } from './data';

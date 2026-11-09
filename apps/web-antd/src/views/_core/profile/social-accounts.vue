@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import type { SocialApi } from '#/api/system/social';
+import type { SocialApi } from '@tuoyu/shared/api/system/social';
 
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
-
-import { Button, Empty, message, Popconfirm, Skeleton } from 'ant-design-vue';
 
 import {
   getSocialAuthorizeUrl,
   listMySocial,
   listSocialSources,
   unbindSocial,
-} from '#/api/system/social';
+} from '@tuoyu/shared/api/system/social';
+import { Button, Empty, message, Popconfirm, Skeleton } from 'ant-design-vue';
+
 import { $t } from '#/locales';
 
 import { isAuthorizeUrl, socialPlatformName, unboundSources } from './data';

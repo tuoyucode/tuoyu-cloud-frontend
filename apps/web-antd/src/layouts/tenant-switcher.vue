@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import type { TenantApi } from '#/api/system/tenant';
+import type { TenantApi } from '@tuoyu/shared/api/system/tenant';
 
 import { computed, onMounted, ref } from 'vue';
 
 import { useUserStore } from '@vben/stores';
-
-import { Button, message, Select, Tag, Tooltip } from 'ant-design-vue';
 
 import {
   clearTenantSwitch,
@@ -13,8 +11,10 @@ import {
   getCurrentTenant,
   listTenant,
   switchTenant,
-} from '#/api/system/tenant';
-import { isSuperAdminUser } from '#/api/system/user';
+} from '@tuoyu/shared/api/system/tenant';
+import { isSuperAdminUser } from '@tuoyu/shared/api/system/user';
+import { Button, message, Select, Tag, Tooltip } from 'ant-design-vue';
+
 import { $t } from '#/locales';
 
 /** 下拉中最多列出的租户数（后端分页上限 500） */

@@ -1,23 +1,24 @@
 <script lang="ts" setup>
+import type { InstanceApi } from '@tuoyu/shared/api/workflow/instance';
+
 import type { ProcessDrawerData } from './task-utils';
 
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { InstanceApi } from '#/api/workflow/instance';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
-import { Button, message, Popconfirm } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   cancelInstance,
   listMyInstance,
   removeFinishedInstance,
   removeInstance,
-} from '#/api/workflow/instance';
+} from '@tuoyu/shared/api/workflow/instance';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Popconfirm } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import ProcessDrawer from '../components/process-drawer.vue';
 import { useInstanceColumns, useInstanceSearchSchema } from './data';

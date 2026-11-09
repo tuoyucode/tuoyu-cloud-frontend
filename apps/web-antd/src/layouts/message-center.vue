@@ -1,7 +1,10 @@
 <script lang="ts" setup>
-import type { NotificationItem } from '@vben/layouts';
+import type {
+  MessageCategory,
+  MessageItem,
+} from '@tuoyu/shared/utils/message-box';
 
-import type { MessageCategory, MessageItem } from '#/utils/message-box';
+import type { NotificationItem } from '@vben/layouts';
 
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';

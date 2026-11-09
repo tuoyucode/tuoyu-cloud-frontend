@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import type { MaterialRequestApi } from '#/api/mes/materialRequest';
+import type { MaterialRequestApi } from '@tuoyu/shared/api/mes/materialRequest';
 
 import { computed, ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
-import { Input, InputNumber, message, Select, Table } from 'ant-design-vue';
-
 import {
   completeMaterialRequest,
   getMaterialRequest,
-} from '#/api/mes/materialRequest';
+} from '@tuoyu/shared/api/mes/materialRequest';
+import { Input, InputNumber, message, Select, Table } from 'ant-design-vue';
+
 import { $t } from '#/locales';
 
 import { formatQty, loadLocationOptions } from './data';

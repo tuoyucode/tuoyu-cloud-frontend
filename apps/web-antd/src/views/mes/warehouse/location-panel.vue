@@ -1,23 +1,24 @@
 <script lang="ts" setup>
+import type { LocationApi } from '@tuoyu/shared/api/mes/location';
+import type { WarehouseApi } from '@tuoyu/shared/api/mes/warehouse';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { LocationApi } from '#/api/mes/location';
-import type { WarehouseApi } from '#/api/mes/warehouse';
 
 import { computed, ref, watch } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
-import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   listLocation,
   removeLocation,
   updateLocation,
-} from '#/api/mes/location';
+} from '@tuoyu/shared/api/mes/location';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { useLocationColumns, useLocationSearchSchema } from './data';
 import LocationDrawer from './location-drawer.vue';

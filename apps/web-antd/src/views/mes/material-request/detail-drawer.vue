@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import type { MaterialRequestApi } from '#/api/mes/materialRequest';
+import type { MaterialRequestApi } from '@tuoyu/shared/api/mes/materialRequest';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { getMaterialRequest } from '@tuoyu/shared/api/mes/materialRequest';
 import { Descriptions, DescriptionsItem, Table } from 'ant-design-vue';
 
-import { getMaterialRequest } from '#/api/mes/materialRequest';
 import { $t } from '#/locales';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 

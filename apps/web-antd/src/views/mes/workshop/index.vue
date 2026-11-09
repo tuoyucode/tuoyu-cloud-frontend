@@ -1,24 +1,25 @@
 <script lang="ts" setup>
+import type { WorkshopApi } from '@tuoyu/shared/api/mes/workshop';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { WorkshopApi } from '#/api/mes/workshop';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportWorkshop,
   listWorkshop,
   removeWorkshop,
   updateWorkshop,
-} from '#/api/mes/workshop';
+} from '@tuoyu/shared/api/mes/workshop';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
 import WorkshopDrawer from './workshop-drawer.vue';

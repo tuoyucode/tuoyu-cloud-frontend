@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import type { RouteApi } from '#/api/mes/route';
+import type { RouteApi } from '@tuoyu/shared/api/mes/route';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { addRoute, getRoute, updateRoute } from '@tuoyu/shared/api/mes/route';
 import {
   Alert,
   Button,
@@ -16,7 +17,6 @@ import {
 } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addRoute, getRoute, updateRoute } from '#/api/mes/route';
 import { $t } from '#/locales';
 
 import { loadFormOptions, NO, SEQ_STEP, useFormSchema, YES } from './data';

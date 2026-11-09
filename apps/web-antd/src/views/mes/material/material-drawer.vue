@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import type { MaterialApi } from '#/api/mes/material';
+import type { MaterialApi } from '@tuoyu/shared/api/mes/material';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import {
+  addMaterial,
+  getMaterial,
+  updateMaterial,
+} from '@tuoyu/shared/api/mes/material';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addMaterial, getMaterial, updateMaterial } from '#/api/mes/material';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';

@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { OperationTaskApi } from '#/api/mes/operationTask';
+import type { OperationTaskApi } from '@tuoyu/shared/api/mes/operationTask';
 
 import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import { dispatchOperationTask } from '@tuoyu/shared/api/mes/operationTask';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { dispatchOperationTask } from '#/api/mes/operationTask';
 import { $t } from '#/locales';
 
 import { useDispatchSchema } from './data';

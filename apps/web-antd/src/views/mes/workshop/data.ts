@@ -1,9 +1,11 @@
+import type { WorkshopApi } from '@tuoyu/shared/api/mes/workshop';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { WorkshopApi } from '#/api/mes/workshop';
 
-import { getMesOptions, toSelectOptions } from '#/api/mes/common';
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 /** 启用的工厂（下拉选项） */

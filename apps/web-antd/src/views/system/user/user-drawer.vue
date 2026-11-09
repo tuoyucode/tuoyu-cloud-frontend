@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-import type { PostApi } from '#/api/system/post';
+import type { PostApi } from '@tuoyu/shared/api/system/post';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
-
-import { useVbenForm } from '#/adapter/form';
 import {
   addUser,
   getUser,
   listPostOptions,
   updateUser,
-} from '#/api/system/user';
+} from '@tuoyu/shared/api/system/user';
+import { ApiCryptoUnavailableError } from '@tuoyu/shared/utils/api-crypto';
+import { message } from 'ant-design-vue';
+
+import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
-import { ApiCryptoUnavailableError } from '#/utils/api-crypto';
 
 import { loadFormOptions, toUserForm, useFormSchema } from './data';
 

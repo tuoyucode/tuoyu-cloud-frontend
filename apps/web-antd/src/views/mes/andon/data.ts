@@ -1,9 +1,11 @@
+import type { AndonApi } from '@tuoyu/shared/api/mes/andon';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { AndonApi } from '#/api/mes/andon';
 
-import { getMesOptions, toSelectOptions } from '#/api/mes/common';
-import { listUserOptions } from '#/api/system/user';
+import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { listUserOptions } from '@tuoyu/shared/api/system/user';
+
 import { $t } from '#/locales';
 
 import { enumOptions } from '../_shared/enums';

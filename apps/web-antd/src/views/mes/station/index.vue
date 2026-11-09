@@ -1,24 +1,25 @@
 <script lang="ts" setup>
+import type { StationApi } from '@tuoyu/shared/api/mes/station';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { StationApi } from '#/api/mes/station';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportStation,
   listStation,
   removeStation,
   updateStation,
-} from '#/api/mes/station';
+} from '@tuoyu/shared/api/mes/station';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { toPageQuery } from '#/utils/page-query';
-import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
 import StationDrawer from './station-drawer.vue';

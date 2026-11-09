@@ -1,14 +1,17 @@
 <script lang="ts" setup>
-import type { InspectionApi } from '#/api/mes/inspection';
+import type { InspectionApi } from '@tuoyu/shared/api/mes/inspection';
 
 import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import {
+  getInspection,
+  inspectInspection,
+} from '@tuoyu/shared/api/mes/inspection';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { getInspection, inspectInspection } from '#/api/mes/inspection';
 import { $t } from '#/locales';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 

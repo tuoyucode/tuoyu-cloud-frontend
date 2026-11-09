@@ -1,11 +1,13 @@
+import type { TeamApi } from '@tuoyu/shared/api/mes/team';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { TeamApi } from '#/api/mes/team';
 
 import { markRaw } from 'vue';
 
-import { getMesOptions, toSelectOptions } from '#/api/mes/common';
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 import UserSelect from './user-select.vue';
