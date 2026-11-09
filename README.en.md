@@ -42,7 +42,7 @@ The dev server runs at `http://localhost:5666` and proxies `/api` to the local b
 
 ## API encryption
 
-Login, password changes and similar endpoints use the backend's API encryption protocol. The frontend stores no keys; it fetches the public key from the backend at runtime. See `docs/adr/0001-接口加密.md` in the backend repository.
+Login, password changes and similar endpoints use the backend's API encryption protocol. The frontend stores no keys; it fetches the public key from the backend at runtime. The backend's `ApiCryptoCodec` and its test vectors define the protocol.
 
 ## Contributing
 

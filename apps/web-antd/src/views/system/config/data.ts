@@ -1,8 +1,10 @@
+import type { ConfigApi } from '@tuoyu/shared/api/system/config';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { ConfigApi } from '#/api/system/config';
 
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 /** 字典 sys_yes_no：Y 表示系统内置 */

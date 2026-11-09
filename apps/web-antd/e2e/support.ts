@@ -56,8 +56,10 @@ export async function requireBackend(
 ): Promise<BackendInfo> {
   const url = `${env.apiURL}/auth/crypto/public-key`;
   let body: any;
+  let status: number;
   try {
     const response = await request.get(url, { timeout: 5000 });
+    status = response.status();
     body = await response.json();
   } catch (error) {
     skipOrFail(
@@ -66,8 +68,12 @@ export async function requireBackend(
     );
     return { cryptoEnabled: false };
   }
-  if (body?.code !== 200) {
-    skipOrFail(testInfo, `后端返回异常：${url} → ${JSON.stringify(body)}`);
+  // 成功为 HTTP 200 + code 0（ApiResult）
+  if (status !== 200 || body?.code !== 0) {
+    skipOrFail(
+      testInfo,
+      `后端返回异常：${url} → HTTP ${status} ${JSON.stringify(body)}`,
+    );
   }
   return { cryptoEnabled: !!body?.data?.enabled };
 }

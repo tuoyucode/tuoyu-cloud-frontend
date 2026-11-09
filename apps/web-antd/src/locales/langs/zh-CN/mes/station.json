@@ -1,0 +1,17 @@
+{
+  "title": "工位",
+  "list": "工位列表",
+  "create": "新增工位",
+  "edit": "编辑工位",
+  "delete": "删除工位",
+  "workshop": "所属车间",
+  "line": "所属产线",
+  "lineHelp": "所属车间与工厂按产线自动确定",
+  "stationCode": "工位编码",
+  "stationName": "工位名称",
+  "stationType": "工位类型",
+  "stationCodePlaceholder": "例如：ST01",
+  "stationNamePlaceholder": "例如：拧紧工位",
+  "stationTypePlaceholder": "选填，与工序的建议工位类型对应",
+  "exportFileName": "工位"
+}

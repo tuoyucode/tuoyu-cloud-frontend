@@ -1,8 +1,10 @@
+import type { SpelApi } from '@tuoyu/shared/api/workflow/spel';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { SpelApi } from '#/api/workflow/spel';
 
-import { DictType, getDictOptions } from '#/api/system/dict';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
 import { $t } from '#/locales';
 
 /** 查询条件 */

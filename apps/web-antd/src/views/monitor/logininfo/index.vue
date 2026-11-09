@@ -1,24 +1,26 @@
 <script lang="ts" setup>
+import type { LogininfoApi } from '@tuoyu/shared/api/monitor/logininfo';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { LogininfoApi } from '#/api/monitor/logininfo';
 
 import { ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   cleanLogininfo,
   exportLogininfo,
   listLogininfo,
   removeLogininfo,
   unlockAccount,
-} from '#/api/monitor/logininfo';
+} from '@tuoyu/shared/api/monitor/logininfo';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import { toQuery, useColumns, useSearchSchema } from './data';
 
@@ -48,18 +50,11 @@ const [Grid, gridApi] = useVbenVxeGrid({
     pagerConfig: { pageSize: 10, pageSizes: [10, 20, 50, 100] },
     proxyConfig: {
       ajax: {
-        query: async ({ page, sort }, formValues) => {
+        query: async ({ page, sorts }, formValues) => {
           selectedCount.value = 0;
           return await listLogininfo({
             ...toQuery(formValues),
-            ...(sort?.order
-              ? {
-                  isAsc: sort.order as 'asc' | 'desc',
-                  orderByColumn: sort.field,
-                }
-              : {}),
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page, sorts),
           });
         },
       },

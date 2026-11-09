@@ -1,9 +1,11 @@
+import type { DeptApi } from '@tuoyu/shared/api/system/dept';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { DeptApi } from '#/api/system/dept';
+
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
 
 import { z } from '#/adapter/form';
-import { DictType, getDictOptions } from '#/api/system/dict';
 import { $t } from '#/locales';
 
 /** 字典 sys_normal_disable：0 正常 */

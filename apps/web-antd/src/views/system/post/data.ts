@@ -1,9 +1,11 @@
+import type { PostApi } from '@tuoyu/shared/api/system/post';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { PostApi } from '#/api/system/post';
 
-import { DictType, getDictOptions } from '#/api/system/dict';
-import { getPostDeptTree } from '#/api/system/post';
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { getPostDeptTree } from '@tuoyu/shared/api/system/post';
+
 import { $t } from '#/locales';
 
 /** 查询条件：一行最多 4 个 */

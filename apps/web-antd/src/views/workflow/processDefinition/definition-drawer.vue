@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import type { DefinitionApi } from '#/api/workflow/definition';
+import type { DefinitionApi } from '@tuoyu/shared/api/workflow/definition';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
-import { message } from 'ant-design-vue';
-
-import { useVbenForm } from '#/adapter/form';
 import {
   addDefinition,
   getDefinition,
   updateDefinition,
-} from '#/api/workflow/definition';
+} from '@tuoyu/shared/api/workflow/definition';
+import { message } from 'ant-design-vue';
+
+import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 
 import { useFormSchema } from './data';

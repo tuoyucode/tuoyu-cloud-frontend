@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
+import { updatePassword } from '@tuoyu/shared/api/system/profile';
 import { Alert, Button, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { updatePassword } from '#/api/system/profile';
 import { $t } from '#/locales';
 
 import { usePasswordSchema } from './data';

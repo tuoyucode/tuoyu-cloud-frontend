@@ -1,23 +1,25 @@
 <script lang="ts" setup>
+import type { OperlogApi } from '@tuoyu/shared/api/monitor/operlog';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { OperlogApi } from '#/api/monitor/operlog';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   cleanOperlog,
   exportOperlog,
   listOperlog,
   removeOperlog,
-} from '#/api/monitor/operlog';
+} from '@tuoyu/shared/api/monitor/operlog';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import { toQuery, useColumns, useSearchSchema } from './data';
 import OperlogDrawer from './operlog-drawer.vue';
@@ -51,18 +53,11 @@ const [Grid, gridApi] = useVbenVxeGrid({
     pagerConfig: { pageSize: 10, pageSizes: [10, 20, 50, 100] },
     proxyConfig: {
       ajax: {
-        query: async ({ page, sort }, formValues) => {
+        query: async ({ page, sorts }, formValues) => {
           selectedCount.value = 0;
           return await listOperlog({
             ...toQuery(formValues),
-            ...(sort?.order
-              ? {
-                  isAsc: sort.order as 'asc' | 'desc',
-                  orderByColumn: sort.field,
-                }
-              : {}),
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page, sorts),
           });
         },
       },

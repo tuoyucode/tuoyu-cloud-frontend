@@ -1,15 +1,16 @@
 <script lang="ts" setup>
+import type { OnlineApi } from '@tuoyu/shared/api/monitor/online';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { OnlineApi } from '#/api/monitor/online';
 
 import { Page } from '@vben/common-ui';
 
+import { forceLogout, listOnline } from '@tuoyu/shared/api/monitor/online';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Popconfirm, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { forceLogout, listOnline } from '#/api/monitor/online';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
 
@@ -35,11 +36,11 @@ const [Grid, gridApi] = useVbenVxeGrid({
       ajax: {
         // 后端一次返回全部在线会话，在前端分页
         query: async ({ page }, formValues) => {
-          const { rows } = await listOnline(formValues);
+          const { items } = await listOnline(formValues);
           const start = (page.currentPage - 1) * page.pageSize;
           return {
-            rows: rows.slice(start, start + page.pageSize),
-            total: rows.length,
+            items: items.slice(start, start + page.pageSize),
+            total: items.length,
           };
         },
       },

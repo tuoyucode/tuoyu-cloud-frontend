@@ -1,9 +1,11 @@
+import type { DictApi } from '@tuoyu/shared/api/system/dict';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { DictApi } from '#/api/system/dict';
+
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
 
 import { z } from '#/adapter/form';
-import { DictType, getDictOptions } from '#/api/system/dict';
 import { $t } from '#/locales';
 
 /** 字典类型标识的格式，与后端 RegexConstants.DICTIONARY_TYPE 一致 */

@@ -1,25 +1,27 @@
 <script lang="ts" setup>
+import type { ClientApi } from '@tuoyu/shared/api/system/client';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { ClientApi } from '#/api/system/client';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportClient,
   listClient,
   removeClient,
   updateClientStatus,
-} from '#/api/system/client';
-import { DictType } from '#/api/system/dict';
+} from '@tuoyu/shared/api/system/client';
+import { DictType } from '@tuoyu/shared/api/system/dict';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import DictTag from '#/components/dict-tag.vue';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import ClientDrawer from './client-drawer.vue';
 import { useColumns, useSearchSchema } from './data';
@@ -62,8 +64,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           return await listClient({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           });
         },

@@ -1,23 +1,25 @@
 <script lang="ts" setup>
+import type { TenantApi } from '@tuoyu/shared/api/system/tenant';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { TenantApi } from '#/api/system/tenant';
 
 import { onMounted, ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
-import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
-import dayjs from 'dayjs';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   changeTenantStatus,
   isDefaultTenant,
   listTenant,
   removeTenant,
-} from '#/api/system/tenant';
+} from '@tuoyu/shared/api/system/tenant';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
+import dayjs from 'dayjs';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import { loadPackageOptions, useColumns, useSearchSchema } from './data';
 import TenantDrawer from './tenant-drawer.vue';
@@ -67,8 +69,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           return await listTenant({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           });
         },

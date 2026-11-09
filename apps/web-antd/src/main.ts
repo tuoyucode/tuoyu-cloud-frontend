@@ -1,12 +1,13 @@
 import { initPreferences, updatePreferences } from '@vben/preferences';
 import { unmountGlobalLoading } from '@vben/utils';
 
+import { toHashCallbackUrl } from '@tuoyu/shared/utils/social-callback';
+
 import {
   lockedPreferences,
   lockPreferences,
   overridesPreferences,
 } from './preferences';
-import { toHashCallbackUrl } from './utils/social-callback';
 
 /**
  * 应用初始化完成之后再进行页面加载渲染

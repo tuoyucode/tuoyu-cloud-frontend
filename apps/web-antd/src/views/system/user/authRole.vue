@@ -1,18 +1,20 @@
 <script lang="ts" setup>
+import type { RoleApi } from '@tuoyu/shared/api/system/role';
+import type { UserApi } from '@tuoyu/shared/api/system/user';
 import type { TableColumnsType } from 'ant-design-vue';
-
-import type { RoleApi } from '#/api/system/role';
-import type { UserApi } from '#/api/system/user';
 
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Page } from '@vben/common-ui';
 
+import { DictType } from '@tuoyu/shared/api/system/dict';
+import {
+  getUserAuthRole,
+  updateUserAuthRole,
+} from '@tuoyu/shared/api/system/user';
 import { Button, Descriptions, message, Table } from 'ant-design-vue';
 
-import { DictType } from '#/api/system/dict';
-import { getUserAuthRole, updateUserAuthRole } from '#/api/system/user';
 import DictTag from '#/components/dict-tag.vue';
 import { $t } from '#/locales';
 

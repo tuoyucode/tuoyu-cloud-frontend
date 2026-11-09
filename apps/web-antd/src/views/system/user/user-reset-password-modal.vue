@@ -3,12 +3,12 @@ import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import { resetUserPassword } from '@tuoyu/shared/api/system/user';
+import { ApiCryptoUnavailableError } from '@tuoyu/shared/utils/api-crypto';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { resetUserPassword } from '#/api/system/user';
 import { $t } from '#/locales';
-import { ApiCryptoUnavailableError } from '#/utils/api-crypto';
 
 import { useResetPasswordSchema } from './data';
 

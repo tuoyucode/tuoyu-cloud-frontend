@@ -7,9 +7,10 @@ import { ref } from 'vue';
 import { useVbenModal } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
+import { uploadOss } from '@tuoyu/shared/api/system/oss';
+import { errorMessageOf } from '@tuoyu/shared/utils/api-result';
 import { UploadDragger } from 'ant-design-vue';
 
-import { uploadOss } from '#/api/system/oss';
 import { $t } from '#/locales';
 
 import { UPLOAD_ACCEPT } from './data';
@@ -38,11 +39,9 @@ const [Modal, modalApi] = useVbenModal({
   },
 });
 
-/** 从请求错误中取出原因：优先使用后端的 msg（例如超过上传上限时的 413 提示） */
+/** 从请求错误中取出原因：优先使用后端的 message（例如超过上传上限时的 413 提示） */
 function errorReason(error: unknown): string {
-  const response = (error as { response?: { data?: { msg?: string } } })
-    ?.response;
-  return response?.data?.msg || $t('system.oss.uploadFailedUnknown');
+  return errorMessageOf(error, $t('system.oss.uploadFailedUnknown'));
 }
 
 async function customRequest(options: UploadRequestOption) {

@@ -1,0 +1,139 @@
+{
+  "MaterialType": {
+    "product": "Finished product",
+    "semi": "Semi-finished",
+    "raw": "Raw material",
+    "aux": "Auxiliary"
+  },
+  "TraceMode": {
+    "none": "None",
+    "batch": "By batch",
+    "sn": "By serial number"
+  },
+  "WarehouseType": {
+    "raw": "Raw material",
+    "wip": "WIP",
+    "finished": "Finished goods"
+  },
+  "WorkorderStatus": {
+    "draft": "Draft",
+    "released": "Released",
+    "in_progress": "In progress",
+    "paused": "Paused",
+    "completed": "Completed",
+    "closed": "Closed",
+    "cancelled": "Cancelled"
+  },
+  "WorkorderSource": {
+    "manual": "Manual",
+    "erp": "External system"
+  },
+  "TaskStatus": {
+    "pending": "Pending",
+    "dispatched": "Dispatched",
+    "in_progress": "In progress",
+    "completed": "Completed",
+    "closed": "Closed"
+  },
+  "ReportStatus": {
+    "reported": "Reported",
+    "confirmed": "Confirmed",
+    "cancelled": "Cancelled"
+  },
+  "MaterialRequestType": {
+    "issue": "Issue",
+    "supplement": "Supplement",
+    "return": "Return"
+  },
+  "MaterialRequestStatus": {
+    "draft": "Draft",
+    "submitted": "Submitted",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "StockInStatus": {
+    "submitted": "Submitted",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "InspectionType": {
+    "first": "First article",
+    "patrol": "Patrol",
+    "final": "Final"
+  },
+  "InspectionStatus": {
+    "pending": "Pending",
+    "completed": "Completed"
+  },
+  "InspectionResult": {
+    "passed": "Passed",
+    "rejected": "Rejected"
+  },
+  "DefectSource": {
+    "report": "Production report",
+    "inspection": "Inspection",
+    "manual": "Manual"
+  },
+  "DefectLevel": {
+    "minor": "Minor",
+    "major": "Major",
+    "critical": "Critical"
+  },
+  "DefectHandleMethod": {
+    "rework": "Rework",
+    "scrap": "Scrap",
+    "concession": "Concession"
+  },
+  "DefectHandleStatus": {
+    "pending": "Pending",
+    "handled": "Handled"
+  },
+  "ResetCycle": {
+    "none": "None",
+    "day": "Daily",
+    "month": "Monthly",
+    "year": "Yearly"
+  },
+  "SnStatus": {
+    "created": "Created",
+    "completed": "Completed",
+    "scrapped": "Scrapped"
+  },
+  "AndonType": {
+    "equipment": "Equipment",
+    "quality": "Quality",
+    "material": "Material",
+    "process": "Process",
+    "other": "Other"
+  },
+  "AndonLevel": {
+    "normal": "Normal",
+    "urgent": "Urgent",
+    "critical": "Critical"
+  },
+  "AndonStatus": {
+    "reported": "Reported",
+    "assigned": "Assigned",
+    "processing": "Processing",
+    "resolved": "Resolved",
+    "closed": "Closed"
+  },
+  "DowntimeReasonType": {
+    "equipment": "Equipment",
+    "material": "Material",
+    "quality": "Quality",
+    "personnel": "Personnel",
+    "other": "Other"
+  },
+  "BizType": {
+    "workorder": "Work order",
+    "operation_task": "Operation task",
+    "production_report": "Production report",
+    "material_request": "Material request",
+    "stock_in": "Stock-in",
+    "inspection": "Inspection",
+    "defect_record": "Defect record",
+    "andon_event": "Andon event",
+    "sn": "By serial number"
+  }
+}

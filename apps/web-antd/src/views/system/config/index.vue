@@ -1,23 +1,25 @@
 <script lang="ts" setup>
+import type { ConfigApi } from '@tuoyu/shared/api/system/config';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { ConfigApi } from '#/api/system/config';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Modal, Popconfirm, Tooltip } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportConfig,
   listConfig,
   refreshConfigCache,
   removeConfig,
-} from '#/api/system/config';
+} from '@tuoyu/shared/api/system/config';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Tooltip } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import ConfigDrawer from './config-drawer.vue';
 import { BUILT_IN, useColumns, useSearchSchema } from './data';
@@ -56,8 +58,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           return await listConfig({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           });
         },

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ProfileApi } from '#/api/system/profile';
+import type { ProfileApi } from '@tuoyu/shared/api/system/profile';
 
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
@@ -7,9 +7,9 @@ import { useRoute } from 'vue-router';
 import { Page } from '@vben/common-ui';
 import { preferences } from '@vben/preferences';
 
+import { getProfile } from '@tuoyu/shared/api/system/profile';
 import { Avatar, Card, Skeleton, TabPane, Tabs, Tag } from 'ant-design-vue';
 
-import { getProfile } from '#/api/system/profile';
 import { $t } from '#/locales';
 
 import BaseSetting from './base-setting.vue';

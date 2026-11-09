@@ -1,4 +1,4 @@
-import type { GenApi } from '#/api/tool/gen';
+import type { GenApi } from '@tuoyu/shared/api/tool/gen';
 
 import { describe, expect, it } from 'vitest';
 

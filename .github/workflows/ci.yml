@@ -34,7 +34,9 @@ jobs:
         run: pnpm run lint
 
       - name: Typecheck
-        run: pnpm -F @vben/web-antd run typecheck
+        run: |
+          pnpm -F @tuoyu/shared run typecheck
+          pnpm -F @vben/web-antd run typecheck
 
       - name: Unit tests
         run: pnpm run test:unit

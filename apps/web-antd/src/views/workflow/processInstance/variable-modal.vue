@@ -6,6 +6,11 @@ import { computed, ref } from 'vue';
 import { useVbenModal } from '@vben/common-ui';
 
 import {
+  getInstanceVariables,
+  updateInstanceVariable,
+} from '@tuoyu/shared/api/workflow/instance';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import {
   Alert,
   Button,
   Input,
@@ -15,12 +20,7 @@ import {
   Tooltip,
 } from 'ant-design-vue';
 
-import {
-  getInstanceVariables,
-  updateInstanceVariable,
-} from '#/api/workflow/instance';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import { formatVariableValue, isEditableVariable, variableType } from './data';
 

@@ -13,6 +13,7 @@ import { $t, setupI18n } from '#/locales';
 
 import { initComponentAdapter } from './adapter/component';
 import { initSetupVbenForm } from './adapter/form';
+import { initRequestAdapter } from './adapter/request';
 import App from './app.vue';
 import { router } from './router';
 
@@ -22,6 +23,9 @@ async function bootstrap(namespace: string) {
 
   // 初始化表单组件
   await initSetupVbenForm();
+
+  // 请求层的错误提示与退出登录
+  initRequestAdapter();
 
   // // 设置弹窗的默认配置
   // setDefaultModalProps({

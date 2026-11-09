@@ -5,16 +5,16 @@ import { useAppConfig } from '@vben/hooks';
 import { usePreferences } from '@vben/preferences';
 import { useAccessStore } from '@vben/stores';
 
-import { Spin } from 'ant-design-vue';
-
-import { CLIENT_ID } from '#/api/request';
-import { $t } from '#/locales';
+import { CLIENT_ID } from '@tuoyu/shared/api/request';
 import {
   buildWarmFlowUrl,
   parseWarmFlowMessage,
   resolveOrigin,
   themeMessage,
-} from '#/utils/warm-flow';
+} from '@tuoyu/shared/utils/warm-flow';
+import { Spin } from 'ant-design-vue';
+
+import { $t } from '#/locales';
 
 /**
  * 嵌入 Warm-Flow 自带的设计器或流程图（iframe）。令牌的传递方式见 utils/warm-flow.ts

@@ -1,13 +1,12 @@
 <script lang="ts" setup>
+import type { TreeNode } from '@tuoyu/shared/api/types';
 import type { TreeProps } from 'ant-design-vue';
-
-import type { TreeNode } from '#/api/types';
 
 import { computed, onMounted, ref, watch } from 'vue';
 
+import { getCategoryTree } from '@tuoyu/shared/api/workflow/category';
 import { Button, Empty, Input, Spin, Tree } from 'ant-design-vue';
 
-import { getCategoryTree } from '#/api/workflow/category';
 import { $t } from '#/locales';
 
 /** 左侧的流程分类树：选择后按分类（含下级）筛选 */

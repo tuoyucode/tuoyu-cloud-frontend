@@ -1,20 +1,23 @@
-import type { MessageItem, MessageLocalState } from '#/utils/message-box';
-import type { SseEvent } from '#/utils/sse';
+import type {
+  MessageItem,
+  MessageLocalState,
+} from '@tuoyu/shared/utils/message-box';
+import type { SseEvent } from '@tuoyu/shared/utils/sse';
 
 import { computed, ref } from 'vue';
 
 import { useAccessStore, useUserStore } from '@vben/stores';
 
-import { notification } from 'ant-design-vue';
-import { defineStore } from 'pinia';
-
 import {
   closeMessageStream,
   getMessageBox,
   messageStreamUrl,
-} from '#/api/core/message';
-import { CLIENT_ID, contentLanguage, formatToken } from '#/api/request';
-import { $t } from '#/locales';
+} from '@tuoyu/shared/api/core/message';
+import {
+  CLIENT_ID,
+  contentLanguage,
+  formatToken,
+} from '@tuoyu/shared/api/request';
 import {
   appendIds,
   fromMessageBox,
@@ -22,8 +25,12 @@ import {
   mergeMessages,
   parsePushData,
   saveMessageState,
-} from '#/utils/message-box';
-import { createEventStream } from '#/utils/sse';
+} from '@tuoyu/shared/utils/message-box';
+import { createEventStream } from '@tuoyu/shared/utils/sse';
+import { notification } from 'ant-design-vue';
+import { defineStore } from 'pinia';
+
+import { $t } from '#/locales';
 
 /** 超过这个时间没有收到任何数据就重连（后端每 60 秒发一次心跳） */
 const IDLE_TIMEOUT = 150_000;

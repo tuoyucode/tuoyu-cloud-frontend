@@ -1,6 +1,6 @@
-import type { UserInfo } from '@vben/types';
+import type { AuthApi } from '@tuoyu/shared/api';
 
-import type { AuthApi } from '#/api';
+import type { UserInfo } from '@vben/types';
 
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -9,12 +9,12 @@ import { LOGIN_PATH } from '@vben/constants';
 import { preferences } from '@vben/preferences';
 import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores';
 
+import { getUserInfoApi, loginApi, logoutApi } from '@tuoyu/shared/api';
+import { clearWarmFlowStorage } from '@tuoyu/shared/utils/warm-flow';
 import { notification } from 'ant-design-vue';
 import { defineStore } from 'pinia';
 
-import { getUserInfoApi, loginApi, logoutApi } from '#/api';
 import { $t } from '#/locales';
-import { clearWarmFlowStorage } from '#/utils/warm-flow';
 
 import { useMessageStore } from './message';
 

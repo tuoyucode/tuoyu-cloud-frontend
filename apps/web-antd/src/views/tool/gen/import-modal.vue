@@ -1,15 +1,17 @@
 <script lang="ts" setup>
+import type { GenApi } from '@tuoyu/shared/api/tool/gen';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { GenApi } from '#/api/tool/gen';
 
 import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import { importTables, listDbTable } from '@tuoyu/shared/api/tool/gen';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
 import { message } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { importTables, listDbTable } from '#/api/tool/gen';
 import { $t } from '#/locales';
 
 import { useImportColumns, useImportSearchSchema } from './data';
@@ -50,8 +52,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
           }
           updateSelectedCount();
           return await listDbTable({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
             dataName: next,
           });

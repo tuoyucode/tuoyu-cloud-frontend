@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import type { DictApi } from '#/api/system/dict';
+import type { DictApi } from '@tuoyu/shared/api/system/dict';
 
 import { computed, onMounted, ref } from 'vue';
 
+import { getDictOptions } from '@tuoyu/shared/api/system/dict';
 import { Tag } from 'ant-design-vue';
-
-import { getDictOptions } from '#/api/system/dict';
 
 const props = defineProps<{
   /** 字典类型，例如 sys_normal_disable */

@@ -1,0 +1,16 @@
+{
+  "title": "工厂",
+  "list": "工厂列表",
+  "create": "新增工厂",
+  "edit": "编辑工厂",
+  "delete": "删除工厂",
+  "factoryCode": "工厂编码",
+  "factoryName": "工厂名称",
+  "shortName": "简称",
+  "contact": "联系人",
+  "contactPhone": "联系电话",
+  "address": "地址",
+  "factoryCodePlaceholder": "例如：F01",
+  "factoryNamePlaceholder": "例如：华东一厂",
+  "exportFileName": "工厂"
+}

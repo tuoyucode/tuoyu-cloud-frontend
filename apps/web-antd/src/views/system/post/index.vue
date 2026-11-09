@@ -1,23 +1,25 @@
 <script lang="ts" setup>
+import type { PostApi } from '@tuoyu/shared/api/system/post';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { PostApi } from '#/api/system/post';
 
 import { ref } from 'vue';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportPost,
   listPost,
   removePost,
   updatePost,
-} from '#/api/system/post';
+} from '@tuoyu/shared/api/system/post';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm, Switch } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
 import PostDrawer from './post-drawer.vue';
@@ -60,8 +62,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           return await listPost({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           });
         },

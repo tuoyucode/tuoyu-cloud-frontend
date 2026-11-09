@@ -1,0 +1,16 @@
+{
+  "title": "Factory",
+  "list": "Factories",
+  "create": "New factory",
+  "edit": "Edit factory",
+  "delete": "Delete factory",
+  "factoryCode": "Factory code",
+  "factoryName": "Factory name",
+  "shortName": "Short name",
+  "contact": "Contact",
+  "contactPhone": "Contact phone",
+  "address": "Address",
+  "factoryCodePlaceholder": "e.g. F01",
+  "factoryNamePlaceholder": "e.g. East Plant 1",
+  "exportFileName": "factories"
+}

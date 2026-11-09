@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import type { RoleApi } from '#/api/system/role';
+import type { RoleApi } from '@tuoyu/shared/api/system/role';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
-
-import { Alert, Descriptions, Form, message, Select } from 'ant-design-vue';
 
 import {
   getRole,
   getRoleDeptTree,
   getRoleMenuTree,
   updateRolePermission,
-} from '#/api/system/role';
+} from '@tuoyu/shared/api/system/role';
+import { Alert, Descriptions, Form, message, Select } from 'ant-design-vue';
+
 import { $t } from '#/locales';
 
 import { DATA_SCOPE_CUSTOM, useDataScopeOptions } from './data';

@@ -1,10 +1,12 @@
+import type { UserApi } from '@tuoyu/shared/api/system/user';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { UserApi } from '#/api/system/user';
+
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { getUserDeptTree } from '@tuoyu/shared/api/system/user';
 
 import { z } from '#/adapter/form';
-import { DictType, getDictOptions } from '#/api/system/dict';
-import { getUserDeptTree } from '#/api/system/user';
 import { $t } from '#/locales';
 
 /** 密码长度与登录接口一致 */

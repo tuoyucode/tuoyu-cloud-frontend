@@ -2,7 +2,7 @@
 
 tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个通用的 Java 微服务框架，同一套代码既能按微服务部署，也能按单体部署，不面向任何具体业务。项目采用 MIT 协议。
 
-本文写的是在这个仓库里写代码时需要遵守的约定。接口契约（Controller、VO、BO、返回格式）以后端仓库 [tuoyu-cloud](https://gitee.com/tuoyucode/tuoyu-cloud) 的代码为准；后端的设计决定记录在它的 `docs/adr/` 下。
+本文写的是在这个仓库里写代码时需要遵守的约定。接口契约（Controller、VO、BO、返回格式）以后端仓库 [tuoyu-cloud](https://gitee.com/tuoyucode/tuoyu-cloud) 的代码为准。
 
 仓库同时托管在 Gitee 与 GitHub，两边提交历史一致，CI（GitHub Actions）在 GitHub 上运行。
 
@@ -10,6 +10,18 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 
 - 框架层使用官方 [Vben Admin 5](https://github.com/vbenjs/vue-vben-admin)（MIT），UI 库为 Ant Design Vue。只使用 Vben 的布局、权限、路由、主题和组件封装，1.0 只支持 Ant Design Vue 一种 UI 库。
 - Vben 的代码按原样导入（提交说明里记录上游 commit），之后再改名、精简。导入提交和改名提交不要混在一起。
+
+## 应用与共享包
+
+- `apps/web-antd`：Ant Design Vue 版的应用，放页面（`views`）、布局、组件适配（`adapter`）、store、页面文案。
+- `packages/shared`（`@tuoyu/shared`）：与 UI 组件库无关的代码，可供不同 UI 库的应用共用：
+  - `api/`：请求层 `request.ts`、各模块的接口与类型（`api/<模块>/<业务>.ts`）、通用类型 `api/types.ts`；`@tuoyu/shared/api` 是登录、用户信息、菜单等核心接口的入口；
+  - `utils/`：接口加密、返回结构、分页与排序参数、按钮权限、登录租户、SSE、消息解析、树、Warm-Flow、第三方回调、文案嵌套；
+  - `router/backend-routes.ts`：后端菜单转换为路由；
+  - `locales/`：共享代码用到的文案（`sharedMessages`，目前是请求层的提示），应用加载语言包时合并，应用的同名键优先。
+- 引用写完整的子路径，例如 `@tuoyu/shared/api/system/post`、`@tuoyu/shared/utils/page-query`。本文中提到的 `api/...`、`utils/...` 都在 `packages/shared/src` 下。
+- 共享包不能引用 UI 组件库、Vben 的界面包（`@vben/common-ui`、`@vben/layouts`、`@vben/plugins`）和应用的 `#/` 别名，`src/__tests__/ui-independence.test.ts` 会检查。需要界面配合的地方由应用注入：请求层的错误提示与退出登录在启动时通过 `setupRequestHandlers` 提供（`apps/web-antd/src/adapter/request.ts`）。
+- 共享包有自己的类型检查：`pnpm -F @tuoyu/shared run typecheck`。
 
 ## 必须遵守的规则
 
@@ -27,7 +39,7 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 - Node `^22.18.0 || ^24.12.0`，pnpm `>= 11`（以 `package.json` 中的 `engines` 和 `packageManager` 为准）。
 - 常用命令：`pnpm install`、`pnpm dev:antd`、`pnpm build:antd`、`pnpm lint`、`pnpm test:unit`、`pnpm test:e2e`。
 - 提交前 lefthook 会自动运行 oxfmt、eslint、stylelint、类型检查和 oxlint（含 vitest 规则），不通过就提交不了。请不要用 `--no-verify` 跳过。
-- 本地检查与 CI 保持一致：`pnpm run lint`（全仓）、`pnpm -F @vben/web-antd run typecheck`、`pnpm run test:unit`（全仓）、`pnpm run build:antd`。只检查 `apps/web-antd/src` 会漏掉根目录配置的问题。CI 配置在 `.github/workflows/ci.yml`，另外用 `playwright test --list` 确认端到端测试能加载。
+- 本地检查与 CI 保持一致：`pnpm run lint`（全仓）、`pnpm -F @tuoyu/shared run typecheck`、`pnpm -F @vben/web-antd run typecheck`、`pnpm run test:unit`（全仓）、`pnpm run build:antd`。只检查 `apps/web-antd/src` 会漏掉根目录配置的问题。CI 配置在 `.github/workflows/ci.yml`，另外用 `playwright test --list` 确认端到端测试能加载。
 
 ## 提交说明
 
@@ -75,10 +87,11 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 
 ## 请求层
 
-请求层在 `apps/web-antd/src/api/request.ts`。
+请求层在 `packages/shared/src/api/request.ts`，错误提示与登录失效后的退出由应用提供（`apps/web-antd/src/adapter/request.ts`）。
 
-- 后端统一返回 `R`（`code` / `msg` / `data`），`code` 为 200 时返回 `data`；分页接口返回 `R<PageResult>`，`data` 为 `{ rows, total }`，表格适配器已经按这个结构配置好。
-- 失败时优先提示后端的 `msg`。后端的未登录是 HTTP 200 加 `code` 401，请求层会转为重新登录。
+- 后端统一返回 `ApiResult`（`code` / `message` / `data` / `traceId`）：成功为 HTTP 200 加 `code` 0，请求层返回 `data`；分页接口的 `data` 为 `{ items, total }`，表格适配器已经按这个结构配置好。
+- 失败时 HTTP 状态码表达错误类别，响应体结构相同。请求层优先提示后端的 `message`，没有时按状态码提示（413、429 等有单独的文案）；5xx 的提示附带可复制的 `traceId`，便于对照后端日志。401 转为重新登录。页面需要展示失败原因时用 `utils/api-result.ts` 的 `errorMessageOf`，不要自己读响应体。
+- 分页参数为 `page`（从 1 开始）、`pageSize`、`sort`（可重复，每项 `属性名,asc|desc`）。数组参数按 `sort=a&sort=b` 发送。
 - 每个请求带 `Authorization: Bearer <token>`、`clientid`（`VITE_APP_CLIENT_ID`）和 `Content-Language`。注意后端要求 `zh_CN` 这种下划线格式。
 - 后端标注了 `@ApiEncrypt` 的接口用 `postEncrypted()` / `putEncrypted()` 调用，不要自己拼加密信封。目前有：登录、注册、修改密码、重置密码、新增用户、新增租户。
 - 没有 refresh token，登录失效就重新登录。
@@ -89,7 +102,7 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 
 ## 菜单与路由
 
-`apps/web-antd/src/router/backend-routes.ts`。
+后端菜单的转换在 `packages/shared/src/router/backend-routes.ts`，加载与布局在 `apps/web-antd/src/router/access.ts`。
 
 - 访问模式为 `mixed`：菜单来自后端 `/system/menu/getRouters`，本地静态路由（首页等）同时保留。
 - 后端菜单的 `component` 填 `views` 下的相对路径，不带 `.vue`，例如 `system/post/index` 对应 `views/system/post/index.vue`。前端还没有的页面显示“敬请期待”。后端菜单种子数据中的路径以本仓库的目录为准。
@@ -101,8 +114,8 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 新页面以岗位管理 `views/system/post/` 为准编写。后端代码生成器默认生成的就是这种风格的代码。
 
 - 目录：`views/<模块>/<业务>/index.vue`（列表页）、`data.ts`（查询条件、表格列、表单字段）、`<业务>-drawer.vue`（新增与编辑抽屉）。
-- 接口：`api/<模块>/<业务>.ts`，类型放在同名 `namespace` 中（如 `PostApi.Post`），函数名为 `list*`、`get*`、`add*`、`update*`、`remove*`、`export*`；分页、树节点等通用类型在 `api/types.ts`。
-- 表格用 `useVbenVxeGrid`：查询条件一行最多 4 个；每页默认 10 条，可选 10 / 20 / 50 / 100；工具栏左侧依次为新增、删除所选、导出；状态列用开关，行内操作为编辑与删除（删除用气泡确认）。
+- 接口：`packages/shared/src/api/<模块>/<业务>.ts`（页面中引用为 `@tuoyu/shared/api/<模块>/<业务>`），类型放在同名 `namespace` 中（如 `PostApi.Post`），函数名为 `list*`、`get*`、`add*`、`update*`、`remove*`、`export*`；分页、树节点等通用类型在 `api/types.ts`。
+- 表格用 `useVbenVxeGrid`：查询条件一行最多 4 个；每页默认 10 条，可选 10 / 20 / 50 / 100；工具栏左侧依次为新增、删除所选、导出；状态列用开关，行内操作为编辑与删除（删除用气泡确认）。分页参数用 `utils/page-query.ts` 的 `toPageQuery(page)` 生成。
 - 表单用右侧抽屉，两列排布，备注占整行；保存成功提示“已保存”并刷新列表。
 - 按钮级权限用 `hasPermission('system:post:add')`（`utils/permission.ts`，已处理超级管理员的 `*:*:*`），权限码与后端 `@SaCheckPermission` 一致。后端另外要求 `@SaCheckRole(superadmin)` 的操作（目前是菜单的增删改）用 `hasSuperAdminPermission()`，它同时判断角色与权限码。
 - 字典用 `getDictOptions(DictType.xxx)`（`api/system/dict.ts`，带缓存）。字典类型一律从 `DictType` 常量引用，页面中不要定义本地字典常量；字典的增删改接口成功后会自动 `clearDictCache()`。列表中的字典列用 `cellRender: { name: 'CellDict', props: { dictType } }`（`components/dict-tag.vue`）。
@@ -111,9 +124,9 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 - 同一业务有多个页面时（如文件列表与存储配置），共用一个 `data.ts`（用函数名区分，如 `useConfigColumns`）和一个文案文件，第二个页面的文案放在子对象中（`system.oss.config.*`）；弹窗用 `<业务>-modal.vue`。
 - 后端的 Long 型 ID 一律按字符串处理（顶级的 `parentId` 是数字 0，比较时统一 `String()`）；数组类查询参数用逗号拼接。
 - 树表接口返回扁平列表时用 `listToTree()`（`utils/tree.ts`）。
-- 远程排序：列上 `sortable: true`，`sortConfig: { remote: true }` 与 `proxyConfig.sort: true`，查询时把 `sort.field` / `sort.order` 作为 `orderByColumn` / `isAsc` 传给后端。
+- 远程排序：列上 `sortable: true`，`sortConfig: { remote: true }` 与 `proxyConfig.sort: true`，查询时用 `toPageQuery(page, sorts)` 把排序转成 `sort` 参数。排序字段必须是后端实体的属性名（后端按实体校验，不在实体中的拒绝）。
 
-代码生成器下载的 zip 中，`vben/` 目录与 `apps/web-antd/src/` 一一对应，直接复制即可。英文文案是由字段名生成的，需要按业务含义修改；图片与文件上传字段目前生成为输入框。
+代码生成器下载的 zip 中，`vben/` 目录与本仓库的根目录一一对应（接口在 `packages/shared/src/api`，页面与文案在 `apps/web-antd/src`），直接复制即可。英文文案是由字段名生成的，需要按业务含义修改；图片与文件上传字段目前生成为输入框。
 
 ### 其他页面形式
 
@@ -154,7 +167,7 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 
 ## 接口加密
 
-按后端仓库 `docs/adr/0001-接口加密.md` 实现（RSA-OAEP-256 + AES-256-GCM）。
+协议 v1（RSA-OAEP-256 + AES-256-GCM）以后端仓库 `tuoyu-framework/tuoyu-common-encrypt` 中的 `ApiCryptoCodec` 为准。
 
 - 公钥运行时从 `/auth/crypto/public-key` 获取，前端不保存、不配置任何密钥。
 - HTTPS 或 `localhost` 下用 WebCrypto；非 HTTPS 且后端允许时，按需加载 MIT / BSD 协议的 JavaScript 加密库。

@@ -1,0 +1,42 @@
+{
+  "name": "@tuoyu/shared",
+  "version": "0.1.0",
+  "description": "与 UI 组件库无关的共享代码：请求层、接口定义、接口加密与工具函数",
+  "private": true,
+  "license": "MIT",
+  "author": "tuoyu",
+  "type": "module",
+  "scripts": {
+    "typecheck": "vue-tsc --noEmit --skipLibCheck"
+  },
+  "exports": {
+    "./api": {
+      "types": "./src/api/index.ts",
+      "default": "./src/api/index.ts"
+    },
+    "./api/core": {
+      "types": "./src/api/core/index.ts",
+      "default": "./src/api/core/index.ts"
+    },
+    "./locales": {
+      "types": "./src/locales/index.ts",
+      "default": "./src/locales/index.ts"
+    },
+    "./*": {
+      "types": "./src/*.ts",
+      "default": "./src/*.ts"
+    }
+  },
+  "dependencies": {
+    "@vben/hooks": "workspace:*",
+    "@vben/locales": "workspace:*",
+    "@vben/preferences": "workspace:*",
+    "@vben/request": "workspace:*",
+    "@vben/stores": "workspace:*",
+    "@vben/types": "workspace:*",
+    "@vben/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "pinia": "catalog:"
+  }
+}

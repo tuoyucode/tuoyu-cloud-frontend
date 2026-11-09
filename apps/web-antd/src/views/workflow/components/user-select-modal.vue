@@ -1,16 +1,18 @@
 <script lang="ts" setup>
+import type { UserApi } from '@tuoyu/shared/api/system/user';
+
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { UserApi } from '#/api/system/user';
 
 import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import { listUserOptions } from '@tuoyu/shared/api/system/user';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
 import { message } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { listUserOptions } from '#/api/system/user';
 import { $t } from '#/locales';
 
 /**
@@ -83,8 +85,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         // 选择用户接口只要求登录（办理人通常没有用户管理权限），只返回正常状态的用户
         query: async ({ page }, formValues) =>
           await listUserOptions({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           }),
       },

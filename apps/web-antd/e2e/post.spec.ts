@@ -26,11 +26,29 @@ function drawer(page: Page): Locator {
   return page.getByRole('dialog').last();
 }
 
-/** 按岗位编码查询 */
+/**
+ * 按岗位编码查询，并确认分页接口的契约：请求带 page（从 1 开始）与 pageSize，
+ * 返回 ApiResult（code 0），data 为 { items, total }
+ */
 async function searchByCode(page: Page, code: string) {
   const form = page.locator('form').first();
   await form.getByLabel('岗位编码', { exact: true }).fill(code);
+  const listResponse = page.waitForResponse((res) =>
+    new URL(res.url()).pathname.endsWith('/system/post/list'),
+  );
   await form.getByRole('button', { name: /搜\s*索|查\s*询/ }).click();
+
+  const response = await listResponse;
+  const params = new URL(response.url()).searchParams;
+  expect(params.get('page')).toBe('1');
+  expect(params.get('pageSize')).toBe('10');
+  expect(params.has('pageNum')).toBe(false);
+  expect(response.status()).toBe(200);
+  const body = await response.json();
+  expect(body.code).toBe(0);
+  expect(typeof body.traceId).toBe('string');
+  expect(Array.isArray(body.data?.items)).toBe(true);
+  expect(typeof body.data?.total).toBe('number');
 }
 
 test.describe('岗位管理', () => {

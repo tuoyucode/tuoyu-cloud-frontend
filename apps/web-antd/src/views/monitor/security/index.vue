@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import type { SecurityApi } from '#/api/monitor/security';
+import type { SecurityApi } from '@tuoyu/shared/api/monitor/security';
 
 import { computed, onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 import { formatDateTime } from '@vben/utils';
 
+import { getSecurityOverview } from '@tuoyu/shared/api/monitor/security';
 import { Alert, Card, Switch, Table, Tag } from 'ant-design-vue';
 
-import { getSecurityOverview } from '#/api/monitor/security';
 import { $t } from '#/locales';
 
 defineOptions({ name: 'MonitorSecurity' });

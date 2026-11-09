@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { EchartsUIType } from '@vben/plugins/echarts';
+import type { CacheApi } from '@tuoyu/shared/api/monitor/cache';
 
-import type { CacheApi } from '#/api/monitor/cache';
+import type { EchartsUIType } from '@vben/plugins/echarts';
 
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
@@ -9,6 +9,7 @@ import { Page } from '@vben/common-ui';
 import { EchartsUI, useEcharts } from '@vben/plugins/echarts';
 import { usePreferences } from '@vben/preferences';
 
+import { getCacheInfo } from '@tuoyu/shared/api/monitor/cache';
 import {
   Button,
   Card,
@@ -19,7 +20,6 @@ import {
   Tag,
 } from 'ant-design-vue';
 
-import { getCacheInfo } from '#/api/monitor/cache';
 import { $t } from '#/locales';
 
 defineOptions({ name: 'MonitorCache' });

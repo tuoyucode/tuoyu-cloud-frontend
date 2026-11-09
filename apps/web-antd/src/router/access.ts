@@ -6,13 +6,12 @@ import type {
 import { generateAccessible } from '@vben/access';
 import { preferences } from '@vben/preferences';
 
+import { getAllMenusApi } from '@tuoyu/shared/api';
+import { convertBackendRoutes } from '@tuoyu/shared/router/backend-routes';
 import { message } from 'ant-design-vue';
 
-import { getAllMenusApi } from '#/api';
 import { BasicLayout, IFrameView } from '#/layouts';
 import { $t } from '#/locales';
-
-import { convertBackendRoutes } from './backend-routes';
 
 const forbiddenComponent = () => import('#/views/_core/fallback/forbidden.vue');
 

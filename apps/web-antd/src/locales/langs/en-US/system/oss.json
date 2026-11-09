@@ -10,7 +10,6 @@
   "uploadDone": "Done",
   "delete": "Delete file",
   "download": "Download",
-  "downloadFailed": "Download failed. The file may have been deleted. Refresh the list and try again.",
   "storageSettings": "Storage settings",
   "preview": "Preview",
   "originalName": "File name",

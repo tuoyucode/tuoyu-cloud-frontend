@@ -1,16 +1,21 @@
 <script lang="ts" setup>
-import type { MenuApi } from '#/api/system/menu';
+import type { MenuApi } from '@tuoyu/shared/api/system/menu';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import {
+  addMenu,
+  getMenu,
+  listMenu,
+  updateMenu,
+} from '@tuoyu/shared/api/system/menu';
+import { listToTree } from '@tuoyu/shared/utils/tree';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addMenu, getMenu, listMenu, updateMenu } from '#/api/system/menu';
 import { $t } from '#/locales';
-import { listToTree } from '#/utils/tree';
 
 import {
   loadFormOptions,

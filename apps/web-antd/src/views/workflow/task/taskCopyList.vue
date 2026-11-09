@@ -1,15 +1,17 @@
 <script lang="ts" setup>
+import type { TaskApi } from '@tuoyu/shared/api/workflow/task';
+
 import type { ProcessDrawerData } from './task-utils';
 
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { TaskApi } from '#/api/workflow/task';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
+import { listMyCopyTask } from '@tuoyu/shared/api/workflow/task';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
 import { Button } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { listMyCopyTask } from '#/api/workflow/task';
 import { $t } from '#/locales';
 
 import ProcessDrawer from '../components/process-drawer.vue';
@@ -37,8 +39,7 @@ const [Grid] = useVbenVxeGrid({
       ajax: {
         query: async ({ page }, formValues) =>
           await listMyCopyTask({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
           }),
       },

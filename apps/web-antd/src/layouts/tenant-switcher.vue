@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import type { TenantApi } from '#/api/system/tenant';
+import type { TenantApi } from '@tuoyu/shared/api/system/tenant';
 
 import { computed, onMounted, ref } from 'vue';
 
 import { useUserStore } from '@vben/stores';
-
-import { Button, message, Select, Tag, Tooltip } from 'ant-design-vue';
 
 import {
   clearTenantSwitch,
@@ -13,8 +11,10 @@ import {
   getCurrentTenant,
   listTenant,
   switchTenant,
-} from '#/api/system/tenant';
-import { isSuperAdminUser } from '#/api/system/user';
+} from '@tuoyu/shared/api/system/tenant';
+import { isSuperAdminUser } from '@tuoyu/shared/api/system/user';
+import { Button, message, Select, Tag, Tooltip } from 'ant-design-vue';
+
 import { $t } from '#/locales';
 
 /** 下拉中最多列出的租户数（后端分页上限 500） */
@@ -67,8 +67,8 @@ async function load() {
 async function loadTenants() {
   loading.value = true;
   try {
-    const page = await listTenant({ pageNum: 1, pageSize: MAX_TENANTS });
-    tenants.value = page.rows;
+    const page = await listTenant({ page: 1, pageSize: MAX_TENANTS });
+    tenants.value = page.items;
   } catch {
     // 没有租户查询权限时只显示当前租户与“退出租户”
   } finally {

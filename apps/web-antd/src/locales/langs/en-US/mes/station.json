@@ -1,0 +1,17 @@
+{
+  "title": "Station",
+  "list": "Stations",
+  "create": "New station",
+  "edit": "Edit station",
+  "delete": "Delete station",
+  "workshop": "Workshop",
+  "line": "Production line",
+  "lineHelp": "The workshop and factory follow the selected line",
+  "stationCode": "Station code",
+  "stationName": "Station name",
+  "stationType": "Station type",
+  "stationCodePlaceholder": "e.g. ST01",
+  "stationNamePlaceholder": "e.g. Screwing station",
+  "stationTypePlaceholder": "Optional, matches the suggested station type of operations",
+  "exportFileName": "stations"
+}

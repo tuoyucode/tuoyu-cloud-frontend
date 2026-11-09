@@ -1,20 +1,21 @@
 <script lang="ts" setup>
+import type { CategoryApi } from '@tuoyu/shared/api/workflow/category';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { CategoryApi } from '#/api/workflow/category';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { formatDate } from '@vben/utils';
 
-import { Button, message, Popconfirm } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   exportCategory,
   listCategory,
   removeCategory,
-} from '#/api/workflow/category';
+} from '@tuoyu/shared/api/workflow/category';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Popconfirm } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import CategoryDrawer from './category-drawer.vue';
 import { useColumns, useSearchSchema } from './data';
@@ -50,7 +51,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
           setTimeout(() =>
             expandAfterQuery(rows, !!formValues?.categoryName, first),
           );
-          return { rows };
+          return { items: rows };
         },
       },
     },

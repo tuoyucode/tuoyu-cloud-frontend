@@ -1,22 +1,24 @@
 <script lang="ts" setup>
+import type { RoleApi } from '@tuoyu/shared/api/system/role';
+import type { UserApi } from '@tuoyu/shared/api/system/user';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { RoleApi } from '#/api/system/role';
-import type { UserApi } from '#/api/system/user';
 
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Page, useVbenModal } from '@vben/common-ui';
 
-import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   cancelRoleUser,
   cancelRoleUsers,
   getRole,
   listAllocatedUser,
-} from '#/api/system/role';
+} from '@tuoyu/shared/api/system/role';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
 
 import { useUserColumns, useUserSearchSchema } from './data';
@@ -59,11 +61,10 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           if (!roleId.value) {
-            return { rows: [], total: 0 };
+            return { items: [], total: 0 };
           }
           return await listAllocatedUser({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
             roleId: roleId.value,
           });

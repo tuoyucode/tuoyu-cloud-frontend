@@ -16,6 +16,7 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@tuoyu/shared": "workspace:*",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",

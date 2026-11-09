@@ -1,0 +1,19 @@
+{
+  "title": "Material",
+  "list": "Materials",
+  "create": "New material",
+  "edit": "Edit material",
+  "delete": "Delete material",
+  "materialCode": "Material code",
+  "materialName": "Material name",
+  "specification": "Specification",
+  "materialType": "Material type",
+  "unit": "Unit",
+  "traceMode": "Traceability",
+  "traceModeHelp": "Products traced by serial number can have serial numbers generated; batch tracing records batch numbers on issues and completions",
+  "materialCodePlaceholder": "e.g. M0001",
+  "materialNamePlaceholder": "e.g. Motor housing",
+  "unitPlaceholder": "e.g. pcs, kg, m",
+  "searchPlaceholder": "Type a code or name to search materials",
+  "exportFileName": "materials"
+}

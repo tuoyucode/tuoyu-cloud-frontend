@@ -1,16 +1,15 @@
 <script lang="ts" setup>
+import type { TreeNode } from '@tuoyu/shared/api/types';
 import type { UploadProps } from 'ant-design-vue';
-
-import type { TreeNode } from '#/api/types';
 
 import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import { getCategoryTree } from '@tuoyu/shared/api/workflow/category';
+import { importDefinition } from '@tuoyu/shared/api/workflow/definition';
 import { Alert, message, TreeSelect, Upload } from 'ant-design-vue';
 
-import { getCategoryTree } from '#/api/workflow/category';
-import { importDefinition } from '#/api/workflow/definition';
 import { $t } from '#/locales';
 
 const emit = defineEmits<{ success: [] }>();

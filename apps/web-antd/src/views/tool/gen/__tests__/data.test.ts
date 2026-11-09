@@ -2,7 +2,6 @@ import { describe, expect, it, vi } from 'vitest';
 
 import {
   downloadFileName,
-  frontendTypeLabel,
   templateLabel,
   templateLanguage,
   toQuery,
@@ -29,12 +28,6 @@ describe('代码生成：列表数据处理', () => {
     expect(templateLabel('fm/java/domain.java.ftl')).toBe('java/domain.java');
     expect(templateLanguage('fm/vben/index.vue.ftl')).toBe('vue');
     expect(templateLanguage('fm/sql/mysql.sql.ftl')).toBe('sql');
-  });
-
-  it('前端模板的显示名称，未设置时为 Vben', () => {
-    expect(frontendTypeLabel(undefined)).toContain('Vben');
-    expect(frontendTypeLabel('vue')).toBe('Element Plus');
-    expect(frontendTypeLabel('custom')).toBe('custom');
   });
 
   it('下载文件名：单张表用表名，多张表用统一名称', () => {

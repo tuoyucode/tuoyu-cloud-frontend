@@ -1,0 +1,12 @@
+{
+  "title": "Downtime reasons",
+  "list": "Downtime reasons",
+  "create": "New reason",
+  "edit": "Edit reason",
+  "delete": "Delete reason",
+  "reasonCode": "Reason code",
+  "reasonName": "Reason name",
+  "reasonType": "Category",
+  "reasonCodePlaceholder": "e.g. DT01",
+  "reasonNamePlaceholder": "e.g. Equipment failure"
+}

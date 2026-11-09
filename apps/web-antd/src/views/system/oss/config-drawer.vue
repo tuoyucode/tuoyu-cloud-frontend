@@ -1,15 +1,19 @@
 <script lang="ts" setup>
-import type { OssApi } from '#/api/system/oss';
+import type { OssApi } from '@tuoyu/shared/api/system/oss';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import {
+  addOssConfig,
+  getOssConfig,
+  updateOssConfig,
+} from '@tuoyu/shared/api/system/oss';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { DictType, getDictOptions } from '#/api/system/dict';
-import { addOssConfig, getOssConfig, updateOssConfig } from '#/api/system/oss';
 import { $t } from '#/locales';
 
 import { useConfigFormSchema } from './data';

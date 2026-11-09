@@ -1,0 +1,19 @@
+{
+  "title": "物料",
+  "list": "物料列表",
+  "create": "新增物料",
+  "edit": "编辑物料",
+  "delete": "删除物料",
+  "materialCode": "物料编码",
+  "materialName": "物料名称",
+  "specification": "规格型号",
+  "materialType": "物料类型",
+  "unit": "计量单位",
+  "traceMode": "追溯方式",
+  "traceModeHelp": "按序列号追溯的产品可以生成产品序列号；按批次追溯时记录领料与完工的批次号",
+  "materialCodePlaceholder": "例如：M0001",
+  "materialNamePlaceholder": "例如：电机外壳",
+  "unitPlaceholder": "例如：个、kg、m",
+  "searchPlaceholder": "输入编码或名称搜索物料",
+  "exportFileName": "物料"
+}

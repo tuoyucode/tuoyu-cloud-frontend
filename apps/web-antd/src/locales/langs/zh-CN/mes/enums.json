@@ -1,0 +1,139 @@
+{
+  "MaterialType": {
+    "product": "成品",
+    "semi": "半成品",
+    "raw": "原材料",
+    "aux": "辅料"
+  },
+  "TraceMode": {
+    "none": "不追溯",
+    "batch": "按批次",
+    "sn": "按序列号"
+  },
+  "WarehouseType": {
+    "raw": "原材料仓",
+    "wip": "在制品仓",
+    "finished": "成品仓"
+  },
+  "WorkorderStatus": {
+    "draft": "草稿",
+    "released": "已下达",
+    "in_progress": "生产中",
+    "paused": "已暂停",
+    "completed": "已完工",
+    "closed": "已关闭",
+    "cancelled": "已取消"
+  },
+  "WorkorderSource": {
+    "manual": "手工创建",
+    "erp": "外部系统"
+  },
+  "TaskStatus": {
+    "pending": "待派工",
+    "dispatched": "已派工",
+    "in_progress": "生产中",
+    "completed": "已完成",
+    "closed": "已关闭"
+  },
+  "ReportStatus": {
+    "reported": "已提交",
+    "confirmed": "已确认",
+    "cancelled": "已撤销"
+  },
+  "MaterialRequestType": {
+    "issue": "领料",
+    "supplement": "补料",
+    "return": "退料"
+  },
+  "MaterialRequestStatus": {
+    "draft": "草稿",
+    "submitted": "已提交",
+    "completed": "已完成",
+    "cancelled": "已取消"
+  },
+  "StockInStatus": {
+    "submitted": "已提交",
+    "completed": "已入库",
+    "cancelled": "已取消"
+  },
+  "InspectionType": {
+    "first": "首检",
+    "patrol": "巡检",
+    "final": "完工检"
+  },
+  "InspectionStatus": {
+    "pending": "待检验",
+    "completed": "已完成"
+  },
+  "InspectionResult": {
+    "passed": "合格",
+    "rejected": "不合格"
+  },
+  "DefectSource": {
+    "report": "报工",
+    "inspection": "检验",
+    "manual": "手工登记"
+  },
+  "DefectLevel": {
+    "minor": "轻微",
+    "major": "严重",
+    "critical": "致命"
+  },
+  "DefectHandleMethod": {
+    "rework": "返工",
+    "scrap": "报废",
+    "concession": "让步接收"
+  },
+  "DefectHandleStatus": {
+    "pending": "待处置",
+    "handled": "已处置"
+  },
+  "ResetCycle": {
+    "none": "不重置",
+    "day": "每天",
+    "month": "每月",
+    "year": "每年"
+  },
+  "SnStatus": {
+    "created": "已生成",
+    "completed": "已完工",
+    "scrapped": "已报废"
+  },
+  "AndonType": {
+    "equipment": "设备",
+    "quality": "质量",
+    "material": "物料",
+    "process": "工艺",
+    "other": "其他"
+  },
+  "AndonLevel": {
+    "normal": "一般",
+    "urgent": "紧急",
+    "critical": "停线"
+  },
+  "AndonStatus": {
+    "reported": "已上报",
+    "assigned": "已派单",
+    "processing": "处理中",
+    "resolved": "已解决",
+    "closed": "已关闭"
+  },
+  "DowntimeReasonType": {
+    "equipment": "设备",
+    "material": "物料",
+    "quality": "质量",
+    "personnel": "人员",
+    "other": "其他"
+  },
+  "BizType": {
+    "workorder": "生产工单",
+    "operation_task": "工序任务",
+    "production_report": "报工记录",
+    "material_request": "领退料单",
+    "stock_in": "完工入库单",
+    "inspection": "检验单",
+    "defect_record": "不良记录",
+    "andon_event": "安灯事件",
+    "sn": "产品序列号"
+  }
+}

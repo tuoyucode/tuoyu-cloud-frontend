@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import type { NoticeApi } from '#/api/system/notice';
+import type { NoticeApi } from '@tuoyu/shared/api/system/notice';
 
 import { computed, ref } from 'vue';
 
 import { useVbenDrawer } from '@vben/common-ui';
 
+import {
+  addNotice,
+  getNotice,
+  updateNotice,
+} from '@tuoyu/shared/api/system/notice';
 import { Alert, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { addNotice, getNotice, updateNotice } from '#/api/system/notice';
 import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';

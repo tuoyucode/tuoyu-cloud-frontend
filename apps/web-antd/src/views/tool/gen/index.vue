@@ -1,23 +1,25 @@
 <script lang="ts" setup>
+import type { GenApi } from '@tuoyu/shared/api/tool/gen';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { GenApi } from '#/api/tool/gen';
 
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { Page, useVbenModal } from '@vben/common-ui';
 
-import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
-
-import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import {
   downloadGenCode,
   listGenTable,
   removeGenTable,
   syncGenTable,
-} from '#/api/tool/gen';
+} from '@tuoyu/shared/api/tool/gen';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
+import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import {
   downloadFileName,
@@ -70,8 +72,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           selectedCount.value = 0;
           return await listGenTable({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...toQuery(formValues ?? {}),
           });
         },

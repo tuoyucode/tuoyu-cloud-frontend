@@ -1,15 +1,16 @@
 <script lang="ts" setup>
+import type { DeptApi } from '@tuoyu/shared/api/system/dept';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { DeptApi } from '#/api/system/dept';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 
+import { listDept, removeDept } from '@tuoyu/shared/api/system/dept';
+import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Popconfirm } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { listDept, removeDept } from '#/api/system/dept';
 import { $t } from '#/locales';
-import { hasPermission } from '#/utils/permission';
 
 import { useColumns, useSearchSchema } from './data';
 import DeptDrawer from './dept-drawer.vue';
@@ -46,7 +47,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
           setTimeout(() =>
             expandAfterQuery(rows, hasFilter(formValues), first),
           );
-          return { rows };
+          return { items: rows };
         },
       },
     },

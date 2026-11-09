@@ -1,17 +1,18 @@
 <script lang="ts" setup>
+import type { MenuApi } from '@tuoyu/shared/api/system/menu';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { MenuApi } from '#/api/system/menu';
 
 import { Page, useVbenDrawer } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
+import { listMenu, removeMenu } from '@tuoyu/shared/api/system/menu';
+// 菜单表不分租户、全局共享，后端的增删改同时要求超级管理员角色与权限码，按钮按同样的规则显示
+import { hasSuperAdminPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Popconfirm, Tag } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { listMenu, removeMenu } from '#/api/system/menu';
 import { $t } from '#/locales';
-// 菜单表不分租户、全局共享，后端的增删改同时要求超级管理员角色与权限码，按钮按同样的规则显示
-import { hasSuperAdminPermission } from '#/utils/permission';
 
 import { isIconifyName, MenuType, useColumns, useSearchSchema } from './data';
 import MenuDrawer from './menu-drawer.vue';
@@ -55,7 +56,7 @@ const [Grid, gridApi] = useVbenVxeGrid({
           setTimeout(() =>
             expandAfterQuery(rows, hasFilter(formValues), first),
           );
-          return { rows };
+          return { items: rows };
         },
       },
     },

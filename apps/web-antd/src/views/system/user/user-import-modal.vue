@@ -1,15 +1,17 @@
 <script lang="ts" setup>
+import type { UserApi } from '@tuoyu/shared/api/system/user';
 import type { UploadProps } from 'ant-design-vue';
-
-import type { UserApi } from '#/api/system/user';
 
 import { computed, ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import {
+  downloadUserImportTemplate,
+  importUser,
+} from '@tuoyu/shared/api/system/user';
 import { Alert, Button, Checkbox, message, Upload } from 'ant-design-vue';
 
-import { downloadUserImportTemplate, importUser } from '#/api/system/user';
 import { $t } from '#/locales';
 
 const emit = defineEmits<{ success: [] }>();
@@ -67,7 +69,7 @@ const [Modal, modalApi] = useVbenModal({
     }
     modalApi.lock();
     try {
-      // 行数上限等由后端校验，失败原因在返回的 msg 中
+      // 行数上限等由后端校验，失败原因在返回的 message 中
       result.value = await importUser(file.value, updateSupport.value);
       if (result.value.success) {
         // 清空已导入的文件，避免重复导入

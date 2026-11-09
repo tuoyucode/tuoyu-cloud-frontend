@@ -1,15 +1,20 @@
 <script lang="ts" setup>
+import type { UserApi } from '@tuoyu/shared/api/system/user';
+
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
-import type { UserApi } from '#/api/system/user';
 
 import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import {
+  assignRoleUsers,
+  listUnallocatedUser,
+} from '@tuoyu/shared/api/system/role';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
 import { message } from 'ant-design-vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
-import { assignRoleUsers, listUnallocatedUser } from '#/api/system/role';
 import { $t } from '#/locales';
 
 import { useUserColumns, useUserSearchSchema } from './data';
@@ -44,11 +49,10 @@ const [Grid, gridApi] = useVbenVxeGrid({
         query: async ({ page }, formValues) => {
           const current = modalApi.getData() as RoleRef | undefined;
           if (!current) {
-            return { rows: [], total: 0 };
+            return { items: [], total: 0 };
           }
           return await listUnallocatedUser({
-            pageNum: page.currentPage,
-            pageSize: page.pageSize,
+            ...toPageQuery(page),
             ...formValues,
             roleId: current.roleId,
           });

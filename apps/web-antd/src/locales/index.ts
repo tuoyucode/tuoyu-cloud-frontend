@@ -13,11 +13,11 @@ import {
 } from '@vben/locales';
 import { preferences } from '@vben/preferences';
 
+import { sharedMessages } from '@tuoyu/shared/locales';
+import { nestNamespaces } from '@tuoyu/shared/utils/locale';
 import antdEnLocale from 'ant-design-vue/es/locale/en_US';
 import antdDefaultLocale from 'ant-design-vue/es/locale/zh_CN';
 import dayjs from 'dayjs';
-
-import { nestNamespaces } from '#/utils/locale';
 
 const antdLocale = ref<Locale>(antdDefaultLocale);
 
@@ -28,8 +28,7 @@ const localesMap = loadLocalesMapFromDir(
   modules,
 );
 /**
- * 加载应用特有的语言包
- * 这里也可以改造为从服务端获取翻译数据
+ * 加载应用的语言包：共享代码的文案（@tuoyu/shared）与应用自己的文案合并，应用的同名键优先
  * @param lang
  */
 async function loadMessages(lang: SupportedLanguagesType) {
@@ -37,7 +36,10 @@ async function loadMessages(lang: SupportedLanguagesType) {
     localesMap[lang]?.(),
     loadThirdPartyMessage(lang),
   ]);
-  return nestNamespaces(appLocaleMessages?.default ?? {});
+  return {
+    ...sharedMessages[lang],
+    ...nestNamespaces(appLocaleMessages?.default ?? {}),
+  };
 }
 
 /**
