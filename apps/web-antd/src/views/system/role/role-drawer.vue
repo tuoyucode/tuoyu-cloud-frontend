@@ -25,9 +25,6 @@ import { withAncestors } from './tree-utils';
 
 const emit = defineEmits<{ success: [] }>();
 
-/** 字典 sys_normal_disable：1 停用 */
-const STATUS_DISABLED = '1';
-
 /** 编辑时的角色；新增时为空 */
 const role = ref<RoleApi.Role>();
 /** 编辑时角色现有的数据权限，修改菜单权限时原样提交 */
@@ -45,22 +42,15 @@ const permissionTree = ref<InstanceType<typeof PermissionTree>>();
 const permissionUnavailable = ref(false);
 
 /**
- * 后端查询角色已有的菜单和部门时只看启用的角色，停用角色读到的是空列表，
- * 这时保存权限会清空原有权限，所以停用的角色不能修改权限
+ * 菜单树或角色现有的菜单没有读到时不能修改菜单权限，否则保存会把原有权限清空。
+ * 停用的角色照常读取与修改（启用后生效）
  */
-const roleDisabled = computed(() => role.value?.status === STATUS_DISABLED);
-
-const permissionLocked = computed(
-  () => roleDisabled.value || permissionUnavailable.value,
-);
+const permissionLocked = computed(() => permissionUnavailable.value);
 
 /** 不能修改菜单权限时的说明 */
-const lockedTip = computed(() => {
-  if (permissionUnavailable.value) {
-    return $t('system.role.permissionUnavailable');
-  }
-  return roleDisabled.value ? $t('system.role.disabledRoleTip') : '';
-});
+const lockedTip = computed(() =>
+  permissionUnavailable.value ? $t('system.role.permissionUnavailable') : '',
+);
 
 const [Form, formApi] = useVbenForm({
   layout: 'vertical',

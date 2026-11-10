@@ -37,6 +37,14 @@ export namespace OssApi {
   }
 
   /** 上传结果（SysOssUploadVo） */
+  /** 上传限制（SysOssUploadConfigVo），以服务端当前的配置为准 */
+  export interface UploadConfig {
+    /** 允许上传的扩展名（小写，不带点） */
+    allowedExtensions: string[];
+    /** 单个文件的上限（字节）；负数表示不限制 */
+    maxFileSize: number;
+  }
+
   export interface UploadResult {
     fileName: string;
     ossId: string;
@@ -122,6 +130,13 @@ export function uploadOss(
       timeout: 0,
     },
   );
+}
+
+/**
+ * 上传限制：允许的扩展名与单个文件的上限。需要上传权限（system:oss:upload）
+ */
+export function getUploadConfig() {
+  return requestClient.get<OssApi.UploadConfig>(`${BASE}/upload-config`);
 }
 
 /**

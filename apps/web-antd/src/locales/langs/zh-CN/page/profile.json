@@ -1,4 +1,9 @@
 {
+  "changeAvatar": "更换头像",
+  "avatarHint": "jpg、png、webp，不超过 2MB",
+  "avatarTypeInvalid": "头像只支持 jpg、png、webp 格式的图片",
+  "avatarTooLarge": "头像图片不能超过 2MB",
+  "avatarUpdated": "头像已更新",
   "title": "个人中心",
   "basic": "基本资料",
   "password": "修改密码",

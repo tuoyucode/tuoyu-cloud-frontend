@@ -21,6 +21,38 @@ export const MOBILE_PATTERN = /^(?:0|86|\+86)?1[3-9]\d{9}$/;
 /** 与后端 @Xss 一致：不能包含 HTML 标签 */
 export const HTML_TAG_PATTERN = /<[^<]*?>/;
 
+/** 头像接受的扩展名，与后端 SysProfileController 一致 */
+export const AVATAR_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp'] as const;
+
+/** 头像的大小上限（2MB），与后端一致 */
+export const AVATAR_MAX_SIZE = 2 * 1024 * 1024;
+
+/** 选择头像时的 accept 属性 */
+export const AVATAR_ACCEPT = AVATAR_EXTENSIONS.map((ext) => `.${ext}`).join(
+  ',',
+);
+
+/**
+ * 上传头像前检查：类型或大小不符时返回原因的文案键，否则返回 undefined（服务端再按文件头校验）
+ */
+export function avatarRejection(file: {
+  name: string;
+  size: number;
+}):
+  | 'page.profile.avatarTooLarge'
+  | 'page.profile.avatarTypeInvalid'
+  | undefined {
+  const index = file.name.lastIndexOf('.');
+  const ext = index > 0 ? file.name.slice(index + 1).toLowerCase() : '';
+  if (!(AVATAR_EXTENSIONS as readonly string[]).includes(ext)) {
+    return 'page.profile.avatarTypeInvalid';
+  }
+  if (file.size > AVATAR_MAX_SIZE) {
+    return 'page.profile.avatarTooLarge';
+  }
+  return undefined;
+}
+
 /** 基本资料表单 */
 export function useBaseSchema(): VbenFormSchema[] {
   return [

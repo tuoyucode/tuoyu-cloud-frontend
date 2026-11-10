@@ -1,6 +1,14 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { formatFileSize, getFileSize, isImage, toFileQuery } from '../data';
+import {
+  fileExtension,
+  formatFileSize,
+  getFileSize,
+  isImage,
+  toFileQuery,
+  uploadAccept,
+  uploadRejection,
+} from '../data';
 
 vi.mock('#/locales', () => ({ $t: (key: string) => key }));
 
@@ -39,5 +47,42 @@ describe('文件存储：列表数据处理', () => {
       'params[endCreateTime]': '2026-10-27 23:59:59',
     });
     expect(toFileQuery({ service: 'minio' })).toEqual({ service: 'minio' });
+  });
+});
+
+describe('文件存储：上传前按服务端的限制检查', () => {
+  const config = { allowedExtensions: ['jpg', 'pdf'], maxFileSize: 1024 };
+
+  it('文件选择框的 accept 由服务端的白名单生成', () => {
+    expect(uploadAccept(['jpg', 'pdf'])).toBe('.jpg,.pdf');
+    expect(uploadAccept([])).toBe('');
+  });
+
+  it('扩展名不区分大小写，没有扩展名时为空', () => {
+    expect(fileExtension('A.JPG')).toBe('jpg');
+    expect(fileExtension('archive.tar.gz')).toBe('gz');
+    expect(fileExtension('README')).toBe('');
+    expect(fileExtension('.env')).toBe('');
+  });
+
+  it('类型不在白名单中或超过单个文件的上限时给出原因', () => {
+    expect(
+      uploadRejection({ name: 'a.jpg', size: 1024 }, config),
+    ).toBeUndefined();
+    expect(uploadRejection({ name: 'a.exe', size: 1 }, config)).toBe(
+      'system.oss.uploadTypeNotAllowed',
+    );
+    expect(uploadRejection({ name: 'a.pdf', size: 1025 }, config)).toBe(
+      'system.oss.uploadTooLarge',
+    );
+  });
+
+  it('上限为负数时不限制大小', () => {
+    expect(
+      uploadRejection(
+        { name: 'a.pdf', size: 10 ** 9 },
+        { allowedExtensions: ['pdf'], maxFileSize: -1 },
+      ),
+    ).toBeUndefined();
   });
 });

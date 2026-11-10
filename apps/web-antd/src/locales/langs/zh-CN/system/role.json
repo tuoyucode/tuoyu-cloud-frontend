@@ -21,7 +21,6 @@
   "linkage": "父子联动",
   "linkageHelp": "开启后勾选上级会同时勾选全部下级，下级全部勾选时上级自动勾选",
   "checkedCount": "已选 {count} 项",
-  "disabledRoleTip": "角色已停用，启用后才能修改菜单权限和数据权限",
   "permissionUnavailable": "无法加载权限数据，可能缺少菜单查询或角色查询权限；请联系管理员后重试",
   "dataPermission": "数据权限",
   "saveDataPermission": "保存数据权限",

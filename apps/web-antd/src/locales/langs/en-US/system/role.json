@@ -21,7 +21,6 @@
   "linkage": "Link parent and children",
   "linkageHelp": "When on, checking a parent checks all its children, and a parent is checked when all its children are",
   "checkedCount": "{count} selected",
-  "disabledRoleTip": "This role is disabled. Enable it before changing its menu and data permissions.",
   "permissionUnavailable": "Permission data could not be loaded. You may lack the menu or role query permission; contact an administrator and try again.",
   "dataPermission": "Data permissions",
   "saveDataPermission": "Save data permissions",

@@ -1,6 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
 
 import {
+  AVATAR_ACCEPT,
+  AVATAR_MAX_SIZE,
+  avatarRejection,
   HTML_TAG_PATTERN,
   isAuthorizeUrl,
   MOBILE_PATTERN,
@@ -181,5 +184,28 @@ describe('个人中心：数据处理', () => {
       parseSocialCallback({ code: 'c1', source: null, state: 's1' }),
     ).toBeNull();
     expect(parseSocialCallback({})).toBeNull();
+  });
+});
+
+describe('个人中心：上传头像前的检查', () => {
+  it('只接受 jpg、jpeg、png、webp，扩展名不区分大小写', () => {
+    expect(AVATAR_ACCEPT).toBe('.jpg,.jpeg,.png,.webp');
+    expect(avatarRejection({ name: 'me.PNG', size: 1024 })).toBeUndefined();
+    expect(avatarRejection({ name: 'me.webp', size: 1024 })).toBeUndefined();
+    expect(avatarRejection({ name: 'me.gif', size: 1024 })).toBe(
+      'page.profile.avatarTypeInvalid',
+    );
+    expect(avatarRejection({ name: 'avatar', size: 1024 })).toBe(
+      'page.profile.avatarTypeInvalid',
+    );
+  });
+
+  it('超过 2MB 时拒绝', () => {
+    expect(
+      avatarRejection({ name: 'me.jpg', size: AVATAR_MAX_SIZE }),
+    ).toBeUndefined();
+    expect(avatarRejection({ name: 'me.jpg', size: AVATAR_MAX_SIZE + 1 })).toBe(
+      'page.profile.avatarTooLarge',
+    );
   });
 });
