@@ -5,6 +5,7 @@
 tuoyu-cloud 的管理端前端。tuoyu-cloud 是通用的 Java 微服务框架，同一套代码同时支持单体部署和微服务部署，默认安全，MIT 协议完全开源。
 
 - 后端仓库：[tuoyu-cloud](https://gitee.com/tuoyucode/tuoyu-cloud)
+- 使用手册：[https://docs.ctoolhub.com](https://docs.ctoolhub.com)
 - 技术栈：Vue 3、TypeScript、Vite、[Vben Admin 5](https://github.com/vbenjs/vue-vben-admin)（框架层）、Ant Design Vue
 
 ## 环境要求

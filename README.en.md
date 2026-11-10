@@ -5,6 +5,7 @@ English | [简体中文](README.md)
 The admin frontend of tuoyu-cloud. tuoyu-cloud is a general-purpose Java microservice framework: one codebase runs as a monolith or as microservices, it is secure by default, and it is fully open source under the MIT license.
 
 - Backend repository: [tuoyu-cloud](https://gitee.com/tuoyucode/tuoyu-cloud)
+- User manual: [https://docs.ctoolhub.com](https://docs.ctoolhub.com)
 - Stack: Vue 3, TypeScript, Vite, [Vben Admin 5](https://github.com/vbenjs/vue-vben-admin) (framework layer), Ant Design Vue
 
 ## Requirements
