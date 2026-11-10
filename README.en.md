@@ -52,6 +52,8 @@ The production build (`pnpm build:antd`) sends API requests under the `/api` pre
 
 Login, password changes and similar endpoints use the backend's API encryption protocol. The frontend stores no keys; it fetches the public key from the backend at runtime. The backend's `ApiCryptoCodec` and its test vectors define the protocol.
 
+Over HTTPS or on localhost the browser's WebCrypto is used. Other plain-HTTP pages have no WebCrypto: if the backend sets `TUOYU_API_CRYPTO_REQUIRE_HTTPS=false`, the frontend lazily loads a pure JavaScript implementation (which only protects against passive eavesdropping); otherwise it asks for HTTPS.
+
 ## Contributing
 
 Development conventions (apps and the shared package, page templates, request layer, checks and commit messages) are described in [CONTRIBUTING.md](CONTRIBUTING.md) (in Chinese).
