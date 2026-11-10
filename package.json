@@ -1,6 +1,6 @@
 {
   "name": "tuoyu-cloud-frontend",
-  "version": "0.1.0",
+  "version": "1.0.0-SNAPSHOT",
   "description": "tuoyu 管理端前端",
   "private": true,
   "license": "MIT",

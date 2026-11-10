@@ -35,10 +35,18 @@ The dev server runs at `http://localhost:5666` and proxies `/api` to the local b
 
 | Directory | Contents |
 | --- | --- |
-| `apps/web-antd` | The admin app: pages, routes, API calls, theme |
-| `packages` | Framework layer: layouts, access control, components, preferences, utilities |
+| `apps/web-antd` | The admin app (Ant Design Vue): pages, layouts, component adapters, theme, page texts |
+| `packages/shared` | The shared package `@tuoyu/shared`: request layer, API calls and types of each module, UI-independent utilities |
+| Other directories under `packages` | Vben framework layer: layouts, access control, components, preferences, utilities |
 | `internal` | Build and lint configuration |
 | `scripts` | Tooling scripts and deployment files |
+
+## Deployment
+
+The production build (`pnpm build:antd`) sends API requests under the `/api` prefix (`VITE_GLOB_API_URL` in `apps/web-antd/.env.production`). A reverse proxy must strip the prefix and forward them to the backend gateway:
+
+- The compose files in the backend repository's `deploy/docker` include Nginx (the `nginx` profile); put the build into `deploy/docker/nginx/html`.
+- Or use this repository's image: `pnpm build:docker` builds the `tuoyu-cloud-frontend` image, whose Nginx forwards `/api` to `tuoyu-gateway:8081`. Run it in the backend compose network (`--network tuoyu_default`), or edit `scripts/deploy/nginx.conf` for a different gateway address.
 
 ## API encryption
 
@@ -46,7 +54,7 @@ Login, password changes and similar endpoints use the backend's API encryption p
 
 ## Contributing
 
-Development conventions (layout and naming, page templates, request layer, checks and commit messages) are described in [CONTRIBUTING.md](CONTRIBUTING.md) (in Chinese).
+Development conventions (apps and the shared package, page templates, request layer, checks and commit messages) are described in [CONTRIBUTING.md](CONTRIBUTING.md) (in Chinese).
 
 ## License
 
