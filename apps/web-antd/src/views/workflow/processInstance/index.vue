@@ -136,6 +136,7 @@ function onCategoryChange() {
 function onView(row: InstanceApi.Instance) {
   const data: ProcessDrawerData = {
     businessId: row.businessId,
+    formPath: row.formPath,
     instanceId: row.id,
     summary: {
       businessCode: row.businessCode,

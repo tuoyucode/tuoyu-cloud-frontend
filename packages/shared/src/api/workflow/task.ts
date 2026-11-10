@@ -63,6 +63,9 @@ export namespace TaskApi {
     flowStatus?: string;
     /** 流程当前状态（字典 wf_business_status） */
     flowTaskStatus?: string;
+    formCustom?: string;
+    /** 表单路径：任务上没有时为流程定义的 */
+    formPath?: string;
     id: string;
     instanceId: string;
     message?: string;

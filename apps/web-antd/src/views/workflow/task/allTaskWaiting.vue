@@ -129,6 +129,7 @@ function onTabChange() {
 function onView(row: TaskApi.HisTask | TaskApi.Task) {
   const data: ProcessDrawerData = {
     businessId: row.businessId,
+    formPath: row.formPath,
     instanceId: row.instanceId,
     summary: {
       businessCode: row.businessCode,

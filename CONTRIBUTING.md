@@ -97,6 +97,8 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 
 代码生成器下载的 zip 中，`vben/` 目录与本仓库的根目录一一对应，直接复制即可。
 
+流程的业务详情：流程定义的表单路径填 `views` 下业务详情组件的路径（规则与菜单的 `component` 相同），组件接收 `businessId`（字符串）与 `instanceId` 两个 props，在办理与查看流程的抽屉中以“业务详情”页签显示。
+
 ## 修改 Vben 自带的文件
 
 尽量在 `apps/web-antd` 中解决。必须改 `packages/` 下的 Vben 文件时，在改动处加以 `tuoyu：` 开头的注释，并登记在下面，升级 Vben 时逐条保留：

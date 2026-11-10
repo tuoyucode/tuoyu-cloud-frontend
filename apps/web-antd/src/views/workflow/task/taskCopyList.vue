@@ -52,6 +52,7 @@ const [Grid] = useVbenVxeGrid({
 function onView(row: TaskApi.Task) {
   const data: ProcessDrawerData = {
     businessId: row.businessId,
+    formPath: row.formPath,
     instanceId: row.instanceId,
     summary: {
       businessCode: row.businessCode,

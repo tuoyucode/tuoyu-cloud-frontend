@@ -57,6 +57,7 @@ function onHandle(row: TaskApi.Task) {
   const data: ProcessDrawerData = {
     approve: true,
     businessId: row.businessId,
+    formPath: row.formPath,
     instanceId: row.instanceId,
     taskId: row.id,
   };

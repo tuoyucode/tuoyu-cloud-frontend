@@ -9,3 +9,4 @@
 business: apps/web-antd/src/views/mes/
 business: apps/web-antd/src/locales/langs/*/mes/
 business: packages/shared/src/api/mes/
+business: apps/web-antd/e2e/mes/
