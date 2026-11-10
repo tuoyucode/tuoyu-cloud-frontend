@@ -1,6 +1,6 @@
 {
   "name": "@tuoyu/shared",
-  "version": "0.1.0",
+  "version": "1.0.0-alpha.1",
   "description": "与 UI 组件库无关的共享代码：请求层、接口定义、接口加密与工具函数",
   "private": true,
   "license": "MIT",
