@@ -1,4 +1,5 @@
 {
+  "approvalDetailFailed": "Unable to load the defect record",
   "title": "Defects",
   "list": "Defect records",
   "create": "Register defect",

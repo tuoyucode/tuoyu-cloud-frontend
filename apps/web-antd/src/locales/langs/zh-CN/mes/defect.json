@@ -1,4 +1,5 @@
 {
+  "approvalDetailFailed": "无法读取不良记录",
   "title": "不良记录",
   "list": "不良记录",
   "create": "登记不良",

@@ -1,4 +1,5 @@
 {
+  "approvalDetailFailed": "无法读取领退料单",
   "title": "领退料",
   "list": "领退料单",
   "exportFileName": "领退料单",

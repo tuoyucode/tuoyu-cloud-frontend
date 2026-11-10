@@ -1,7 +1,7 @@
 import type { PageQuery, PageResult } from '../types';
 import type { MesApi } from './common';
 
-import { exportExcel, requestClient } from '../request';
+import { exportExcel, requestClient, silentErrors } from '../request';
 import { MES_BASE } from './common';
 
 export namespace DefectApi {
@@ -77,6 +77,19 @@ export function listDefect(query: DefectApi.Query) {
 
 export function getDefect(defectId: string) {
   return requestClient.get<DefectApi.Defect>(`${BASE}/${defectId}`);
+}
+
+/**
+ * 审批中的不良记录（流程办理抽屉的“业务详情”）：流程参与人可以查看，不需要不良记录的查询权限。
+ * 出错时不弹出提示（无权查看等原因由页签内显示）
+ *
+ * @param businessId 流程的业务 ID（记录主键，第二轮起带轮次后缀）
+ */
+export function getDefectForApproval(businessId: string) {
+  return requestClient.get<DefectApi.Defect>(
+    `${BASE}/approval/${encodeURIComponent(businessId)}`,
+    silentErrors({}),
+  );
 }
 
 export function getDefectLogs(defectId: string) {

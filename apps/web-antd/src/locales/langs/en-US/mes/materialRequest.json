@@ -1,4 +1,5 @@
 {
+  "approvalDetailFailed": "Unable to load the material request",
   "title": "Material requests",
   "list": "Material requests",
   "exportFileName": "material-requests",

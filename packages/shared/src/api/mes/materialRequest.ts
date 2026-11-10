@@ -1,7 +1,7 @@
 import type { PageQuery, PageResult } from '../types';
 import type { MesApi } from './common';
 
-import { exportExcel, requestClient } from '../request';
+import { exportExcel, requestClient, silentErrors } from '../request';
 import { MES_BASE } from './common';
 
 export namespace MaterialRequestApi {
@@ -112,6 +112,19 @@ export function exportMaterialRequest(
 
 export function getMaterialRequest(requestId: string) {
   return requestClient.get<MaterialRequestApi.Request>(`${BASE}/${requestId}`);
+}
+
+/**
+ * 审批中的单据（流程办理抽屉的“业务详情”）：流程参与人可以查看，不需要领退料单的查询权限。
+ * 出错时不弹出提示（无权查看等原因由页签内显示）
+ *
+ * @param businessId 流程的业务 ID（单据主键，第二轮起带轮次后缀）
+ */
+export function getMaterialRequestForApproval(businessId: string) {
+  return requestClient.get<MaterialRequestApi.Request>(
+    `${BASE}/approval/${encodeURIComponent(businessId)}`,
+    silentErrors({}),
+  );
 }
 
 export function getMaterialRequestLogs(requestId: string) {
