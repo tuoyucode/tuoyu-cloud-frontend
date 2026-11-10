@@ -30,6 +30,8 @@
   "copyTime": "抄送时间",
   "designer": "流程设计器",
   "designerLoading": "正在加载",
+  "businessDetail": "业务详情",
+  "businessFormNotFound": "未找到业务详情页面“{path}”，请检查流程定义中的表单路径",
   "flowChart": "流程图",
   "history": "审批记录",
   "historyNoPermission": "只有流程的发起人、办理人、抄送人与流程管理员可以查看审批记录",

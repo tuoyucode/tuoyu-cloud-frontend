@@ -43,6 +43,7 @@ import {
 
 import DictTag from '#/components/dict-tag.vue';
 import { $t } from '#/locales';
+import { resolveBusinessForm } from '#/router/business-form';
 
 import {
   buildAssigneeMap,
@@ -110,6 +111,12 @@ const approving = computed(() => !!data.value?.approve && !!task.value);
 
 const buttons = computed(() => visibleButtonCodes(task.value?.buttonList));
 
+/** 业务详情：列表传入的表单路径优先，办理时也可以取任务上的 */
+const formPath = computed(
+  () => data.value?.formPath?.trim() || task.value?.formPath?.trim() || '',
+);
+const businessForm = computed(() => resolveBusinessForm(formPath.value));
+
 const summary = computed(() => ({
   ...data.value?.summary,
   ...(task.value
@@ -136,7 +143,9 @@ function resetState() {
   task.value = undefined;
   history.value = [];
   instanceId.value = data.value?.instanceId;
-  activeTab.value = 'history';
+  activeTab.value = resolveBusinessForm(data.value?.formPath)
+    ? 'business'
+    : 'history';
   chartOpened.value = false;
   form.copyUsers = [];
   form.message = '';
@@ -169,6 +178,10 @@ async function load() {
       loadHistory(current.businessId),
     ]);
     task.value = loadedTask;
+    // 列表没有传入表单路径、任务上有时，同样默认显示业务详情
+    if (activeTab.value === 'history' && businessForm.value) {
+      activeTab.value = 'business';
+    }
     if (loadedTask) {
       instanceId.value = instanceId.value || String(loadedTask.instanceId);
       form.copyUsers = (loadedTask.copyList ?? []).map((item) => ({
@@ -538,6 +551,26 @@ function onTerminate() {
         </div>
 
         <Tabs v-model:active-key="activeTab" @change="onTabChange">
+          <Tabs.TabPane
+            v-if="formPath"
+            key="business"
+            :tab="$t('workflow.common.businessDetail')"
+          >
+            <component
+              :is="businessForm"
+              v-if="businessForm && data"
+              :business-id="data.businessId"
+              :instance-id="instanceId"
+            />
+            <Alert
+              v-else
+              :message="
+                $t('workflow.common.businessFormNotFound', { path: formPath })
+              "
+              show-icon
+              type="warning"
+            />
+          </Tabs.TabPane>
           <Tabs.TabPane key="history" :tab="$t('workflow.common.history')">
             <Alert
               v-if="!historyAllowed"

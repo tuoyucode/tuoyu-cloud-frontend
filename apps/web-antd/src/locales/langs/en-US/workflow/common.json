@@ -30,6 +30,8 @@
   "copyTime": "Copied",
   "designer": "Process designer",
   "designerLoading": "Loading",
+  "businessDetail": "Business details",
+  "businessFormNotFound": "Business detail page \"{path}\" not found. Check the form path of the flow definition",
   "flowChart": "Flow chart",
   "history": "Approval history",
   "historyNoPermission": "Only the initiator, handlers, CC recipients and process administrators can view the approval history",

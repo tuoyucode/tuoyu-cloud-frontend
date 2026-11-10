@@ -6,6 +6,8 @@ import type { TaskApi } from '@tuoyu/shared/api/workflow/task';
 export interface ProcessDrawerData {
   approve?: boolean;
   businessId: string;
+  /** 流程定义的表单路径：views 下业务详情组件的路径，抽屉中以“业务详情”页签展示 */
+  formPath?: string;
   instanceId?: string;
   summary?: {
     businessCode?: string;
@@ -17,6 +19,22 @@ export interface ProcessDrawerData {
     nodeName?: string;
   };
   taskId?: string;
+}
+
+/**
+ * 表单路径规范化为 views 下的页面路径（不带开头的 / 与 .vue），规则与菜单的 component 相同，例如
+ * "mes/material-request/approval-detail" 对应 views/mes/material-request/approval-detail.vue。
+ * 空路径与包含 ..、反斜杠的路径返回 undefined
+ */
+export function businessFormPath(formPath?: string): string | undefined {
+  const path = formPath
+    ?.trim()
+    .replace(/^\/+/, '')
+    .replace(/\.vue$/, '');
+  if (!path || path.includes('..') || path.includes('\\')) {
+    return undefined;
+  }
+  return path;
 }
 
 /** 任务状态：待审核（审批记录中尚未处理的任务） */

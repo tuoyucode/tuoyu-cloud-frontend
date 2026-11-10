@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   buildAssigneeMap,
+  businessFormPath,
   businessLabel,
   canCancel,
   isFinishedStatus,
@@ -101,5 +102,23 @@ describe('工作流：显示与参数', () => {
     expect(businessLabel({ businessCode: 'C1', businessId: '9' })).toBe('C1');
     expect(businessLabel({ businessId: '9' })).toBe('9');
     expect(businessLabel({})).toBe('');
+  });
+});
+
+describe('businessFormPath', () => {
+  it('规范化为 views 下的页面路径：去掉首尾空白、开头的 / 与 .vue', () => {
+    expect(businessFormPath('mes/material-request/approval-detail')).toBe(
+      'mes/material-request/approval-detail',
+    );
+    expect(businessFormPath(' /mes/a/b.vue ')).toBe('mes/a/b');
+  });
+
+  it('空路径与可能越出 views 的路径视为没有表单', () => {
+    expect(businessFormPath()).toBeUndefined();
+    expect(businessFormPath('')).toBeUndefined();
+    expect(businessFormPath('  ')).toBeUndefined();
+    expect(businessFormPath('../secret')).toBeUndefined();
+    expect(businessFormPath('mes/../../x')).toBeUndefined();
+    expect(businessFormPath(String.raw`mes\a`)).toBeUndefined();
   });
 });
