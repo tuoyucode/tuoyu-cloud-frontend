@@ -5,7 +5,7 @@
  */
 import type { RequestClientConfig, RequestClientOptions } from '@vben/request';
 
-import type { Bytes } from '../utils/api-crypto';
+import type { ApiCryptoEngine, Bytes } from '../utils/api-crypto';
 
 import { useAppConfig } from '@vben/hooks';
 import { $t } from '@vben/locales';
@@ -22,7 +22,7 @@ import {
   API_CRYPTO_HEADER,
   decryptResponse,
   encryptRequest,
-  resolveSubtle,
+  resolveCryptoEngine,
 } from '../utils/api-crypto';
 import {
   isSuccess,
@@ -48,7 +48,11 @@ const SILENT_ERRORS_KEY = 'silentErrors';
  */
 const CRYPTO_CONTEXT = '__apiCryptoContext';
 
-type CryptoContext = { aesKey: Bytes; nonce: string; subtle: SubtleCrypto };
+type CryptoContext = {
+  aesKey: Bytes;
+  engine: ApiCryptoEngine;
+  nonce: string;
+};
 
 /** 请求层依赖应用提供的界面操作 */
 export interface RequestHandlers {
@@ -161,7 +165,7 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
       response.headers?.[API_CRYPTO_HEADER.toLowerCase()] === '1'
     ) {
       const plain = await decryptResponse(
-        context.subtle,
+        context.engine,
         response.data,
         context.aesKey,
         context.nonce,
@@ -288,9 +292,9 @@ async function sendEncrypted<T>(
   if (!key.enabled) {
     return requestClient[method]<T>(url, data, config);
   }
-  const subtle = resolveSubtle(key);
-  const { aesKey, envelope, nonce } = await encryptRequest(subtle, key, data);
-  const context: CryptoContext = { aesKey, nonce, subtle };
+  const engine = await resolveCryptoEngine(key);
+  const { aesKey, envelope, nonce } = await encryptRequest(engine, key, data);
+  const context: CryptoContext = { aesKey, engine, nonce };
   return requestClient[method]<T>(url, envelope, {
     ...config,
     headers: { ...config.headers, [API_CRYPTO_HEADER]: '1' },

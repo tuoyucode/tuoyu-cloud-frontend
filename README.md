@@ -52,6 +52,8 @@ pnpm dev:antd
 
 登录、修改密码等接口按后端的接口加密协议传输，前端不保存任何密钥，公钥运行时从后端获取。协议以后端仓库的 `ApiCryptoCodec` 与测试向量为准。
 
+HTTPS 或 localhost 下使用浏览器的 WebCrypto。其他非 HTTPS 访问时浏览器不提供 WebCrypto：后端设置了 `TUOYU_API_CRYPTO_REQUIRE_HTTPS=false` 时，前端按需加载纯 JavaScript 实现（只能防止被动窃听）；否则提示配置 HTTPS。
+
 ## 参与贡献
 
 开发约定（应用与共享包、页面模板、请求层、检查与提交规范）见 [CONTRIBUTING.md](CONTRIBUTING.md)。

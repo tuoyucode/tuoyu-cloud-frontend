@@ -28,6 +28,8 @@
     }
   },
   "dependencies": {
+    "@noble/ciphers": "catalog:",
+    "@noble/hashes": "catalog:",
     "@vben/hooks": "workspace:*",
     "@vben/locales": "workspace:*",
     "@vben/preferences": "workspace:*",
