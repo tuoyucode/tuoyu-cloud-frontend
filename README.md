@@ -33,12 +33,20 @@ pnpm dev:antd
 
 ## 目录结构
 
-| 目录            | 说明                                     |
-| --------------- | ---------------------------------------- |
-| `apps/web-antd` | 管理端应用：页面、路由、接口、主题配置   |
-| `packages`      | 框架层：布局、权限、组件、偏好设置、工具 |
-| `internal`      | 构建与 lint 配置                         |
-| `scripts`       | 工程脚本与部署文件                       |
+| 目录 | 说明 |
+| --- | --- |
+| `apps/web-antd` | 管理端应用（Ant Design Vue）：页面、布局、组件适配、主题配置、页面文案 |
+| `packages/shared` | 共享包 `@tuoyu/shared`：请求层、各模块的接口与类型、与 UI 组件库无关的工具 |
+| `packages` 下的其他目录 | Vben 框架层：布局、权限、组件、偏好设置、工具 |
+| `internal` | 构建与 lint 配置 |
+| `scripts` | 工程脚本与部署文件 |
+
+## 部署
+
+生产包（`pnpm build:antd`）的接口请求前缀为 `/api`（`apps/web-antd/.env.production` 的 `VITE_GLOB_API_URL`），需要由反向代理去掉前缀后转发给后端网关：
+
+- 后端仓库 `deploy/docker` 的 compose 中带有 Nginx（`nginx` profile），把生产包放进 `deploy/docker/nginx/html` 即可；
+- 也可以用本仓库的镜像：`pnpm build:docker` 构建 `tuoyu-cloud-frontend` 镜像，其中的 Nginx 把 `/api` 转发到 `tuoyu-gateway:8081`，运行时加入后端 compose 的网络（`--network tuoyu_default`），网关地址不同时修改 `scripts/deploy/nginx.conf`。
 
 ## 接口加密
 
@@ -46,7 +54,7 @@ pnpm dev:antd
 
 ## 参与贡献
 
-开发约定（目录与命名、页面模板、请求层、检查与提交规范）见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+开发约定（应用与共享包、页面模板、请求层、检查与提交规范）见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 协议
 
