@@ -60,6 +60,17 @@ export function updateProfile(data: ProfileApi.Form) {
 }
 
 /**
+ * 上传本人的头像（只要求登录）：jpg、jpeg、png、webp，不超过 2MB，服务端按文件头再校验一次
+ *
+ * @returns 头像的访问地址
+ */
+export function uploadAvatar(file: Blob | File) {
+  return requestClient.upload<{ avatarUrl: string }>(`${BASE}/avatar`, {
+    file,
+  });
+}
+
+/**
  * 修改本人的密码。后端标注了 @ApiEncrypt，按接口加密协议发送；
  * 后端只更新密码，不会让已登录的会话失效
  */

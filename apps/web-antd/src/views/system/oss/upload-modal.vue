@@ -1,27 +1,60 @@
 <script lang="ts" setup>
-import type { UploadFile } from 'ant-design-vue';
+import type { OssApi } from '@tuoyu/shared/api/system/oss';
+import type { UploadFile, UploadProps } from 'ant-design-vue';
 import type { UploadRequestOption } from 'ant-design-vue/es/vc-upload/interface';
 
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
 
-import { uploadOss } from '@tuoyu/shared/api/system/oss';
+import { getUploadConfig, uploadOss } from '@tuoyu/shared/api/system/oss';
 import { errorMessageOf } from '@tuoyu/shared/utils/api-result';
-import { UploadDragger } from 'ant-design-vue';
+import { message, Upload, UploadDragger } from 'ant-design-vue';
 
 import { $t } from '#/locales';
 
-import { UPLOAD_ACCEPT } from './data';
+import { formatFileSize, uploadAccept, uploadRejection } from './data';
 
 const emit = defineEmits<{ success: [] }>();
 
 /** 本次打开后上传的文件（含进度与结果） */
 const fileList = ref<UploadFile[]>([]);
 
+/** 服务端的上传限制；没有读到时不在前端筛选，由服务端校验 */
+const config = ref<OssApi.UploadConfig>();
+
 /** 本次是否有文件上传成功，关闭时据此刷新列表 */
 let uploadedAny = false;
+
+const accept = computed(() =>
+  config.value ? uploadAccept(config.value.allowedExtensions) : undefined,
+);
+
+const typeHint = computed(() =>
+  config.value
+    ? $t('system.oss.uploadTypeHint', {
+        types: config.value.allowedExtensions.join('、'),
+      })
+    : '',
+);
+
+const limitHint = computed(() =>
+  config.value && config.value.maxFileSize >= 0
+    ? $t('system.oss.uploadLimitHint', {
+        size: formatFileSize(config.value.maxFileSize),
+      })
+    : '',
+);
+
+async function loadConfig() {
+  try {
+    config.value = await getUploadConfig();
+  } catch {
+    // 失败原因已由请求层提示；这时不在前端筛选，上传时由服务端校验并说明原因
+    config.value = undefined;
+  }
+}
 
 const [Modal, modalApi] = useVbenModal({
   onConfirm() {
@@ -31,6 +64,7 @@ const [Modal, modalApi] = useVbenModal({
     if (isOpen) {
       fileList.value = [];
       uploadedAny = false;
+      loadConfig();
       return;
     }
     if (uploadedAny) {
@@ -38,6 +72,26 @@ const [Modal, modalApi] = useVbenModal({
     }
   },
 });
+
+/** 上传前按服务端的限制检查，不符合时提示原因且不加入列表 */
+const beforeUpload: UploadProps['beforeUpload'] = (file) => {
+  const current = config.value;
+  if (!current) {
+    return true;
+  }
+  const reason = uploadRejection(file, current);
+  if (!reason) {
+    return true;
+  }
+  message.warning(
+    $t(reason, {
+      name: file.name,
+      size: formatFileSize(current.maxFileSize),
+      types: current.allowedExtensions.join('、'),
+    }),
+  );
+  return Upload.LIST_IGNORE;
+};
 
 /** 从请求错误中取出原因：优先使用后端的 message（例如超过上传上限时的 413 提示） */
 function errorReason(error: unknown): string {
@@ -69,7 +123,8 @@ async function customRequest(options: UploadRequestOption) {
   >
     <UploadDragger
       v-model:file-list="fileList"
-      :accept="UPLOAD_ACCEPT"
+      :accept="accept"
+      :before-upload="beforeUpload"
       :custom-request="customRequest"
       multiple
       name="file"
@@ -78,8 +133,8 @@ async function customRequest(options: UploadRequestOption) {
         <IconifyIcon class="size-10 text-primary" icon="lucide:upload" />
       </p>
       <p class="ant-upload-text">{{ $t('system.oss.uploadHint') }}</p>
-      <p class="ant-upload-hint">{{ $t('system.oss.uploadTypeHint') }}</p>
-      <p class="ant-upload-hint">{{ $t('system.oss.uploadLimitHint') }}</p>
+      <p v-if="typeHint" class="ant-upload-hint">{{ typeHint }}</p>
+      <p v-if="limitHint" class="ant-upload-hint">{{ limitHint }}</p>
     </UploadDragger>
   </Modal>
 </template>

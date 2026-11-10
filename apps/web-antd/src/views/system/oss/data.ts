@@ -17,39 +17,33 @@ export const CONFIG_PAGE_PATH = '/system/oss-config/index';
 /** 文件列表页面的路由（后端菜单“文件管理”） */
 export const FILE_PAGE_PATH = '/system/oss';
 
-/**
- * 允许上传的扩展名，与后端默认配置 tuoyu.upload.allowed-extensions 一致。
- * 只用于文件选择框的筛选；服务端按扩展名和文件内容再校验一次，拒绝时提示原因
- */
-export const UPLOAD_EXTENSIONS = [
-  'jpg',
-  'jpeg',
-  'png',
-  'gif',
-  'bmp',
-  'webp',
-  'pdf',
-  'doc',
-  'docx',
-  'xls',
-  'xlsx',
-  'ppt',
-  'pptx',
-  'txt',
-  'csv',
-  'zip',
-  'rar',
-  '7z',
-  'gz',
-  'mp3',
-  'wav',
-  'mp4',
-] as const;
+/** 文件选择框的 accept 属性：按服务端的扩展名白名单生成 */
+export function uploadAccept(extensions: readonly string[]): string {
+  return extensions.map((ext) => `.${ext}`).join(',');
+}
 
-/** 文件选择框的 accept 属性 */
-export const UPLOAD_ACCEPT = UPLOAD_EXTENSIONS.map((ext) => `.${ext}`).join(
-  ',',
-);
+/** 文件名的扩展名（小写，不带点）；没有扩展名时为空字符串 */
+export function fileExtension(name: string): string {
+  const index = name.lastIndexOf('.');
+  return index > 0 ? name.slice(index + 1).toLowerCase() : '';
+}
+
+/**
+ * 上传前按服务端的限制检查：类型不在白名单中、超过单个文件的上限时返回原因的文案键，否则返回 undefined。
+ * 只是提前提示；服务端按扩展名与文件内容再校验一次
+ */
+export function uploadRejection(
+  file: { name: string; size: number },
+  config: { allowedExtensions: readonly string[]; maxFileSize: number },
+): 'system.oss.uploadTooLarge' | 'system.oss.uploadTypeNotAllowed' | undefined {
+  if (!config.allowedExtensions.includes(fileExtension(file.name))) {
+    return 'system.oss.uploadTypeNotAllowed';
+  }
+  if (config.maxFileSize >= 0 && file.size > config.maxFileSize) {
+    return 'system.oss.uploadTooLarge';
+  }
+  return undefined;
+}
 
 /** 可以在列表中直接预览的图片类型 */
 const IMAGE_SUFFIXES = new Set([

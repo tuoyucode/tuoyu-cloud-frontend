@@ -156,18 +156,10 @@ async function onExport() {
   await exportRole(query, fileName);
 }
 
-/** 行内“更多”菜单：停用的角色不能修改数据权限（见 role-drawer.vue 中的说明） */
-function moreActions(row: RoleApi.Role) {
+/** 行内“更多”菜单：数据权限、分配用户（停用的角色同样可以修改，启用后生效） */
+function moreActions() {
   return [
-    {
-      disabled: row.status === STATUS_DISABLED,
-      key: 'dataScope',
-      label: $t('system.role.dataPermission'),
-      title:
-        row.status === STATUS_DISABLED
-          ? $t('system.role.disabledRoleTip')
-          : undefined,
-    },
+    { key: 'dataScope', label: $t('system.role.dataPermission') },
     { key: 'authUser', label: $t('system.role.authUser') },
   ];
 }
@@ -252,7 +244,7 @@ function onMoreAction(row: RoleApi.Role, key: string) {
             </Button>
             <template #overlay>
               <Menu
-                :items="moreActions(row)"
+                :items="moreActions()"
                 @click="({ key }) => onMoreAction(row, String(key))"
               />
             </template>

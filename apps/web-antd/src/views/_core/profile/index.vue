@@ -1,19 +1,37 @@
 <script lang="ts" setup>
 import type { ProfileApi } from '@tuoyu/shared/api/system/profile';
+import type { UploadProps } from 'ant-design-vue';
+import type { UploadRequestOption } from 'ant-design-vue/es/vc-upload/interface';
 
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { Page } from '@vben/common-ui';
 import { preferences } from '@vben/preferences';
+import { useUserStore } from '@vben/stores';
 
-import { getProfile } from '@tuoyu/shared/api/system/profile';
-import { Avatar, Card, Skeleton, TabPane, Tabs, Tag } from 'ant-design-vue';
+import { getProfile, uploadAvatar } from '@tuoyu/shared/api/system/profile';
+import {
+  Avatar,
+  Button,
+  Card,
+  message,
+  Skeleton,
+  TabPane,
+  Tabs,
+  Tag,
+  Upload,
+} from 'ant-design-vue';
 
 import { $t } from '#/locales';
 
 import BaseSetting from './base-setting.vue';
-import { resolveProfileTab, splitGroup } from './data';
+import {
+  AVATAR_ACCEPT,
+  avatarRejection,
+  resolveProfileTab,
+  splitGroup,
+} from './data';
 import OnlineDevices from './online-devices.vue';
 import PasswordSetting from './password-setting.vue';
 import SocialAccounts from './social-accounts.vue';
@@ -41,6 +59,40 @@ const avatar = computed(
   () => user.value?.avatarUrl || preferences.app.defaultAvatar,
 );
 
+const userStore = useUserStore();
+const avatarUploading = ref(false);
+
+/** 选择头像后先检查类型与大小，不符时提示原因、不上传 */
+const beforeAvatarUpload: UploadProps['beforeUpload'] = (file) => {
+  const reason = avatarRejection(file);
+  if (reason) {
+    message.warning($t(reason));
+    return Upload.LIST_IGNORE;
+  }
+  return true;
+};
+
+async function onAvatarUpload(options: UploadRequestOption) {
+  avatarUploading.value = true;
+  try {
+    // 失败原因由请求层提示（例如服务端校验文件内容不符）
+    const { avatarUrl } = await uploadAvatar(options.file as File);
+    if (profile.value) {
+      profile.value.user.avatarUrl = avatarUrl;
+    }
+    // 页头的头像同步更新，不必重新加载用户信息
+    if (userStore.userInfo) {
+      userStore.setUserInfo({ ...userStore.userInfo, avatar: avatarUrl });
+    }
+    message.success($t('page.profile.avatarUpdated'));
+    options.onSuccess?.({ avatarUrl });
+  } catch (error) {
+    options.onError?.(error as Error);
+  } finally {
+    avatarUploading.value = false;
+  }
+}
+
 async function loadProfile() {
   try {
     profile.value = await getProfile();
@@ -60,6 +112,19 @@ onMounted(loadProfile);
         <Skeleton :loading="loading" active avatar>
           <div v-if="user" class="flex flex-col items-center gap-2 pb-4">
             <Avatar :size="80" :src="avatar" />
+            <Upload
+              :accept="AVATAR_ACCEPT"
+              :before-upload="beforeAvatarUpload"
+              :custom-request="onAvatarUpload"
+              :show-upload-list="false"
+            >
+              <Button :loading="avatarUploading" size="small">
+                {{ $t('page.profile.changeAvatar') }}
+              </Button>
+            </Upload>
+            <div class="text-xs text-muted-foreground">
+              {{ $t('page.profile.avatarHint') }}
+            </div>
             <div class="text-lg font-semibold break-all">
               {{ user.nickName }}
             </div>
