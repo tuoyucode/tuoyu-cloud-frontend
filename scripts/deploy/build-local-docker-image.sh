@@ -3,7 +3,7 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 LOG_FILE=${SCRIPT_DIR}/build-local-docker-image.log
 ERROR=""
-IMAGE_NAME="vben-admin-local"
+IMAGE_NAME="tuoyu-cloud-frontend"
 
 function stop_and_remove_container() {
     # Stop and remove the existing container
@@ -34,9 +34,10 @@ function log_message() {
         >&2 echo "ERROR: ${ERROR}"
         exit 1
     else
-        echo "docker image with tag '${IMAGE_NAME}' built sussessfully. Use below sample command to run the container"
+        echo "docker image with tag '${IMAGE_NAME}' built successfully. Use below sample command to run the container"
+        echo "(/api is proxied to tuoyu-gateway:8081, so join the network of the backend compose deployment)"
         echo ""
-        echo "docker run -d -p 8010:8080 --name ${IMAGE_NAME} ${IMAGE_NAME}"
+        echo "docker run -d -p 8010:8080 --network tuoyu_default --name ${IMAGE_NAME} ${IMAGE_NAME}"
     fi
 }
 
