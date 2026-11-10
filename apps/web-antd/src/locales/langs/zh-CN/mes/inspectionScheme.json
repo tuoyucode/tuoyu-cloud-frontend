@@ -1,0 +1,22 @@
+{
+  "title": "检验方案",
+  "list": "检验方案",
+  "exportFileName": "检验方案",
+  "create": "新增检验方案",
+  "edit": "编辑检验方案",
+  "delete": "删除检验方案",
+  "schemeCode": "方案编码",
+  "schemeName": "方案名称",
+  "schemeCodePlaceholder": "例如：QS-FIRST-01",
+  "schemeNamePlaceholder": "例如：装配首检",
+  "inspectionType": "检验类型",
+  "material": "适用产品",
+  "materialHelp": "为空表示适用所有产品",
+  "anyProduct": "通用（不限产品）",
+  "operationCode": "适用工序编码",
+  "operationHelp": "填写工艺路线中的工序编码；为空表示不限工序",
+  "anyOperation": "不限工序",
+  "sampleQty": "抽样数量",
+  "checkItems": "检验项目与标准",
+  "checkItemsPlaceholder": "每行一项，例如：外观无划伤、尺寸 10±0.1 mm"
+}

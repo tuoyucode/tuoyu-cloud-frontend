@@ -1,0 +1,14 @@
+{
+  "title": "Workshop",
+  "list": "Workshops",
+  "create": "New workshop",
+  "edit": "Edit workshop",
+  "delete": "Delete workshop",
+  "factory": "Factory",
+  "workshopCode": "Workshop code",
+  "workshopName": "Workshop name",
+  "manager": "Manager",
+  "workshopCodePlaceholder": "e.g. WS01",
+  "workshopNamePlaceholder": "e.g. Final assembly",
+  "exportFileName": "workshops"
+}

@@ -1,0 +1,13 @@
+{
+  "button": "导入",
+  "title": "导入{name}",
+  "start": "开始导入",
+  "drag": "点击或拖拽 Excel 文件到这里",
+  "hint": "请按导入模板填写，支持 xls、xlsx。有任何一行不合格时不会导入任何数据，并逐行列出原因",
+  "downloadTemplate": "下载导入模板",
+  "templateFileName": "{name}导入模板",
+  "fileType": "只能导入 xls、xlsx 格式的文件",
+  "fileRequired": "请先选择要导入的文件",
+  "succeeded": "导入成功",
+  "failed": "导入失败"
+}

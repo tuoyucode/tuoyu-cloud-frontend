@@ -1,0 +1,20 @@
+{
+  "title": "Equipment",
+  "list": "Equipment",
+  "create": "New equipment",
+  "edit": "Edit equipment",
+  "delete": "Delete equipment",
+  "deviceCode": "Equipment code",
+  "deviceName": "Equipment name",
+  "deviceType": "Equipment type",
+  "model": "Model",
+  "manufacturer": "Manufacturer",
+  "factory": "Factory",
+  "workshop": "Workshop",
+  "line": "Production line",
+  "station": "Station",
+  "deviceCodePlaceholder": "e.g. EQ-001",
+  "deviceNamePlaceholder": "e.g. Injection molder 1",
+  "deviceTypePlaceholder": "e.g. Injection molder",
+  "exportFileName": "equipment"
+}

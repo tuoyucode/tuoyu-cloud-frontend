@@ -1,0 +1,14 @@
+{
+  "title": "车间",
+  "list": "车间列表",
+  "create": "新增车间",
+  "edit": "编辑车间",
+  "delete": "删除车间",
+  "factory": "所属工厂",
+  "workshopCode": "车间编码",
+  "workshopName": "车间名称",
+  "manager": "负责人",
+  "workshopCodePlaceholder": "例如：WS01",
+  "workshopNamePlaceholder": "例如：总装车间",
+  "exportFileName": "车间"
+}

@@ -1,0 +1,13 @@
+{
+  "button": "Import",
+  "title": "Import {name}",
+  "start": "Start import",
+  "drag": "Click or drag an Excel file here",
+  "hint": "Fill in the import template (xls or xlsx). If any row is invalid, nothing is imported and the reasons are listed row by row",
+  "downloadTemplate": "Download import template",
+  "templateFileName": "{name} import template",
+  "fileType": "Only xls and xlsx files can be imported",
+  "fileRequired": "Select a file to import first",
+  "succeeded": "Imported",
+  "failed": "Import failed"
+}

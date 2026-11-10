@@ -1,0 +1,156 @@
+import type { DowntimeReasonApi } from '@tuoyu/shared/api/mes/downtimeReason';
+
+import type { VbenFormSchema } from '#/adapter/form';
+import type { VxeTableGridOptions } from '#/adapter/vxe-table';
+
+import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+
+import { $t } from '#/locales';
+
+import { enumOptions } from '../_shared/enums';
+
+/** 查询条件：一行最多 4 个 */
+export function useSearchSchema(): VbenFormSchema[] {
+  return [
+    {
+      component: 'Input',
+      componentProps: { placeholder: $t('crud.inputPlaceholder') },
+      fieldName: 'reasonCode',
+      label: $t('mes.downtimeReason.reasonCode'),
+    },
+    {
+      component: 'Input',
+      componentProps: { placeholder: $t('crud.inputPlaceholder') },
+      fieldName: 'reasonName',
+      label: $t('mes.downtimeReason.reasonName'),
+    },
+    {
+      component: 'Select',
+      componentProps: {
+        allowClear: true,
+        options: enumOptions('DowntimeReasonType'),
+        placeholder: $t('crud.selectPlaceholder'),
+      },
+      fieldName: 'reasonType',
+      label: $t('mes.downtimeReason.reasonType'),
+    },
+    {
+      component: 'ApiSelect',
+      componentProps: {
+        allowClear: true,
+        api: () => getDictOptions(DictType.NORMAL_DISABLE),
+        placeholder: $t('crud.selectPlaceholder'),
+      },
+      fieldName: 'status',
+      label: $t('crud.status'),
+    },
+  ];
+}
+
+/** 表格列 */
+export function useColumns(): VxeTableGridOptions<DowntimeReasonApi.Reason>['columns'] {
+  return [
+    { type: 'checkbox', width: 48 },
+    {
+      field: 'reasonCode',
+      minWidth: 120,
+      sortable: true,
+      title: $t('mes.downtimeReason.reasonCode'),
+    },
+    {
+      field: 'reasonName',
+      minWidth: 160,
+      title: $t('mes.downtimeReason.reasonName'),
+    },
+    {
+      field: 'reasonType',
+      slots: { default: 'reasonType' },
+      title: $t('mes.downtimeReason.reasonType'),
+      width: 110,
+    },
+    { field: 'sortNo', title: $t('crud.sort'), width: 100 },
+    {
+      field: 'status',
+      slots: { default: 'status' },
+      title: $t('crud.status'),
+      width: 100,
+    },
+    { field: 'createTime', title: $t('crud.createTime'), width: 170 },
+    {
+      align: 'right',
+      field: 'actions',
+      fixed: 'right',
+      slots: { default: 'actions' },
+      title: $t('crud.actions'),
+      width: 140,
+    },
+  ];
+}
+
+/** 新增、编辑表单：两列，备注占整行 */
+export function useFormSchema(): VbenFormSchema[] {
+  return [
+    {
+      component: 'Input',
+      componentProps: {
+        maxlength: 64,
+        placeholder: $t('mes.downtimeReason.reasonCodePlaceholder'),
+      },
+      fieldName: 'reasonCode',
+      label: $t('mes.downtimeReason.reasonCode'),
+      rules: 'required',
+    },
+    {
+      component: 'Input',
+      componentProps: {
+        maxlength: 128,
+        placeholder: $t('mes.downtimeReason.reasonNamePlaceholder'),
+      },
+      fieldName: 'reasonName',
+      label: $t('mes.downtimeReason.reasonName'),
+      rules: 'required',
+    },
+    {
+      component: 'Select',
+      componentProps: {
+        class: 'w-full',
+        options: enumOptions('DowntimeReasonType'),
+      },
+      defaultValue: 'other',
+      fieldName: 'reasonType',
+      label: $t('mes.downtimeReason.reasonType'),
+      rules: 'selectRequired',
+    },
+    {
+      component: 'InputNumber',
+      componentProps: { class: 'w-full', min: 0 },
+      defaultValue: 0,
+      fieldName: 'sortNo',
+      label: $t('crud.sort'),
+    },
+    {
+      component: 'RadioGroup',
+      // 选项在抽屉打开时从字典加载
+      componentProps: { options: [] },
+      defaultValue: '0',
+      fieldName: 'status',
+      label: $t('crud.status'),
+    },
+    {
+      component: 'Textarea',
+      componentProps: {
+        maxlength: 500,
+        placeholder: $t('crud.remarkPlaceholder'),
+        rows: 3,
+      },
+      fieldName: 'remark',
+      formItemClass: 'md:col-span-2',
+      label: $t('crud.remark'),
+    },
+  ];
+}
+
+/** 加载表单中依赖字典的选项 */
+export async function loadFormOptions() {
+  return { status: await getDictOptions(DictType.NORMAL_DISABLE) };
+}

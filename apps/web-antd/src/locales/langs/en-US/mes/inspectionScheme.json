@@ -1,0 +1,22 @@
+{
+  "title": "Inspection schemes",
+  "list": "Inspection schemes",
+  "exportFileName": "inspection-schemes",
+  "create": "New inspection scheme",
+  "edit": "Edit inspection scheme",
+  "delete": "Delete inspection scheme",
+  "schemeCode": "Scheme code",
+  "schemeName": "Scheme name",
+  "schemeCodePlaceholder": "e.g. QS-FIRST-01",
+  "schemeNamePlaceholder": "e.g. Assembly first-article inspection",
+  "inspectionType": "Inspection type",
+  "material": "Product",
+  "materialHelp": "Leave empty to apply to all products",
+  "anyProduct": "Any product",
+  "operationCode": "Operation code",
+  "operationHelp": "The operation code in the routing; leave empty to apply to all operations",
+  "anyOperation": "Any operation",
+  "sampleQty": "Sample size",
+  "checkItems": "Check items and criteria",
+  "checkItemsPlaceholder": "One item per line, e.g. no scratches; size 10±0.1 mm"
+}
