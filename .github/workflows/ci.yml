@@ -44,6 +44,7 @@ jobs:
         run: |
           pnpm -F @tuoyu/shared run typecheck
           pnpm -F @vben/web-antd run typecheck
+          pnpm -F @vben/web-ele run typecheck
 
       - name: Unit tests
         run: pnpm run test:unit
@@ -63,5 +64,8 @@ jobs:
       - name: Setup Node
         uses: ./.github/actions/setup-node
 
-      - name: Build
+      - name: Build Ant Design Vue
         run: pnpm run build:antd
+
+      - name: Build Element Plus
+        run: pnpm run build:ele

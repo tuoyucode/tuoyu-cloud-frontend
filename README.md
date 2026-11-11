@@ -6,7 +6,7 @@ tuoyu-cloud 的管理端前端。tuoyu-cloud 是通用的 Java 微服务框架�
 
 - 后端仓库：[tuoyu-cloud](https://gitee.com/tuoyucode/tuoyu-cloud)
 - 使用手册：[https://docs.ctoolhub.com](https://docs.ctoolhub.com)
-- 技术栈：Vue 3、TypeScript、Vite、[Vben Admin 5](https://github.com/vbenjs/vue-vben-admin)（框架层）、Ant Design Vue
+- 技术栈：Vue 3、TypeScript、Vite、[Vben Admin 5](https://github.com/vbenjs/vue-vben-admin)（框架层）、Ant Design Vue；Element Plus 版正在迁移页面
 
 ## 环境要求
 
@@ -24,18 +24,20 @@ pnpm dev:antd
 
 ## 常用命令
 
-| 命令              | 说明                                    |
-| ----------------- | --------------------------------------- |
-| `pnpm dev:antd`   | 启动开发服务器                          |
+| 命令 | 说明 |
+| --- | --- |
+| `pnpm dev:antd` | 启动开发服务器 |
+| `pnpm dev:ele` | 启动 Element Plus 版的开发服务器（端口 5777，正在迁移页面） |
 | `pnpm build:antd` | 构建生产包，输出到 `apps/web-antd/dist` |
-| `pnpm lint`       | 代码检查                                |
-| `pnpm check:type` | 类型检查                                |
-| `pnpm test:unit`  | 单元测试（Vitest）                      |
+| `pnpm lint` | 代码检查 |
+| `pnpm check:type` | 类型检查 |
+| `pnpm test:unit` | 单元测试（Vitest） |
 
 ## 目录结构
 
 | 目录 | 说明 |
 | --- | --- |
+| `apps/web-ele` | 管理端应用（Element Plus）：页面、布局、组件适配、主题配置。正在迁移页面，已有登录、首页、租户切换、岗位管理 |
 | `apps/web-antd` | 管理端应用（Ant Design Vue）：页面、布局、组件适配、主题配置 |
 | `packages/shared` | 共享包 `@tuoyu/shared`：请求层、各模块的接口与类型、页面文案、与 UI 组件库无关的工具 |
 | `packages` 下的其他目录 | Vben 框架层：布局、权限、组件、偏好设置、工具 |

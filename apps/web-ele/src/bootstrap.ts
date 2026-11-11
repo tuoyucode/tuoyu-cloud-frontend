@@ -14,6 +14,7 @@ import { $t, setupI18n } from '#/locales';
 
 import { initComponentAdapter } from './adapter/component';
 import { initSetupVbenForm } from './adapter/form';
+import { initRequestAdapter } from './adapter/request';
 import App from './app.vue';
 import { router } from './router';
 
@@ -24,22 +25,17 @@ async function bootstrap(namespace: string) {
   // 初始化表单组件
   await initSetupVbenForm();
 
-  // // 设置弹窗的默认配置
-  // setDefaultModalProps({
-  //   fullscreenButton: false,
-  // });
-  // // 设置抽屉的默认配置
-  // setDefaultDrawerProps({
-  //   zIndex: 2000,
-  // });
+  // 请求层的错误提示与退出登录
+  initRequestAdapter();
+
   const app = createApp(App);
 
   // 注册Element Plus提供的v-loading指令
   app.directive('loading', ElLoading.directive);
 
-  // 注册Vben提供的v-loading和v-spinning指令
+  // 注册Vben提供的v-spinning指令；v-loading 用 Element Plus 的，不注册 Vben 的
   registerLoadingDirective(app, {
-    loading: false, // Vben提供的v-loading指令和Element Plus提供的v-loading指令二选一即可，此处false表示不注册Vben提供的v-loading指令
+    loading: false,
     spinning: 'spinning',
   });
 

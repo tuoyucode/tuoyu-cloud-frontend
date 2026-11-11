@@ -4,6 +4,7 @@
  */
 
 import type {
+  ButtonNativeType,
   CheckboxGroupProps,
   CheckboxProps,
   DatePickerProps,
@@ -269,13 +270,24 @@ async function initComponentAdapter() {
         { ...slots, default: defaultSlot },
       );
     },
-    // 自定义默认按钮
-    DefaultButton: (props, { attrs, slots }) => {
-      return h(ElButton, { ...props, attrs, type: 'info' }, slots);
+    // 默认按钮（查询区的“重置”、弹窗与抽屉的“取消”等）：Element Plus 的普通按钮，与 Ant Design Vue 版的默认按钮一致。
+    // Vben 传入的 type 是原生按钮类型（button / submit），对应 Element Plus 的 nativeType
+    DefaultButton: (_props, { attrs, slots }) => {
+      const { type, ...rest } = attrs;
+      return h(
+        ElButton,
+        { ...rest, nativeType: type as ButtonNativeType },
+        slots,
+      );
     },
-    // 自定义主要按钮
-    PrimaryButton: (props, { attrs, slots }) => {
-      return h(ElButton, { ...props, attrs, type: 'primary' }, slots);
+    // 主要按钮
+    PrimaryButton: (_props, { attrs, slots }) => {
+      const { type, ...rest } = attrs;
+      return h(
+        ElButton,
+        { ...rest, nativeType: type as ButtonNativeType, type: 'primary' },
+        slots,
+      );
     },
     Divider: ElDivider,
     IconPicker: withDefaultPlaceholder(IconPicker, 'select', {

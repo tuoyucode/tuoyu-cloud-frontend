@@ -1,4 +1,6 @@
-import type { Recordable, UserInfo } from '@vben/types';
+import type { AuthApi } from '@tuoyu/shared/api';
+
+import type { UserInfo } from '@vben/types';
 
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -7,10 +9,11 @@ import { LOGIN_PATH } from '@vben/constants';
 import { preferences } from '@vben/preferences';
 import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores';
 
+import { getUserInfoApi, loginApi, logoutApi } from '@tuoyu/shared/api';
+import { clearWarmFlowStorage } from '@tuoyu/shared/utils/warm-flow';
 import { ElNotification } from 'element-plus';
 import { defineStore } from 'pinia';
 
-import { getAccessCodesApi, getUserInfoApi, loginApi, logoutApi } from '#/api';
 import { $t } from '#/locales';
 
 export const useAuthStore = defineStore('auth', () => {
@@ -21,77 +24,54 @@ export const useAuthStore = defineStore('auth', () => {
   const loginLoading = ref(false);
 
   /**
-   * 异步处理登录操作
-   * Asynchronously handle the login process
-   * @param params 登录表单数据
+   * 账号密码登录：取得 token 后加载用户信息与权限码，再进入首页（或登录前要去的页面）。
+   * 失败时抛出异常，由登录页刷新验证码
    */
   async function authLogin(
-    params: Recordable<any>,
+    params: AuthApi.LoginParams,
     onSuccess?: () => Promise<void> | void,
   ) {
-    // 异步处理用户登录操作并获取 accessToken
-    let userInfo: null | UserInfo = null;
     try {
       loginLoading.value = true;
-      const { accessToken } = await loginApi(params);
+      const { access_token: accessToken } = await loginApi(params);
+      accessStore.setAccessToken(accessToken);
+      const userInfo: UserInfo = await fetchUserInfo();
 
-      // 如果成功获取到 accessToken
-      if (accessToken) {
-        // 将 accessToken 存储到 accessStore 中
-        accessStore.setAccessToken(accessToken);
-
-        // 获取用户信息并存储到 accessStore 中
-        const [fetchUserInfoResult, accessCodes] = await Promise.all([
-          fetchUserInfo(),
-          getAccessCodesApi(),
-        ]);
-
-        userInfo = fetchUserInfoResult;
-
-        userStore.setUserInfo(userInfo);
-        accessStore.setAccessCodes(accessCodes);
-
-        if (accessStore.loginExpired) {
-          accessStore.setLoginExpired(false);
-        } else {
-          onSuccess
-            ? await onSuccess?.()
-            : await router.push(
-                userInfo.homePath || preferences.app.defaultHomePath,
-              );
-        }
-
-        if (userInfo?.realName) {
-          ElNotification({
-            message: `${$t('authentication.loginSuccessDesc')}:${userInfo?.realName}`,
-            title: $t('authentication.loginSuccess'),
-            type: 'success',
-          });
-        }
+      if (accessStore.loginExpired) {
+        accessStore.setLoginExpired(false);
+      } else {
+        onSuccess
+          ? await onSuccess?.()
+          : await router.push(
+              userInfo.homePath || preferences.app.defaultHomePath,
+            );
       }
+
+      ElNotification({
+        duration: 3000,
+        message: `${$t('authentication.loginSuccessDesc')}:${userInfo.realName}`,
+        title: $t('authentication.loginSuccess'),
+        type: 'success',
+      });
+      return { userInfo };
     } finally {
       loginLoading.value = false;
     }
-
-    return {
-      userInfo,
-    };
   }
 
   async function logout(redirect: boolean = true) {
     try {
-      await logoutApi();
+      await logoutApi(accessStore.accessToken);
     } catch {
-      // 不做任何处理
+      // 登录已失效等情况下退出失败不影响前端清理
     }
     resetAllStores();
     accessStore.setLoginExpired(false);
+    // 流程设计器、流程图（Warm-Flow 前端）把令牌存在本站点的 localStorage 中，一并清除
+    clearWarmFlowStorage();
 
     // 已经在登录页时不能再带 redirect：此时 currentRoute.fullPath 就是登录页本身，
-    // 再编码一层会得到「登录页?redirect=编码后的登录页」，下一次又在这个基础上再包一层，
-    // 反复登出会让 URL 逐跳变长，且没有上限。
-    // On the login page the current route is the login page itself, so carrying it as
-    // `redirect` would nest one more encoded layer on every repeat.
+    // 再编码一层会得到「登录页?redirect=编码后的登录页」，反复登出会让 URL 逐跳变长
     const currentRoute = router.currentRoute.value;
     const alreadyOnLogin = currentRoute.path === LOGIN_PATH;
 
@@ -105,9 +85,13 @@ export const useAuthStore = defineStore('auth', () => {
     });
   }
 
+  /**
+   * 加载用户信息与权限码。登录后和刷新页面时（路由守卫）调用
+   */
   async function fetchUserInfo() {
-    const userInfo = await getUserInfoApi();
+    const { permissions, userInfo } = await getUserInfoApi();
     userStore.setUserInfo(userInfo);
+    accessStore.setAccessCodes(permissions);
     return userInfo;
   }
 

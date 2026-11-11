@@ -6,7 +6,7 @@ The admin frontend of tuoyu-cloud. tuoyu-cloud is a general-purpose Java microse
 
 - Backend repository: [tuoyu-cloud](https://gitee.com/tuoyucode/tuoyu-cloud)
 - User manual: [https://docs.ctoolhub.com](https://docs.ctoolhub.com)
-- Stack: Vue 3, TypeScript, Vite, [Vben Admin 5](https://github.com/vbenjs/vue-vben-admin) (framework layer), Ant Design Vue
+- Stack: Vue 3, TypeScript, Vite, [Vben Admin 5](https://github.com/vbenjs/vue-vben-admin) (framework layer), Ant Design Vue; an Element Plus version is being built page by page
 
 ## Requirements
 
@@ -24,18 +24,20 @@ The dev server runs at `http://localhost:5666` and proxies `/api` to the local b
 
 ## Commands
 
-| Command           | Description                                    |
-| ----------------- | ---------------------------------------------- |
-| `pnpm dev:antd`   | Start the dev server                           |
+| Command | Description |
+| --- | --- |
+| `pnpm dev:antd` | Start the dev server |
+| `pnpm dev:ele` | Start the Element Plus dev server (port 5777, pages being migrated) |
 | `pnpm build:antd` | Build for production into `apps/web-antd/dist` |
-| `pnpm lint`       | Lint                                           |
-| `pnpm check:type` | Type check                                     |
-| `pnpm test:unit`  | Unit tests (Vitest)                            |
+| `pnpm lint` | Lint |
+| `pnpm check:type` | Type check |
+| `pnpm test:unit` | Unit tests (Vitest) |
 
 ## Layout
 
 | Directory | Contents |
 | --- | --- |
+| `apps/web-ele` | The admin app (Element Plus): pages, layouts, component adapters, theme. Pages are being migrated; sign-in, home, tenant switching and positions are done |
 | `apps/web-antd` | The admin app (Ant Design Vue): pages, layouts, component adapters, theme |
 | `packages/shared` | The shared package `@tuoyu/shared`: request layer, API calls and types of each module, page texts, UI-independent utilities |
 | Other directories under `packages` | Vben framework layer: layouts, access control, components, preferences, utilities |

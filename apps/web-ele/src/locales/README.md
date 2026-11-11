@@ -1,3 +1,3 @@
 # locale
 
-每个app使用的国际化可能不同，这里用于扩展国际化的功能，例如扩展 dayjs、antd组件库的多语言切换，以及app本身的国际化文件。
+扩展国际化的功能，例如 dayjs、Element Plus 组件库的多语言切换。框架页面的文案在共享包 `@tuoyu/shared` 的 `locales/langs` 中，与 Ant Design Vue 版共用；本目录的 `langs` 只放本应用独有的文案。

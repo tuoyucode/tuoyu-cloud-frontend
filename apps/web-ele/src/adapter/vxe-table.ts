@@ -12,6 +12,8 @@ import {
 
 import { ElButton, ElImage } from 'element-plus';
 
+import DictTag from '#/components/dict-tag.vue';
+
 import { useVbenForm } from './form';
 
 setupVbenVxeTable({
@@ -30,6 +32,7 @@ setupVbenVxeTable({
         },
         proxyConfig: {
           autoLoad: true,
+          // 后端分页结果 PageResult：{ items, total }
           response: {
             result: 'items',
             total: 'total',
@@ -63,6 +66,18 @@ setupVbenVxeTable({
           { size: 'small', link: true },
           { default: () => props?.text },
         );
+      },
+    });
+
+    // 字典列：cellRender: { name: 'CellDict', props: { dictType: 'sys_normal_disable' } }
+    vxeUI.renderer.add('CellDict', {
+      renderTableDefault(renderOpts, params) {
+        const { props } = renderOpts;
+        const { column, row } = params;
+        return h(DictTag, {
+          dictType: props?.dictType,
+          value: row[column.field],
+        });
       },
     });
 

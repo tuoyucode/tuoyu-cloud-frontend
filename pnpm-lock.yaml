@@ -661,6 +661,9 @@ importers:
 
   apps/web-ele:
     dependencies:
+      '@tuoyu/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access

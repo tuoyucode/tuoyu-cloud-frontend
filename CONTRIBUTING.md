@@ -8,12 +8,12 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 
 ## 技术选型
 
-- 框架层使用官方 [Vben Admin 5](https://github.com/vbenjs/vue-vben-admin)（MIT），UI 库为 Ant Design Vue。只使用 Vben 的布局、权限、路由、主题和组件封装。
+- 框架层使用官方 [Vben Admin 5](https://github.com/vbenjs/vue-vben-admin)（MIT），只使用 Vben 的布局、权限、路由、主题和组件封装。UI 库有 Element Plus 与 Ant Design Vue 两个版本，共用同一个共享包；Element Plus 版正在迁移页面。
 - Vben 的代码按原样导入（提交说明里记录上游 commit），之后再改名、精简。导入提交和改名提交不要混在一起。
 
 ## 应用与共享包
 
-- `apps/web-antd`：Ant Design Vue 版的应用，放页面（`views`）、布局、组件适配（`adapter`）、store。
+- `apps/web-ele`：Element Plus 版的应用；`apps/web-antd`：Ant Design Vue 版的应用。各自放页面（`views`）、布局、组件适配（`adapter`）、store。同一个页面在两个应用中的目录、文件名与 `data.ts` 的结构保持一致，只有组件写法不同。
 - `packages/shared`（`@tuoyu/shared`）：与 UI 组件库无关的代码，包括请求层与各模块的接口（`api/`）、工具函数（`utils/`）、后端菜单转换（`router/`）和页面文案（`locales/`）。引用写完整的子路径，例如 `@tuoyu/shared/api/system/post`。
 - 共享包不能引用 UI 组件库、Vben 的界面包（`@vben/common-ui`、`@vben/layouts`、`@vben/plugins`）和应用的 `#/` 别名，测试会检查。需要界面配合的地方由应用注入。
 
@@ -47,9 +47,9 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 ## 开发环境与检查
 
 - Node `^22.18.0 || ^24.12.0`，pnpm `>= 11`（以 `package.json` 中的 `engines` 和 `packageManager` 为准）。
-- 常用命令：`pnpm install`、`pnpm dev:antd`、`pnpm build:antd`、`pnpm lint`、`pnpm test:unit`、`pnpm test:e2e`。
+- 常用命令：`pnpm install`、`pnpm dev:ele`（端口 5777）、`pnpm dev:antd`（端口 5666）、`pnpm build:ele`、`pnpm build:antd`、`pnpm lint`、`pnpm test:unit`、`pnpm test:e2e`。
 - 提交前 lefthook 会自动运行格式化、eslint、stylelint、类型检查和 oxlint，不通过就提交不了。请不要用 `--no-verify` 跳过。
-- 本地检查与 CI 保持一致：`pnpm run lint`、`pnpm -F @tuoyu/shared run typecheck`、`pnpm -F @vben/web-antd run typecheck`、`pnpm run test:unit`、`pnpm run build:antd`。
+- 本地检查与 CI 保持一致：`pnpm run lint`、`pnpm -F @tuoyu/shared run typecheck`、`pnpm -F @vben/web-antd run typecheck`、`pnpm -F @vben/web-ele run typecheck`、`pnpm run test:unit`、`pnpm run build:antd`、`pnpm run build:ele`。
 - 端到端测试（Playwright，`apps/web-antd/e2e`）需要真实的后端，账号口令只从环境变量 `E2E_USERNAME`、`E2E_PASSWORD` 读取，不写进仓库。
 
 ## 提交说明
@@ -59,7 +59,7 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 ## 品牌与设计
 
 - 名称：字标一律小写 `tuoyu`，“cloud”用次要色，空间不够时省略。
-- 主题写在 `apps/web-antd/src/preferences.ts`，部署方改品牌色只需要改这一处：
+- 主题写在各应用的 `src/preferences.ts`（`apps/web-ele`、`apps/web-antd` 两份取值相同），部署方改品牌色只需要改这里：
 
   | 项 | 值 |
   | --- | --- |
@@ -95,13 +95,13 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 - 后端的 Long 型 ID 一律按字符串处理。
 - 后端菜单的 `component` 填 `views` 下的相对路径（不带 `.vue`），图标只接受 Iconify 名称（如 `lucide:user`）。
 
-代码生成器下载的 zip 中，`vben/` 目录与本仓库的根目录一一对应，直接复制即可。
+代码生成器下载的 zip 中，`vben/` 目录与本仓库的根目录一一对应，直接复制即可（目前生成的是 Ant Design Vue 版的页面）。
 
 流程的业务详情：流程定义的表单路径填 `views` 下业务详情组件的路径（规则与菜单的 `component` 相同），组件接收 `businessId`（字符串）与 `instanceId` 两个 props，在办理与查看流程的抽屉中以“业务详情”页签显示。
 
 ## 修改 Vben 自带的文件
 
-尽量在 `apps/web-antd` 中解决。必须改 `packages/` 下的 Vben 文件时，在改动处加以 `tuoyu：` 开头的注释，并登记在下面，升级 Vben 时逐条保留：
+尽量在应用（`apps/web-ele`、`apps/web-antd`）中解决。必须改 `packages/` 下的 Vben 文件时，在改动处加以 `tuoyu：` 开头的注释，并登记在下面，升级 Vben 时逐条保留：
 
 - `packages/effects/plugins/src/vxe-table/use-vxe-grid.vue`：表格标题与左侧按钮之间留 16px（标题加 `mr-4`），按钮之间仍为 8px。
 - `packages/effects/common-ui/src/ui/authentication/login.vue`：登录按钮去掉 Vben 的 `aria-label="login"`，无障碍名称取可见文字“登录”。

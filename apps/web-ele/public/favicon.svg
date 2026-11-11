@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" fill="#2A48C1">
+  <!-- tuoyu：4 个模块，其中一块脱离出去，表示同一套代码可以单体部署，也可以拆成微服务 -->
+  <rect x="2" y="7" width="9" height="9" rx="1.6" opacity=".55"/>
+  <rect x="2" y="18" width="9" height="9" rx="1.6" opacity=".8"/>
+  <rect x="13" y="18" width="9" height="9" rx="1.6" opacity=".55"/>
+  <rect x="17" y="1" width="9" height="9" rx="1.6"/>
+</svg>

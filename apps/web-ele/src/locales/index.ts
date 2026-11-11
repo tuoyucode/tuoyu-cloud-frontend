@@ -13,12 +13,15 @@ import {
 } from '@vben/locales';
 import { preferences } from '@vben/preferences';
 
+import { loadSharedMessages } from '@tuoyu/shared/locales';
+import { nestNamespaces } from '@tuoyu/shared/utils/locale';
 import dayjs from 'dayjs';
 import enLocale from 'element-plus/es/locale/lang/en';
 import defaultLocale from 'element-plus/es/locale/lang/zh-cn';
 
 const elementLocale = ref<Language>(defaultLocale);
 
+// 只放本应用独有的文案；框架页面的文案在 @tuoyu/shared
 const modules = import.meta.glob('./langs/**/*.json');
 
 const localesMap = loadLocalesMapFromDir(
@@ -26,16 +29,16 @@ const localesMap = loadLocalesMapFromDir(
   modules,
 );
 /**
- * 加载应用特有的语言包
- * 这里也可以改造为从服务端获取翻译数据
+ * 加载应用的语言包：两个 UI 版本共用的文案（@tuoyu/shared）与应用自己的文案合并，应用的同名键优先
  * @param lang
  */
 async function loadMessages(lang: SupportedLanguagesType) {
-  const [appLocaleMessages] = await Promise.all([
+  const [sharedMessages, appLocaleMessages] = await Promise.all([
+    loadSharedMessages(lang),
     localesMap[lang]?.(),
     loadThirdPartyMessage(lang),
   ]);
-  return appLocaleMessages?.default;
+  return nestNamespaces(sharedMessages, appLocaleMessages?.default ?? {});
 }
 
 /**
