@@ -228,6 +228,20 @@ export function useGenerateFormSchema(): VbenFormSchema[] {
       rules: 'selectRequired',
     },
     {
+      component: 'RadioGroup',
+      componentProps: {
+        options: [
+          { label: $t('tool.gen.frontendEle'), value: 'ele' },
+          { label: $t('tool.gen.frontendAntd'), value: 'antd' },
+        ],
+      },
+      defaultValue: 'ele',
+      fieldName: 'frontendType',
+      help: $t('tool.gen.frontendTypeHelp'),
+      label: $t('tool.gen.frontendType'),
+      rules: 'selectRequired',
+    },
+    {
       component: 'Input',
       fieldName: 'packageName',
       help: $t('tool.gen.packageNameHelp'),

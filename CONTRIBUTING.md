@@ -95,7 +95,7 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 - 后端的 Long 型 ID 一律按字符串处理。
 - 后端菜单的 `component` 填 `views` 下的相对路径（不带 `.vue`），图标只接受 Iconify 名称（如 `lucide:user`）。
 
-代码生成器下载的 zip 中，`vben/` 目录与本仓库的根目录一一对应，直接复制即可（目前生成的是 Ant Design Vue 版的页面）。
+代码生成器下载的 zip 中，`vben/` 目录与本仓库的根目录一一对应，直接复制即可：接口与文案在共享包，页面在生成配置中所选版本的应用（`apps/web-ele` 或 `apps/web-antd`，新导入的表默认 Element Plus 版）。
 
 流程的业务详情：流程定义的表单路径填 `views` 下业务详情组件的路径（规则与菜单的 `component` 相同），组件接收 `businessId`（字符串）与 `instanceId` 两个 props，在办理与查看流程的抽屉中以“业务详情”页签显示。
 

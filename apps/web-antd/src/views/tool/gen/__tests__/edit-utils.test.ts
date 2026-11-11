@@ -9,6 +9,7 @@ import {
   normalizeOptions,
   readOptions,
   toFlag,
+  toFrontendType,
   validateOptions,
 } from '../edit-utils';
 
@@ -194,6 +195,13 @@ describe('代码生成：字段工具', () => {
   it('是否标记', () => {
     expect(toFlag(true)).toBe('1');
     expect(toFlag(false)).toBe('0');
+  });
+
+  it('前端模板类型只有 ele 与 antd，其他值按 ele 处理', () => {
+    expect(toFrontendType('antd')).toBe('antd');
+    expect(toFrontendType('ele')).toBe('ele');
+    expect(toFrontendType(undefined)).toBe('ele');
+    expect(toFrontendType('vben')).toBe('ele');
   });
 
   it('字段下拉选项显示列名与注释', () => {

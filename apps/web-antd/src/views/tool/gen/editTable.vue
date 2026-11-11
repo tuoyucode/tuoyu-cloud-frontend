@@ -47,13 +47,11 @@ import {
   QUERY_TYPES,
   readOptions,
   toFlag,
+  toFrontendType,
   validateOptions,
 } from './edit-utils';
 
 defineOptions({ name: 'ToolGenEdit' });
-
-/** 前端模板：只提供与本前端页面约定一致的 vben 模板 */
-const FRONTEND_TYPE: GenApi.FrontendType = 'vben';
 
 const route = useRoute();
 const router = useRouter();
@@ -219,6 +217,7 @@ async function load() {
     await basicFormApi.setValues(detail.info);
     await generateFormApi.setValues({
       businessName: detail.info.businessName,
+      frontendType: toFrontendType(detail.info.frontendType),
       functionName: detail.info.functionName,
       moduleName: detail.info.moduleName,
       packageName: detail.info.packageName,
@@ -291,7 +290,7 @@ async function onSave() {
     ...info.value,
     ...basicValues,
     businessName: generateValues.businessName,
-    frontendType: FRONTEND_TYPE,
+    frontendType: toFrontendType(generateValues.frontendType),
     functionName: generateValues.functionName,
     moduleName: generateValues.moduleName,
     packageName: generateValues.packageName,

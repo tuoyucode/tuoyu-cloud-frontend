@@ -87,6 +87,14 @@ export function toFlag(checked: boolean) {
   return checked ? YES : NO;
 }
 
+/**
+ * 前端模板类型：只认 ele（Element Plus）与 antd（Ant Design Vue），
+ * 其他值（例如未设置）按 ele 处理，与后端新导入表的默认值一致
+ */
+export function toFrontendType(value?: unknown): GenApi.FrontendType {
+  return value === 'antd' ? 'antd' : 'ele';
+}
+
 /** 字段的下拉选项：值为列名，显示“列名：注释” */
 export function columnOptions(columns: GenApi.Column[]) {
   return columns.map((column) => ({
