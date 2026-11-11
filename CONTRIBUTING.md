@@ -13,8 +13,8 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 
 ## 应用与共享包
 
-- `apps/web-antd`：Ant Design Vue 版的应用，放页面（`views`）、布局、组件适配（`adapter`）、store、页面文案。
-- `packages/shared`（`@tuoyu/shared`）：与 UI 组件库无关的代码，包括请求层与各模块的接口（`api/`）、工具函数（`utils/`）、后端菜单转换（`router/`）和共享文案（`locales/`）。引用写完整的子路径，例如 `@tuoyu/shared/api/system/post`。
+- `apps/web-antd`：Ant Design Vue 版的应用，放页面（`views`）、布局、组件适配（`adapter`）、store。
+- `packages/shared`（`@tuoyu/shared`）：与 UI 组件库无关的代码，包括请求层与各模块的接口（`api/`）、工具函数（`utils/`）、后端菜单转换（`router/`）和页面文案（`locales/`）。引用写完整的子路径，例如 `@tuoyu/shared/api/system/post`。
 - 共享包不能引用 UI 组件库、Vben 的界面包（`@vben/common-ui`、`@vben/layouts`、`@vben/plugins`）和应用的 `#/` 别名，测试会检查。需要界面配合的地方由应用注入。
 
 ## 必须遵守的规则
@@ -91,7 +91,7 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 - 接口：`packages/shared/src/api/<模块>/<业务>.ts`，类型放在同名 `namespace` 中，函数名为 `list*`、`get*`、`add*`、`update*`、`remove*`、`export*`。
 - 按钮级权限用 `hasPermission('system:post:add')`，权限码与后端 `@SaCheckPermission` 一致。
 - 字典用 `getDictOptions(DictType.xxx)`，字典类型一律从 `DictType` 常量引用。
-- 文案：每个页面一个文案文件 `locales/langs/<语言>/<模块>/<业务>.json`，中英文同步。
+- 文案：每个页面一个文案文件 `packages/shared/src/locales/langs/<语言>/<模块>/<业务>.json`，中英文同步（测试会检查两种语言的文件与键是否一致）。
 - 后端的 Long 型 ID 一律按字符串处理。
 - 后端菜单的 `component` 填 `views` 下的相对路径（不带 `.vue`），图标只接受 Iconify 名称（如 `lucide:user`）。
 

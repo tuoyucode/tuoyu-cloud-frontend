@@ -36,8 +36,8 @@ The dev server runs at `http://localhost:5666` and proxies `/api` to the local b
 
 | Directory | Contents |
 | --- | --- |
-| `apps/web-antd` | The admin app (Ant Design Vue): pages, layouts, component adapters, theme, page texts |
-| `packages/shared` | The shared package `@tuoyu/shared`: request layer, API calls and types of each module, UI-independent utilities |
+| `apps/web-antd` | The admin app (Ant Design Vue): pages, layouts, component adapters, theme |
+| `packages/shared` | The shared package `@tuoyu/shared`: request layer, API calls and types of each module, page texts, UI-independent utilities |
 | Other directories under `packages` | Vben framework layer: layouts, access control, components, preferences, utilities |
 | `internal` | Build and lint configuration |
 | `scripts` | Tooling scripts and deployment files |

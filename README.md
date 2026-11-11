@@ -36,8 +36,8 @@ pnpm dev:antd
 
 | 目录 | 说明 |
 | --- | --- |
-| `apps/web-antd` | 管理端应用（Ant Design Vue）：页面、布局、组件适配、主题配置、页面文案 |
-| `packages/shared` | 共享包 `@tuoyu/shared`：请求层、各模块的接口与类型、与 UI 组件库无关的工具 |
+| `apps/web-antd` | 管理端应用（Ant Design Vue）：页面、布局、组件适配、主题配置 |
+| `packages/shared` | 共享包 `@tuoyu/shared`：请求层、各模块的接口与类型、页面文案、与 UI 组件库无关的工具 |
 | `packages` 下的其他目录 | Vben 框架层：布局、权限、组件、偏好设置、工具 |
 | `internal` | 构建与 lint 配置 |
 | `scripts` | 工程脚本与部署文件 |

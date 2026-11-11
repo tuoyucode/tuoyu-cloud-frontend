@@ -13,7 +13,7 @@ import {
 } from '@vben/locales';
 import { preferences } from '@vben/preferences';
 
-import { sharedMessages } from '@tuoyu/shared/locales';
+import { loadSharedMessages } from '@tuoyu/shared/locales';
 import { nestNamespaces } from '@tuoyu/shared/utils/locale';
 import antdEnLocale from 'ant-design-vue/es/locale/en_US';
 import antdDefaultLocale from 'ant-design-vue/es/locale/zh_CN';
@@ -21,6 +21,7 @@ import dayjs from 'dayjs';
 
 const antdLocale = ref<Locale>(antdDefaultLocale);
 
+// 只放本应用独有的文案（例如业务分支中的业务页面）；框架页面的文案在 @tuoyu/shared
 const modules = import.meta.glob('./langs/**/*.json');
 
 const localesMap = loadLocalesMapFromDir(
@@ -28,18 +29,16 @@ const localesMap = loadLocalesMapFromDir(
   modules,
 );
 /**
- * 加载应用的语言包：共享代码的文案（@tuoyu/shared）与应用自己的文案合并，应用的同名键优先
+ * 加载应用的语言包：两个 UI 版本共用的文案（@tuoyu/shared）与应用自己的文案合并，应用的同名键优先
  * @param lang
  */
 async function loadMessages(lang: SupportedLanguagesType) {
-  const [appLocaleMessages] = await Promise.all([
+  const [sharedMessages, appLocaleMessages] = await Promise.all([
+    loadSharedMessages(lang),
     localesMap[lang]?.(),
     loadThirdPartyMessage(lang),
   ]);
-  return {
-    ...sharedMessages[lang],
-    ...nestNamespaces(appLocaleMessages?.default ?? {}),
-  };
+  return nestNamespaces(sharedMessages, appLocaleMessages?.default ?? {});
 }
 
 /**
