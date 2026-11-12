@@ -42,7 +42,7 @@
   "resumeWorkorder": "Resume work order",
   "confirmResume": "Resume work order \"{code}\"?",
   "completeWorkorder": "Complete",
-  "confirmComplete": "Complete work order \"{code}\"? Unfinished operation tasks are completed as well.",
+  "confirmComplete": "Complete work order \"{code}\"? Unfinished operation tasks are completed as well, and generated serial numbers become completed. A work order is completed automatically once all its operations are completed.",
   "closeWorkorder": "Close work order",
   "closeReason": "Note",
   "cancelWorkorder": "Cancel work order",

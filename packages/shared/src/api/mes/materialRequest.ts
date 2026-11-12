@@ -21,6 +21,8 @@ export namespace MaterialRequestApi {
     requestId: string;
     requestQty: number;
     specification?: string;
+    /** 物料当前的追溯方式（none、batch、sn）；按批次追溯的物料完成时必须填写物料批次号 */
+    traceMode?: string;
     unit?: string;
   }
 

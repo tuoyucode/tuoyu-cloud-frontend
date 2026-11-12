@@ -20,7 +20,7 @@ import {
 import { $t } from '#/locales';
 
 import { enumLabel } from '../_shared/enums';
-import { eventColor, eventText } from './data';
+import { deniedSectionsText, eventColor, eventText } from './data';
 import TraceWorkorder from './trace-workorder.vue';
 
 defineOptions({ name: 'MesTrace' });
@@ -30,6 +30,11 @@ const loading = ref(false);
 const result = ref<TraceApi.Result>();
 
 const canQuery = computed(() => hasPermission('mes:trace:query'));
+
+/** 没有权限、未显示的段 */
+const deniedText = computed(() =>
+  deniedSectionsText(result.value?.deniedSections),
+);
 
 const matchLabel = computed(() =>
   result.value?.matchType
@@ -93,6 +98,14 @@ async function onSearch() {
               type="info"
             />
             <Alert
+              v-if="deniedText"
+              :message="
+                $t('mes.trace.deniedSections', { sections: deniedText })
+              "
+              show-icon
+              type="warning"
+            />
+            <Alert
               v-if="result.truncated"
               :message="
                 $t('mes.trace.truncated', { count: result.workorders.length })
@@ -105,6 +118,7 @@ async function onSearch() {
                 <TraceWorkorder
                   v-for="workorder in result.workorders"
                   :key="workorder.workorderId"
+                  :denied-sections="result.deniedSections"
                   :workorder="workorder"
                 />
               </div>

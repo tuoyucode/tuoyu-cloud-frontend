@@ -259,6 +259,28 @@ export function stockInColumns() {
   ];
 }
 
+/** 需要对应模块查询权限的段，按页面上的顺序 */
+export const TRACE_SECTIONS: TraceApi.Section[] = [
+  'reports',
+  'materials',
+  'inspections',
+  'defects',
+  'stockIns',
+];
+
+/** 段的名称 */
+export function sectionName(section: TraceApi.Section) {
+  return $t(`mes.trace.sections.${section}`);
+}
+
+/** 没有权限的段的名称，按页面上的顺序连接成一句；全部有权限时为空串 */
+export function deniedSectionsText(denied?: TraceApi.Section[]) {
+  const set = new Set(denied);
+  return TRACE_SECTIONS.filter((section) => set.has(section))
+    .map((section) => sectionName(section))
+    .join($t('mes.trace.sectionSeparator'));
+}
+
 /** 报工记录展开成一张表：带上工序名称 */
 export function flattenReports(workorder: TraceApi.Workorder) {
   return workorder.tasks.flatMap((task) =>

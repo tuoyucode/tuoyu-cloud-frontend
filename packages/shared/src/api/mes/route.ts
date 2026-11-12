@@ -37,6 +37,8 @@ export namespace RouteApi {
     routeVersion: string;
     /** 0 正常，1 停用 */
     status: string;
+    /** 是否已被工单使用（只在详情中返回）：已使用时只能修改表头，不能修改产品与工序 */
+    used?: boolean;
   }
 
   /** 查询条件（MesRouteBo） */

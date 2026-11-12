@@ -30,7 +30,7 @@
     "operationCodePlaceholder": "e.g. OP10",
     "operationNamePlaceholder": "e.g. Assembly",
     "help": "Operations run in ascending sequence, and sequences must be unique. Operations marked “First article” need a passed first article inspection before reporting.",
-    "lockedHint": "Only the header of a routing used by work orders can be changed. Create a new version to change operations.",
+    "lockedHint": "This routing is used by work orders. Only the header (code, name, version, default, status, remark) can be changed; the product and operations cannot. Create a new version to change them.",
     "required": "Add at least one operation",
     "seqNoRequired": "Row {line}: sequence must be greater than 0",
     "seqNoDuplicate": "Sequence {seqNo} is duplicated",

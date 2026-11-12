@@ -13,7 +13,7 @@
   "countHelp": "1 to 10000 at a time; active serial numbers of a work order cannot exceed its planned quantity",
   "generate": "Generate serial numbers",
   "generateTitle": "Generate serial numbers for a work order",
-  "generateHint": "The product must be traced by serial number. Serial numbers take the work order's batch.",
+  "generateHint": "The product must be traced by serial number. Serial numbers take the work order's batch and become completed when the work order is completed.",
   "generated": "Generated {count} serial numbers",
   "scrap": "Scrap",
   "scrapTitle": "Scrap serial number",

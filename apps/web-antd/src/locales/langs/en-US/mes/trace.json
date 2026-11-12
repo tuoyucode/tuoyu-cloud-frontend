@@ -7,6 +7,7 @@
   "notFound": "Nothing matches \"{keyword}\". Check the serial number, batch or work order number.",
   "matched": "Matched {count} work order(s) by {type} \"{keyword}\"",
   "truncated": "Too many matches; showing the latest {count}",
+  "deniedSections": "Not shown because you lack permission to view them (also left out of the timeline): {sections}",
   "matchTypes": {
     "sn": "serial number",
     "batch": "production batch",
@@ -29,6 +30,17 @@
   "tabMaterials": "Materials ({count})",
   "tabQuality": "Quality ({count})",
   "tabStockIns": "Stock-in ({count})",
+  "tabDenied": "{name} (no permission)",
+  "noPermission": "You don't have permission to view {name} records",
+  "quality": "Quality",
+  "sections": {
+    "reports": "Reports",
+    "materials": "Materials",
+    "inspections": "Inspections",
+    "defects": "Defects",
+    "stockIns": "Stock-in"
+  },
+  "sectionSeparator": ", ",
   "inspections": "Inspections",
   "defects": "Defects",
   "seqNo": "Seq.",

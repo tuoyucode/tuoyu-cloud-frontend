@@ -14,7 +14,7 @@
   "product": "Product",
   "scheme": "Inspection scheme",
   "schemeAuto": "Leave empty to match automatically",
-  "schemeHelp": "When empty, a scheme is matched by inspection type, product and operation: product and operation first, then product only, then a general scheme",
+  "schemeHelp": "When empty, a scheme is matched by inspection type, product and operation: product and operation first, then product only, then operation only, then a general scheme",
   "inspectQty": "Inspected qty",
   "inspectQtyPlaceholder": "Defaults to the scheme's sample size",
   "inspectQtyPositive": "The inspected quantity must be greater than 0",

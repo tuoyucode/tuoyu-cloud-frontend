@@ -38,6 +38,8 @@ interface OperationRow {
 
 /** 编辑时的工艺路线 ID；新增时为空 */
 const routeId = ref<string>();
+/** 已被工单使用：只能修改表头，产品与工序不能修改（与后端规则一致） */
+const used = ref(false);
 const operations = ref<OperationRow[]>([]);
 let nextKey = 1;
 
@@ -181,6 +183,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
     }
     const data = drawerApi.getData() as undefined | { routeId?: string };
     routeId.value = data?.routeId;
+    used.value = false;
     operations.value = [];
     await formApi.resetForm();
     drawerApi.lock();
@@ -191,9 +194,11 @@ const [Drawer, drawerApi] = useVbenDrawer({
       ]);
       if (routeId.value) {
         const route = await getRoute(routeId.value);
+        used.value = route.used === true;
         formApi.updateSchema([
           {
             componentProps: {
+              disabled: used.value,
               initialLabel: `${route.materialCode ?? ''} ${route.materialName ?? ''}`,
             },
             fieldName: 'materialId',
@@ -202,6 +207,9 @@ const [Drawer, drawerApi] = useVbenDrawer({
         await formApi.setValues(route);
         operations.value = (route.operations ?? []).map((item) => toRow(item));
       } else {
+        formApi.updateSchema([
+          { componentProps: { disabled: false }, fieldName: 'materialId' },
+        ]);
         onAddOperation();
       }
     } finally {
@@ -223,7 +231,7 @@ const title = computed(() =>
   >
     <Form />
     <Alert
-      v-if="routeId"
+      v-if="used"
       :message="$t('mes.route.operation.lockedHint')"
       class="mt-2"
       show-icon
@@ -233,7 +241,7 @@ const title = computed(() =>
       <span class="font-medium">
         {{ $t('mes.route.operation.title', { count: operations.length }) }}
       </span>
-      <Button type="primary" @click="onAddOperation">
+      <Button :disabled="used" type="primary" @click="onAddOperation">
         {{ $t('mes.route.operation.add') }}
       </Button>
     </div>
@@ -249,6 +257,7 @@ const title = computed(() =>
         <template v-if="column.key === 'seqNo'">
           <InputNumber
             v-model:value="record.seqNo"
+            :disabled="used"
             :min="1"
             :precision="0"
             class="w-full"
@@ -257,6 +266,7 @@ const title = computed(() =>
         <template v-else-if="column.key === 'operationCode'">
           <Input
             v-model:value="record.operationCode"
+            :disabled="used"
             :maxlength="64"
             :placeholder="$t('mes.route.operation.operationCodePlaceholder')"
           />
@@ -264,16 +274,22 @@ const title = computed(() =>
         <template v-else-if="column.key === 'operationName'">
           <Input
             v-model:value="record.operationName"
+            :disabled="used"
             :maxlength="128"
             :placeholder="$t('mes.route.operation.operationNamePlaceholder')"
           />
         </template>
         <template v-else-if="column.key === 'stationType'">
-          <Input v-model:value="record.stationType" :maxlength="32" />
+          <Input
+            v-model:value="record.stationType"
+            :disabled="used"
+            :maxlength="32"
+          />
         </template>
         <template v-else-if="column.key === 'standardMinutes'">
           <InputNumber
             v-model:value="record.standardMinutes"
+            :disabled="used"
             :min="0"
             :precision="4"
             :formatter="trimDecimal"
@@ -281,13 +297,18 @@ const title = computed(() =>
           />
         </template>
         <template v-else-if="column.key === 'firstInspection'">
-          <Checkbox v-model:checked="record.firstInspection" />
+          <Checkbox v-model:checked="record.firstInspection" :disabled="used" />
         </template>
         <template v-else-if="column.key === 'remark'">
-          <Input v-model:value="record.remark" :maxlength="500" />
+          <Input
+            v-model:value="record.remark"
+            :disabled="used"
+            :maxlength="500"
+          />
         </template>
         <template v-else-if="column.key === 'actions'">
           <Button
+            :disabled="used"
             danger
             size="small"
             type="link"

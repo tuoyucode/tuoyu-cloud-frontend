@@ -9,7 +9,7 @@
   "todayQualifiedQty": "今日合格数",
   "todayDefectQty": "今日不良数",
   "todayYieldRate": "今日良率",
-  "openAndons": "未关闭的安灯",
+  "openAndons": "未解决的安灯",
   "pendingDefects": "待处置不良",
   "trend": "每日趋势",
   "date": "日期",

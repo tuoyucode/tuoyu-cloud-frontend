@@ -30,7 +30,7 @@
     "operationCodePlaceholder": "例如：OP10",
     "operationNamePlaceholder": "例如：装配",
     "help": "按顺序号从小到大执行，顺序号不能重复；勾选“首检”的工序需要首检合格后才能报工。",
-    "lockedHint": "已有工单使用的工艺路线只能修改表头，修改工序请新建版本。",
+    "lockedHint": "该工艺路线已有工单使用，只能修改表头（编码、名称、版本、默认版本、状态、备注），不能更换产品与修改工序；需要调整时请新建版本。",
     "required": "请至少添加一道工序",
     "seqNoRequired": "第 {line} 行的顺序必须大于 0",
     "seqNoDuplicate": "工序顺序 {seqNo} 重复",

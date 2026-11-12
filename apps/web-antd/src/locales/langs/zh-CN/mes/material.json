@@ -10,7 +10,7 @@
   "materialType": "物料类型",
   "unit": "计量单位",
   "traceMode": "追溯方式",
-  "traceModeHelp": "按序列号追溯的产品可以生成产品序列号；按批次追溯时记录领料与完工的批次号",
+  "traceModeHelp": "按序列号追溯的产品可以生成产品序列号，工单完工时序列号改为已完工；按批次追溯的物料在领料、补料、退料确认完成时必须填写物料批次号。完工入库与报工都记录工单的生产批次号",
   "materialCodePlaceholder": "例如：M0001",
   "materialNamePlaceholder": "例如：电机外壳",
   "unitPlaceholder": "例如：个、kg、m",

@@ -7,6 +7,7 @@
   "notFound": "没有找到与“{keyword}”相关的记录，请确认序列号、批次号或工单编号是否正确",
   "matched": "按{type}“{keyword}”匹配到 {count} 个工单",
   "truncated": "匹配到的工单较多，只显示最近的 {count} 个",
+  "deniedSections": "没有以下记录的查看权限，未显示（时间线中也不包含）：{sections}",
   "matchTypes": {
     "sn": "序列号",
     "batch": "生产批次号",
@@ -29,6 +30,17 @@
   "tabMaterials": "用料（{count}）",
   "tabQuality": "质量（{count}）",
   "tabStockIns": "入库（{count}）",
+  "tabDenied": "{name}（无权限）",
+  "noPermission": "没有查看{name}记录的权限",
+  "quality": "质量",
+  "sections": {
+    "reports": "报工",
+    "materials": "用料",
+    "inspections": "检验",
+    "defects": "不良",
+    "stockIns": "入库"
+  },
+  "sectionSeparator": "、",
   "inspections": "检验单",
   "defects": "不良记录",
   "seqNo": "序号",

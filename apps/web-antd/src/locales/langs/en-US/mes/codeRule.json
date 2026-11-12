@@ -16,8 +16,6 @@
   "previewTitle": "Sample code for \"{name}\"",
   "previewResult": "Next code looks like: {code}",
   "previewDisabled": "This rule is disabled, so documents use the default format, e.g. {code}",
-  "confirmDeleteBuiltin": "\"{name}\" is a built-in rule used by system documents. After deletion they use the default format. Delete it?",
-  "confirmBatchDeleteBuiltin": "{builtin} of the {count} selected rules are built-in. After deletion those documents use the default format. Delete them?",
   "ruleCodePlaceholder": "e.g. PURCHASE",
   "ruleCodeHelp": "Uppercase letters, digits and underscores; cannot be changed later",
   "ruleNamePlaceholder": "e.g. Purchase order",

@@ -42,7 +42,7 @@
   "resumeWorkorder": "恢复工单",
   "confirmResume": "确认恢复工单“{code}”？",
   "completeWorkorder": "完工",
-  "confirmComplete": "确认工单“{code}”完工？未完成的工序任务将一并完成。",
+  "confirmComplete": "确认工单“{code}”完工？未完成的工序任务将一并完成，已生成的序列号改为已完工。全部工序完成时工单会自动完工。",
   "closeWorkorder": "关闭工单",
   "closeReason": "关闭说明",
   "cancelWorkorder": "取消工单",

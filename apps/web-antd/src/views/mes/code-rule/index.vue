@@ -59,7 +59,11 @@ const [Grid, gridApi] = useVbenVxeGrid({
     checkboxChange: updateSelectedCount,
   },
   gridOptions: {
-    checkboxConfig: { highlight: true },
+    // 内置规则供系统单据生成编号，不能删除（只能修改或停用），不参与勾选
+    checkboxConfig: {
+      checkMethod: ({ row }) => !row.builtin,
+      highlight: true,
+    },
     columns: useColumns(),
     height: 'auto',
     keepSource: true,
@@ -98,13 +102,6 @@ function onEdit(row: CodeRuleApi.CodeRule) {
   drawerApi.setData({ ruleId: row.ruleId }).open();
 }
 
-/** 删除内置规则时说明影响 */
-function deleteConfirmText(row: CodeRuleApi.CodeRule) {
-  return row.builtin
-    ? $t('mes.codeRule.confirmDeleteBuiltin', { name: row.ruleName })
-    : $t('crud.confirmDelete', { name: row.ruleName });
-}
-
 async function onDelete(row: CodeRuleApi.CodeRule) {
   await removeCodeRule([row.ruleId]);
   message.success($t('crud.deleted'));
@@ -116,15 +113,8 @@ function onBatchDelete() {
   if (rows.length === 0) {
     return;
   }
-  const builtin = rows.filter((row) => row.builtin).length;
   Modal.confirm({
-    content:
-      builtin > 0
-        ? $t('mes.codeRule.confirmBatchDeleteBuiltin', {
-            builtin,
-            count: rows.length,
-          })
-        : $t('crud.confirmBatchDelete', { count: rows.length }),
+    content: $t('crud.confirmBatchDelete', { count: rows.length }),
     okButtonProps: { danger: true },
     okText: $t('crud.batchDelete'),
     async onOk() {
@@ -232,10 +222,10 @@ async function onStatusChange(row: CodeRuleApi.CodeRule, checked: boolean) {
           {{ $t('common.edit') }}
         </Button>
         <Popconfirm
-          v-if="hasPermission('mes:codeRule:remove')"
+          v-if="hasPermission('mes:codeRule:remove') && !row.builtin"
           :ok-button-props="{ danger: true }"
           :ok-text="$t('mes.codeRule.delete')"
-          :title="deleteConfirmText(row)"
+          :title="$t('crud.confirmDelete', { name: row.ruleName })"
           placement="left"
           @confirm="onDelete(row)"
         >

@@ -30,6 +30,7 @@
     "materialRequired": "第 {line} 行未选择子件物料",
     "selfReference": "第 {line} 行的子件不能是产品本身",
     "duplicate": "第 {line} 行的子件物料重复，同一物料请合并为一行",
-    "qtyRequired": "第 {line} 行的用量必须大于 0"
+    "qtyRequired": "第 {line} 行的用量必须大于 0",
+    "lockedHint": "该物料清单已有工单使用，只能修改表头（编码、版本、默认版本、状态、备注），不能更换产品、修改基准数量与子件；需要调整时请新建版本。"
   }
 }

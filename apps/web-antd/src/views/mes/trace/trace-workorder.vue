@@ -7,6 +7,7 @@ import {
   Card,
   Descriptions,
   DescriptionsItem,
+  Empty,
   Table,
   TabPane,
   Tabs,
@@ -22,12 +23,42 @@ import {
   materialColumns,
   qty,
   reportColumns,
+  sectionName,
   stockInColumns,
   taskColumns,
 } from './data';
 
-/** 一个工单的追溯信息：基本信息与各类生产记录 */
-const props = defineProps<{ workorder: TraceApi.Workorder }>();
+/** 一个工单的追溯信息：基本信息与各类生产记录；没有权限的段显示提示 */
+const props = withDefaults(
+  defineProps<{
+    deniedSections?: TraceApi.Section[];
+    workorder: TraceApi.Workorder;
+  }>(),
+  { deniedSections: () => [] },
+);
+
+const denied = computed(() => new Set(props.deniedSections));
+
+/** 页签标题：没有权限时不显示数量 */
+function tabTitle(
+  section: TraceApi.Section,
+  key: 'tabMaterials' | 'tabReports' | 'tabStockIns',
+  count: number,
+) {
+  return denied.value.has(section)
+    ? $t('mes.trace.tabDenied', { name: sectionName(section) })
+    : $t(`mes.trace.${key}`, { count });
+}
+
+/** 质量页签：检验与不良都没有权限时不显示数量，否则只计有权限的部分 */
+const qualityTitle = computed(() => {
+  if (denied.value.has('inspections') && denied.value.has('defects')) {
+    return $t('mes.trace.tabDenied', { name: $t('mes.trace.quality') });
+  }
+  return $t('mes.trace.tabQuality', {
+    count: props.workorder.inspections.length + props.workorder.defects.length,
+  });
+});
 
 const reports = computed(() => flattenReports(props.workorder));
 
@@ -135,9 +166,17 @@ const QTY_FIELDS = new Set([
       </TabPane>
       <TabPane
         key="reports"
-        :tab="$t('mes.trace.tabReports', { count: reports.length })"
+        :tab="tabTitle('reports', 'tabReports', reports.length)"
       >
+        <Empty
+          v-if="denied.has('reports')"
+          :description="
+            $t('mes.trace.noPermission', { name: sectionName('reports') })
+          "
+          :image="Empty.PRESENTED_IMAGE_SIMPLE"
+        />
         <Table
+          v-else
           :columns="reportTableColumns"
           :data-source="reports"
           :pagination="false"
@@ -158,11 +197,17 @@ const QTY_FIELDS = new Set([
       </TabPane>
       <TabPane
         key="materials"
-        :tab="
-          $t('mes.trace.tabMaterials', { count: workorder.materials.length })
-        "
+        :tab="tabTitle('materials', 'tabMaterials', workorder.materials.length)"
       >
+        <Empty
+          v-if="denied.has('materials')"
+          :description="
+            $t('mes.trace.noPermission', { name: sectionName('materials') })
+          "
+          :image="Empty.PRESENTED_IMAGE_SIMPLE"
+        />
         <Table
+          v-else
           :columns="materialColumns()"
           :data-source="workorder.materials"
           :pagination="false"
@@ -187,16 +232,17 @@ const QTY_FIELDS = new Set([
           </template>
         </Table>
       </TabPane>
-      <TabPane
-        key="quality"
-        :tab="
-          $t('mes.trace.tabQuality', {
-            count: workorder.inspections.length + workorder.defects.length,
-          })
-        "
-      >
+      <TabPane key="quality" :tab="qualityTitle">
         <h4 class="mb-2 font-medium">{{ $t('mes.trace.inspections') }}</h4>
+        <Empty
+          v-if="denied.has('inspections')"
+          :description="
+            $t('mes.trace.noPermission', { name: sectionName('inspections') })
+          "
+          :image="Empty.PRESENTED_IMAGE_SIMPLE"
+        />
         <Table
+          v-else
           :columns="inspectionColumns()"
           :data-source="workorder.inspections"
           :pagination="false"
@@ -220,7 +266,15 @@ const QTY_FIELDS = new Set([
           </template>
         </Table>
         <h4 class="mb-2 mt-4 font-medium">{{ $t('mes.trace.defects') }}</h4>
+        <Empty
+          v-if="denied.has('defects')"
+          :description="
+            $t('mes.trace.noPermission', { name: sectionName('defects') })
+          "
+          :image="Empty.PRESENTED_IMAGE_SIMPLE"
+        />
         <Table
+          v-else
           :columns="defectColumns()"
           :data-source="workorder.defects"
           :pagination="false"
@@ -251,9 +305,17 @@ const QTY_FIELDS = new Set([
       </TabPane>
       <TabPane
         key="stockIns"
-        :tab="$t('mes.trace.tabStockIns', { count: workorder.stockIns.length })"
+        :tab="tabTitle('stockIns', 'tabStockIns', workorder.stockIns.length)"
       >
+        <Empty
+          v-if="denied.has('stockIns')"
+          :description="
+            $t('mes.trace.noPermission', { name: sectionName('stockIns') })
+          "
+          :image="Empty.PRESENTED_IMAGE_SIMPLE"
+        />
         <Table
+          v-else
           :columns="stockInColumns()"
           :data-source="workorder.stockIns"
           :pagination="false"

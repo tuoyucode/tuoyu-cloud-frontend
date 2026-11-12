@@ -30,6 +30,7 @@
     "materialRequired": "Row {line}: select a component",
     "selfReference": "Row {line}: a component cannot be the product itself",
     "duplicate": "Row {line}: duplicate component, merge the same material into one row",
-    "qtyRequired": "Row {line}: quantity must be greater than 0"
+    "qtyRequired": "Row {line}: quantity must be greater than 0",
+    "lockedHint": "This BOM is used by work orders. Only the header (code, version, default, status, remark) can be changed; the product, base quantity and components cannot. Create a new version to change them."
   }
 }

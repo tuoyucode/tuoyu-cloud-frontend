@@ -7,8 +7,6 @@ export namespace WorkshopApi {
   /** 车间（MesWorkshopVo） */
   export interface Workshop {
     createTime?: string;
-    /** 对应的组织（部门） */
-    deptId?: string;
     factoryId: string;
     /** 所属工厂名称 */
     factoryName?: string;

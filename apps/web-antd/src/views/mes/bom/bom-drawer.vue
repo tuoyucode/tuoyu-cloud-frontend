@@ -7,7 +7,14 @@ import { computed, ref } from 'vue';
 import { useVbenDrawer } from '@vben/common-ui';
 
 import { addBom, getBom, updateBom } from '@tuoyu/shared/api/mes/bom';
-import { Button, Input, InputNumber, message, Table } from 'ant-design-vue';
+import {
+  Alert,
+  Button,
+  Input,
+  InputNumber,
+  message,
+  Table,
+} from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
@@ -32,6 +39,8 @@ interface ItemRow {
 
 /** 编辑时的物料清单 ID；新增时为空 */
 const bomId = ref<string>();
+/** 已被工单使用：只能修改表头，产品、基准数量与明细不能修改（与后端规则一致） */
+const used = ref(false);
 const items = ref<ItemRow[]>([]);
 /** 当前选择的产品：子件中不能再选它 */
 const productId = ref<string>();
@@ -160,6 +169,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
     }
     const data = drawerApi.getData() as undefined | { bomId?: string };
     bomId.value = data?.bomId;
+    used.value = false;
     items.value = [];
     productId.value = undefined;
     await formApi.resetForm();
@@ -171,18 +181,25 @@ const [Drawer, drawerApi] = useVbenDrawer({
       ]);
       if (bomId.value) {
         const bom = await getBom(bomId.value);
+        used.value = bom.used === true;
         formApi.updateSchema([
           {
             componentProps: {
+              disabled: used.value,
               initialLabel: `${bom.materialCode ?? ''} ${bom.materialName ?? ''}`,
             },
             fieldName: 'materialId',
           },
+          { componentProps: { disabled: used.value }, fieldName: 'baseQty' },
         ]);
         productId.value = bom.materialId;
         await formApi.setValues({ ...bom, baseQty: toNumber(bom.baseQty) });
         items.value = (bom.items ?? []).map((item) => toRow(item));
       } else {
+        formApi.updateSchema([
+          { componentProps: { disabled: false }, fieldName: 'materialId' },
+          { componentProps: { disabled: false }, fieldName: 'baseQty' },
+        ]);
         onAddItem();
       }
     } finally {
@@ -203,11 +220,18 @@ const title = computed(() =>
     class="w-full max-w-[960px]"
   >
     <Form />
+    <Alert
+      v-if="used"
+      :message="$t('mes.bom.item.lockedHint')"
+      class="mt-2"
+      show-icon
+      type="info"
+    />
     <div class="mb-2 mt-4 flex items-center justify-between">
       <span class="font-medium">
         {{ $t('mes.bom.item.title', { count: items.length }) }}
       </span>
-      <Button type="primary" @click="onAddItem">
+      <Button :disabled="used" type="primary" @click="onAddItem">
         {{ $t('mes.bom.item.add') }}
       </Button>
     </div>
@@ -224,6 +248,7 @@ const title = computed(() =>
         <template v-else-if="column.key === 'material'">
           <MaterialSelect
             v-model="record.materialId"
+            :disabled="used"
             :exclude-ids="productId ? [productId] : []"
             :initial-label="record.label"
             @select="(option) => onMaterialSelect(record as ItemRow, option)"
@@ -235,6 +260,7 @@ const title = computed(() =>
         <template v-else-if="column.key === 'qty'">
           <InputNumber
             v-model:value="record.qty"
+            :disabled="used"
             :min="0"
             :precision="6"
             :formatter="trimDecimal"
@@ -244,6 +270,7 @@ const title = computed(() =>
         <template v-else-if="column.key === 'lossRate'">
           <InputNumber
             v-model:value="record.lossRate"
+            :disabled="used"
             :max="1"
             :min="0"
             :precision="4"
@@ -253,10 +280,15 @@ const title = computed(() =>
           />
         </template>
         <template v-else-if="column.key === 'remark'">
-          <Input v-model:value="record.remark" :maxlength="500" />
+          <Input
+            v-model:value="record.remark"
+            :disabled="used"
+            :maxlength="500"
+          />
         </template>
         <template v-else-if="column.key === 'actions'">
           <Button
+            :disabled="used"
             danger
             size="small"
             type="link"

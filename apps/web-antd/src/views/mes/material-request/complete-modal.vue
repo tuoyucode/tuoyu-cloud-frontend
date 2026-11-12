@@ -14,6 +14,7 @@ import { Input, InputNumber, message, Select, Table } from 'ant-design-vue';
 import { $t } from '#/locales';
 
 import { trimDecimal } from '../_shared/decimal';
+import { batchRequired, firstMissingBatch } from './complete';
 import { formatQty, loadLocationOptions } from './data';
 
 /** 完成时逐行填写的实发（实退）数量，默认等于申请数量 */
@@ -25,6 +26,8 @@ interface CompleteRow {
   materialCode?: string;
   materialName?: string;
   requestQty: number;
+  /** 物料的追溯方式，按批次追溯（batch）时实发数量大于 0 必须填写批次号 */
+  traceMode?: string;
   unit?: string;
 }
 
@@ -35,6 +38,9 @@ const rows = ref<CompleteRow[]>([]);
 const locationOptions = ref<{ label: string; value: string }[]>([]);
 
 const isReturn = computed(() => request.value?.requestType === 'return');
+const hasBatchTraced = computed(() =>
+  rows.value.some((row) => row.traceMode === 'batch'),
+);
 
 const columns = computed(() => [
   {
@@ -84,6 +90,13 @@ const [Modal, modalApi] = useVbenModal({
       );
       return;
     }
+    const missingBatch = firstMissingBatch(rows.value);
+    if (missingBatch !== -1) {
+      message.warning(
+        $t('mes.materialRequest.batchCodeRequired', { line: missingBatch + 1 }),
+      );
+      return;
+    }
     modalApi.lock();
     try {
       await completeMaterialRequest(
@@ -124,6 +137,7 @@ const [Modal, modalApi] = useVbenModal({
         materialCode: item.materialCode,
         materialName: item.materialName,
         requestQty: item.requestQty,
+        traceMode: item.traceMode,
         unit: item.unit,
       }));
     } finally {
@@ -156,6 +170,13 @@ const [Modal, modalApi] = useVbenModal({
     >
       <template #bodyCell="{ column, record }">
         <span v-if="column.key === 'material'">
+          <span
+            v-if="record.traceMode === 'batch'"
+            :title="$t('mes.materialRequest.batchTraced')"
+            class="text-destructive mr-1"
+          >
+            *
+          </span>
           {{ record.materialCode }} {{ record.materialName }}
           <span v-if="record.unit" class="text-muted-foreground">
             （{{ record.unit }}）
@@ -176,7 +197,16 @@ const [Modal, modalApi] = useVbenModal({
           v-else-if="column.key === 'batchCode'"
           v-model:value="record.batchCode"
           :maxlength="64"
-          :placeholder="$t('crud.inputPlaceholder')"
+          :placeholder="
+            record.traceMode === 'batch'
+              ? $t('mes.materialRequest.batchTraced')
+              : $t('crud.inputPlaceholder')
+          "
+          :status="
+            batchRequired(record) && !record.batchCode?.trim()
+              ? 'warning'
+              : undefined
+          "
         />
         <Select
           v-else-if="column.key === 'locationId'"
@@ -188,6 +218,9 @@ const [Modal, modalApi] = useVbenModal({
         />
       </template>
     </Table>
+    <p v-if="hasBatchTraced" class="text-muted-foreground mt-3 text-sm">
+      {{ $t('mes.materialRequest.batchTracedHint') }}
+    </p>
     <p v-if="isReturn" class="text-muted-foreground mt-3 text-sm">
       {{ $t('mes.materialRequest.returnLimitHint') }}
     </p>

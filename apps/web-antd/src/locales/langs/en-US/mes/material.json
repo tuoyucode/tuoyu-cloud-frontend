@@ -10,7 +10,7 @@
   "materialType": "Material type",
   "unit": "Unit",
   "traceMode": "Traceability",
-  "traceModeHelp": "Products traced by serial number can have serial numbers generated; batch tracing records batch numbers on issues and completions",
+  "traceModeHelp": "Products traced by serial number can have serial numbers generated, which become completed when the work order is completed; materials traced by batch require a material batch when an issue, supplement or return is completed. Production reports and stock-ins always record the work order's production batch",
   "materialCodePlaceholder": "e.g. M0001",
   "materialNamePlaceholder": "e.g. Motor housing",
   "unitPlaceholder": "e.g. pcs, kg, m",

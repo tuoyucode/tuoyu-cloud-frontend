@@ -16,8 +16,6 @@
   "previewTitle": "“{name}”的编号示例",
   "previewResult": "下一个编号的格式：{code}",
   "previewDisabled": "规则已停用，单据按默认格式生成编号，例如：{code}",
-  "confirmDeleteBuiltin": "“{name}”是系统单据使用的内置规则，删除后这些单据按默认格式生成编号。确定删除？",
-  "confirmBatchDeleteBuiltin": "所选的 {count} 项中有 {builtin} 项是内置规则，删除后对应单据按默认格式生成编号。确定删除？",
   "ruleCodePlaceholder": "例如：PURCHASE",
   "ruleCodeHelp": "大写字母、数字与下划线，创建后不能修改",
   "ruleNamePlaceholder": "例如：采购单",

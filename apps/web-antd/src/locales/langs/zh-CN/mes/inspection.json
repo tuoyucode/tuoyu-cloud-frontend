@@ -14,7 +14,7 @@
   "product": "产品",
   "scheme": "检验方案",
   "schemeAuto": "留空时自动匹配",
-  "schemeHelp": "不选时按检验类型、产品与工序自动匹配：产品与工序都匹配的优先，其次只匹配产品，最后是通用方案",
+  "schemeHelp": "不选时按检验类型、产品与工序自动匹配：产品与工序都匹配的优先，其次只匹配产品，再次只匹配工序，最后是通用方案",
   "inspectQty": "检验数量",
   "inspectQtyPlaceholder": "留空时取方案的抽样数量",
   "inspectQtyPositive": "检验数量必须大于 0",

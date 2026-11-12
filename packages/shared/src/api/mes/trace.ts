@@ -131,8 +131,18 @@ export namespace TraceApi {
     workorderCode?: string;
   }
 
+  /** 需要对应模块查询权限的段 */
+  export type Section =
+    | 'defects'
+    | 'inspections'
+    | 'materials'
+    | 'reports'
+    | 'stockIns';
+
   /** 追溯结果（MesTraceVo） */
   export interface Result {
+    /** 当前用户没有查询权限的段：这些段在各工单中为空，时间线中也没有它们的事件 */
+    deniedSections: Section[];
     keyword: string;
     /** 没有匹配时为空 */
     matchType?: MatchType;
