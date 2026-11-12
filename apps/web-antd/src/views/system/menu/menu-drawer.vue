@@ -11,18 +11,13 @@ import {
   listMenu,
   updateMenu,
 } from '@tuoyu/shared/api/system/menu';
-import { listToTree } from '@tuoyu/shared/utils/tree';
+import { toMenuForm, toMenuParentTree } from '@tuoyu/shared/pages/system/menu';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 
-import {
-  loadFormOptions,
-  MenuType,
-  ROOT_PARENT_ID,
-  useFormSchema,
-} from './data';
+import { loadFormOptions, ROOT_PARENT_ID, useFormSchema } from './data';
 
 const emit = defineEmits<{ success: [] }>();
 
@@ -36,55 +31,9 @@ const [Form, formApi] = useVbenForm({
   wrapperClass: 'grid-cols-1 md:grid-cols-2 gap-x-4',
 });
 
-/**
- * 上级菜单的可选树：最上面是“顶级”，按钮不能作为上级；编辑时排除本菜单及其下级
- */
+/** 上级菜单的可选树：编辑时排除本菜单及其下级 */
 async function loadParentTree() {
-  const menus = await listMenu();
-  const candidates = menus.filter(
-    (menu) => menu.menuType !== MenuType.BUTTON && menu.menuId !== menuId.value,
-  );
-  // 本菜单被排除后，它的下级找不到上级，会成为根节点，这里一并去掉
-  const ids = new Set(candidates.map((menu) => String(menu.menuId)));
-  const tree = listToTree(candidates, 'menuId', 'parentId').filter(
-    (node) =>
-      String(node.parentId) === String(ROOT_PARENT_ID) ||
-      ids.has(String(node.parentId)),
-  );
-  return [
-    {
-      children: tree,
-      menuId: ROOT_PARENT_ID,
-      menuName: $t('system.menu.root'),
-    },
-  ];
-}
-
-/**
- * 只提交当前菜单类型用到的字段；隐藏字段使用默认值，避免切换类型后残留旧值
- */
-function toSubmit(values: MenuApi.Form): MenuApi.Form {
-  const data: MenuApi.Form = {
-    ...values,
-    isCache: values.isCache ?? 'Y',
-    isFrame: values.isFrame ?? 'N',
-    visible: values.visible ?? '0',
-  };
-  if (data.menuType !== MenuType.MENU) {
-    data.component = '';
-    data.queryParam = '';
-    data.activeMenu = '';
-  }
-  if (data.menuType === MenuType.DIR) {
-    data.perms = '';
-  }
-  if (data.menuType === MenuType.BUTTON) {
-    data.path = '';
-    data.icon = '';
-    data.isFrame = 'N';
-    data.visible = '0';
-  }
-  return data;
+  return toMenuParentTree(await listMenu(), menuId.value);
 }
 
 const [Drawer, drawerApi] = useVbenDrawer({
@@ -95,7 +44,7 @@ const [Drawer, drawerApi] = useVbenDrawer({
     }
     drawerApi.lock();
     try {
-      const data = toSubmit((await formApi.getValues()) as MenuApi.Form);
+      const data = toMenuForm((await formApi.getValues()) as MenuApi.Form);
       await (menuId.value
         ? updateMenu({ ...data, menuId: menuId.value })
         : addMenu(data));

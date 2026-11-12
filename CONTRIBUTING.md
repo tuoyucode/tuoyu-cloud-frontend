@@ -50,7 +50,7 @@ tuoyu-cloud-frontend 是 tuoyu-cloud 的管理端前端。tuoyu-cloud 是一个�
 - 常用命令：`pnpm install`、`pnpm dev:ele`（端口 5777）、`pnpm dev:antd`（端口 5666）、`pnpm build:ele`、`pnpm build:antd`、`pnpm lint`、`pnpm test:unit`、`pnpm test:e2e`。
 - 提交前 lefthook 会自动运行格式化、eslint、stylelint、类型检查和 oxlint，不通过就提交不了。请不要用 `--no-verify` 跳过。
 - 本地检查与 CI 保持一致：`pnpm run lint`、`pnpm -F @tuoyu/shared run typecheck`、`pnpm -F @vben/web-antd run typecheck`、`pnpm -F @vben/web-ele run typecheck`、`pnpm run test:unit`、`pnpm run build:antd`、`pnpm run build:ele`。
-- 端到端测试（Playwright，`apps/web-antd/e2e`）需要真实的后端，账号口令只从环境变量 `E2E_USERNAME`、`E2E_PASSWORD` 读取，不写进仓库。
+- 端到端测试（Playwright，`apps/web-ele/e2e` 与 `apps/web-antd/e2e`）需要真实的后端，账号口令只从环境变量 `E2E_USERNAME`、`E2E_PASSWORD` 读取，不写进仓库。
 
 ## 提交说明
 

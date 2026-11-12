@@ -7,6 +7,7 @@ import { useVbenDrawer } from '@vben/common-ui';
 
 import { removeOperlog } from '@tuoyu/shared/api/monitor/operlog';
 import { DictType } from '@tuoyu/shared/api/system/dict';
+import { prettyJson } from '@tuoyu/shared/pages/monitor/operlog';
 import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { useClipboard } from '@vueuse/core';
 import {
@@ -42,29 +43,17 @@ const [Drawer, drawerApi] = useVbenDrawer({
   },
 });
 
-/** JSON 格式化显示；不是 JSON 时原样显示 */
-function pretty(text?: string) {
-  if (!text) {
-    return '';
-  }
-  try {
-    return JSON.stringify(JSON.parse(text), null, 2);
-  } catch {
-    return text;
-  }
-}
-
 /** 请求参数、返回结果：等宽代码块 */
 const blocks = computed(() => [
   {
     key: 'operParam',
     label: $t('monitor.operlog.operParam'),
-    text: pretty(log.value?.operParam),
+    text: prettyJson(log.value?.operParam),
   },
   {
     key: 'jsonResult',
     label: $t('monitor.operlog.jsonResult'),
-    text: pretty(log.value?.jsonResult),
+    text: prettyJson(log.value?.jsonResult),
   },
 ]);
 

@@ -7,8 +7,7 @@ import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
 
 import { $t } from '#/locales';
 
-/** 字典 sys_yes_no：Y 表示系统内置 */
-export const BUILT_IN = 'Y';
+export { BUILT_IN } from '@tuoyu/shared/pages/system/config';
 
 /** 查询条件：一行最多 4 个 */
 export function useSearchSchema(): VbenFormSchema[] {

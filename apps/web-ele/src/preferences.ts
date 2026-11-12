@@ -55,10 +55,6 @@ export const lockedPreferences: DeepPartial<Preferences> = {
     // 浅色侧边栏，暗色模式下随页面变暗
     semiDarkSidebar: false,
   },
-  widget: {
-    // 消息中心（历史消息与实时推送）还没有 Element Plus 版，先不显示页头的通知铃铛
-    notification: false,
-  },
 };
 
 /** 启动后是否用 lockedPreferences 覆盖浏览器缓存 */

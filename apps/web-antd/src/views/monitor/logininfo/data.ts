@@ -7,6 +7,8 @@ import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
 
 import { $t } from '#/locales';
 
+export { toQuery } from '@tuoyu/shared/pages/monitor/logininfo';
+
 /** 查询条件：一行最多 4 个 */
 export function useSearchSchema(): VbenFormSchema[] {
   return [
@@ -39,19 +41,6 @@ export function useSearchSchema(): VbenFormSchema[] {
       label: $t('monitor.logininfo.loginTime'),
     },
   ];
-}
-
-/** 把查询表单的值转换为后端的查询条件：日期范围转为 params.beginTime / endTime */
-export function toQuery(values: Record<string, any>): LogininfoApi.Query {
-  const { loginTime, ...rest } = values;
-  const query: LogininfoApi.Query = { ...rest };
-  if (Array.isArray(loginTime) && loginTime.length === 2) {
-    query.params = {
-      beginTime: `${loginTime[0]} 00:00:00`,
-      endTime: `${loginTime[1]} 23:59:59`,
-    };
-  }
-  return query;
 }
 
 /** 表格列 */

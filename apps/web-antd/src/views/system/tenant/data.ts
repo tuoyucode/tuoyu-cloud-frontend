@@ -5,16 +5,18 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
 import { TENANT_ID_PATTERN } from '@tuoyu/shared/api/system/tenant';
-import { listTenantPackageOptions } from '@tuoyu/shared/api/system/tenantPackage';
+import {
+  ADMIN_PASSWORD_MAX,
+  ADMIN_PASSWORD_MIN,
+  ADMIN_USER_NAME_MAX,
+  ADMIN_USER_NAME_MIN,
+  loadPackageOptions,
+} from '@tuoyu/shared/pages/system/tenant';
 
 import { z } from '#/adapter/form';
 import { $t } from '#/locales';
 
-/** 管理员账号、口令长度，与后端 SysTenantBo 一致 */
-const ADMIN_USER_NAME_MIN = 2;
-const ADMIN_USER_NAME_MAX = 30;
-const ADMIN_PASSWORD_MIN = 8;
-const ADMIN_PASSWORD_MAX = 64;
+export { loadPackageOptions } from '@tuoyu/shared/pages/system/tenant';
 
 /** 查询条件：一行最多 4 个 */
 export function useSearchSchema(): VbenFormSchema[] {
@@ -252,15 +254,6 @@ export function useFormSchema(): VbenFormSchema[] {
       label: $t('crud.remark'),
     },
   ];
-}
-
-/** 套餐选项：value 统一为字符串（后端 Long 型 ID） */
-export async function loadPackageOptions() {
-  const packages = await listTenantPackageOptions();
-  return packages.map((item) => ({
-    label: item.packageName,
-    value: String(item.packageId),
-  }));
 }
 
 /** 加载表单中依赖字典与套餐的选项 */

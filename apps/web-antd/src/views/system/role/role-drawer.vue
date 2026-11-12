@@ -14,6 +14,7 @@ import {
   updateRole,
   updateRolePermission,
 } from '@tuoyu/shared/api/system/role';
+import { withAncestors } from '@tuoyu/shared/pages/system/permission-tree';
 import { Alert, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
@@ -21,7 +22,6 @@ import { $t } from '#/locales';
 
 import { loadFormOptions, useFormSchema } from './data';
 import PermissionTree from './permission-tree.vue';
-import { withAncestors } from './tree-utils';
 
 const emit = defineEmits<{ success: [] }>();
 

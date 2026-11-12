@@ -7,6 +7,8 @@ import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
 
 import { $t } from '#/locales';
 
+export { toQuery } from '@tuoyu/shared/pages/monitor/operlog';
+
 /** 查询条件：第一行 4 个，其余折叠 */
 export function useSearchSchema(): VbenFormSchema[] {
   return [
@@ -55,19 +57,6 @@ export function useSearchSchema(): VbenFormSchema[] {
       label: $t('monitor.operlog.operTime'),
     },
   ];
-}
-
-/** 把查询表单的值转换为后端的查询条件：日期范围转为 params.beginTime / endTime */
-export function toQuery(values: Record<string, any>): OperlogApi.Query {
-  const { operTime, ...rest } = values;
-  const query: OperlogApi.Query = { ...rest };
-  if (Array.isArray(operTime) && operTime.length === 2) {
-    query.params = {
-      beginTime: `${operTime[0]} 00:00:00`,
-      endTime: `${operTime[1]} 23:59:59`,
-    };
-  }
-  return query;
 }
 
 /** 表格列 */

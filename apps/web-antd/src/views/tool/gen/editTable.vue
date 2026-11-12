@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import type { DictApi } from '@tuoyu/shared/api/system/dict';
 import type { GenApi } from '@tuoyu/shared/api/tool/gen';
+import type { FlagField } from '@tuoyu/shared/pages/tool/gen-edit';
 import type { TableColumnsType } from 'ant-design-vue';
-
-import type { FlagField } from './edit-utils';
 
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -13,6 +12,20 @@ import { Page } from '@vben/common-ui';
 import { listDictTypeOptions } from '@tuoyu/shared/api/system/dict';
 import { listMenu } from '@tuoyu/shared/api/system/menu';
 import { getGenTable, updateGenTable } from '@tuoyu/shared/api/tool/gen';
+import {
+  buildSaveForm,
+  columnOptions,
+  FLAG_FIELDS,
+  HTML_TYPES,
+  isDictHtmlType,
+  isFlagOn,
+  JAVA_TYPES,
+  QUERY_TYPES,
+  readOptions,
+  toFlag,
+  toFrontendType,
+  validateOptions,
+} from '@tuoyu/shared/pages/tool/gen-edit';
 import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { listToTree } from '@tuoyu/shared/utils/tree';
 import {
@@ -36,20 +49,6 @@ import {
   useBasicFormSchema,
   useGenerateFormSchema,
 } from './data';
-import {
-  buildSaveForm,
-  columnOptions,
-  FLAG_FIELDS,
-  HTML_TYPES,
-  isDictHtmlType,
-  isFlagOn,
-  JAVA_TYPES,
-  QUERY_TYPES,
-  readOptions,
-  toFlag,
-  toFrontendType,
-  validateOptions,
-} from './edit-utils';
 
 defineOptions({ name: 'ToolGenEdit' });
 

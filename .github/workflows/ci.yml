@@ -51,7 +51,9 @@ jobs:
 
       # 端到端测试需要后端，在 e2e.yml 中手动触发；这里只确认测试文件能被 Playwright 正常加载
       - name: E2E tests load
-        run: pnpm -F @vben/web-antd exec playwright test --list
+        run: |
+          pnpm -F @vben/web-antd exec playwright test --list
+          pnpm -F @vben/web-ele exec playwright test --list
 
   build:
     name: 构建

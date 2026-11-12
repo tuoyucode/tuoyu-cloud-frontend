@@ -3,12 +3,14 @@ import type { CategoryApi } from '@tuoyu/shared/api/workflow/category';
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
-import { listToTree } from '@tuoyu/shared/utils/tree';
+import { ROOT_PARENT_ID } from '@tuoyu/shared/pages/workflow/category';
 
 import { $t } from '#/locales';
 
-/** 顶级分类的上级 ID */
-export const ROOT_PARENT_ID = 0;
+export {
+  buildParentTree,
+  ROOT_PARENT_ID,
+} from '@tuoyu/shared/pages/workflow/category';
 
 /** 查询条件 */
 export function useSearchSchema(): VbenFormSchema[] {
@@ -85,37 +87,6 @@ export function useFormSchema(): VbenFormSchema[] {
       defaultValue: 0,
       fieldName: 'orderNum',
       label: $t('crud.sort'),
-    },
-  ];
-}
-
-/**
- * 上级分类的可选树：最外层加一个“顶级分类”；编辑时排除本分类及其下级
- *
- * @param list 扁平的分类列表
- * @param excludeId 编辑的分类 ID
- */
-export function buildParentTree(
-  list: CategoryApi.Category[],
-  excludeId?: string,
-) {
-  const excluded = new Set<string>();
-  if (excludeId) {
-    excluded.add(excludeId);
-    // 祖级列表中含有本分类的都是下级
-    for (const item of list) {
-      const ancestors = (item.ancestors ?? '').split(',');
-      if (ancestors.includes(excludeId)) {
-        excluded.add(String(item.categoryId));
-      }
-    }
-  }
-  const nodes = list.filter((item) => !excluded.has(String(item.categoryId)));
-  return [
-    {
-      categoryId: ROOT_PARENT_ID,
-      categoryName: $t('workflow.category.root'),
-      children: listToTree(nodes, 'categoryId', 'parentId'),
     },
   ];
 }

@@ -16,6 +16,8 @@ import { defineStore } from 'pinia';
 
 import { $t } from '#/locales';
 
+import { useMessageStore } from './message';
+
 export const useAuthStore = defineStore('auth', () => {
   const accessStore = useAccessStore();
   const userStore = useUserStore();
@@ -60,6 +62,8 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function logout(redirect: boolean = true) {
+    // 先断开消息推送：关闭连接的接口按令牌定位连接，要在令牌失效前调用
+    await useMessageStore().disconnect();
     try {
       await logoutApi(accessStore.accessToken);
     } catch {

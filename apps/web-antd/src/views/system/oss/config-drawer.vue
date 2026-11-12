@@ -11,6 +11,7 @@ import {
   getOssConfig,
   updateOssConfig,
 } from '@tuoyu/shared/api/system/oss';
+import { KEY_FIELDS, withoutEmptyKeys } from '@tuoyu/shared/pages/system/oss';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
@@ -19,12 +20,6 @@ import { $t } from '#/locales';
 import { useConfigFormSchema } from './data';
 
 const emit = defineEmits<{ success: [] }>();
-
-/** 密钥字段与接口中“是否已设置”标记的对应关系：编辑时不回显，留空表示不修改 */
-const KEY_FIELDS = [
-  ['accessKey', 'accessKeySet'],
-  ['secretKey', 'secretKeySet'],
-] as const;
 
 /** 编辑时的配置 ID；新增时为空 */
 const ossConfigId = ref<string>();
@@ -55,16 +50,6 @@ function updateKeyFields(detail?: OssApi.ConfigDetail) {
       };
     }),
   );
-}
-
-/** 编辑时去掉留空的密钥，后端不会修改这些字段 */
-function withoutEmptyKeys(values: OssApi.ConfigForm): OssApi.ConfigForm {
-  const { accessKey, secretKey, ...rest } = values;
-  return {
-    ...rest,
-    ...(accessKey ? { accessKey } : {}),
-    ...(secretKey ? { secretKey } : {}),
-  };
 }
 
 const [Drawer, drawerApi] = useVbenDrawer({

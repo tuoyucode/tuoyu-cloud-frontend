@@ -76,6 +76,13 @@ async function loadTenants() {
   }
 }
 
+/** 展开下拉时重新加载租户列表，刚新增的租户不用刷新页面就能选到 */
+function onDropdownVisibleChange(open: boolean) {
+  if (open && !loading.value) {
+    loadTenants();
+  }
+}
+
 /** 切换后重新加载页面：菜单、路由与页面数据都按新的租户重新获取 */
 function reloadPage() {
   window.location.reload();
@@ -135,6 +142,7 @@ onMounted(load);
       show-search
       size="small"
       @change="onSelect"
+      @dropdown-visible-change="onDropdownVisibleChange"
     />
     <Button
       v-if="current?.switched"

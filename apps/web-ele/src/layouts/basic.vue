@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, watch } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { AuthenticationLoginExpiredModal } from '@vben/common-ui';
 import { useWatermark } from '@vben/hooks';
@@ -7,16 +8,29 @@ import { BasicLayout, LockScreen, UserDropdown } from '@vben/layouts';
 import { preferences, usePreferences } from '@vben/preferences';
 import { useAccessStore, useUserStore } from '@vben/stores';
 
+import { $t } from '#/locales';
 import { useAuthStore } from '#/store';
 import LoginForm from '#/views/_core/authentication/login.vue';
 
+import MessageCenter from './message-center.vue';
 import TenantSwitcher from './tenant-switcher.vue';
 
+const router = useRouter();
 const userStore = useUserStore();
 const authStore = useAuthStore();
 const accessStore = useAccessStore();
 const { destroyWatermark, updateWatermark } = useWatermark();
 const { isDark } = usePreferences();
+
+const menus = computed(() => [
+  {
+    handler: () => {
+      router.push({ name: 'Profile' });
+    },
+    icon: 'lucide:user',
+    text: $t('page.auth.profile'),
+  },
+]);
 
 const avatar = computed(() => {
   return userStore.userInfo?.avatar || preferences.app.defaultAvatar;
@@ -76,7 +90,7 @@ watch(
     <template #user-dropdown>
       <UserDropdown
         :avatar
-        :menus="[]"
+        :menus
         :text="userStore.userInfo?.realName"
         :description="userStore.userInfo?.username"
         @clear-preferences-and-logout="handleLogout"
@@ -86,6 +100,10 @@ watch(
     <template #header-right-0>
       <!-- 只在开启多租户且为超级管理员时显示 -->
       <TenantSwitcher />
+    </template>
+    <template #notification>
+      <!-- 消息中心：历史消息 + SSE 实时推送 -->
+      <MessageCenter />
     </template>
     <template #extra>
       <AuthenticationLoginExpiredModal

@@ -4,6 +4,7 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { formatSeconds } from '@tuoyu/shared/pages/system/client';
 
 import { $t } from '#/locales';
 
@@ -33,16 +34,6 @@ export function useSearchSchema(): VbenFormSchema[] {
       label: $t('crud.status'),
     },
   ];
-}
-
-/** 超时时间（秒）的显示：-1 表示不限制 */
-function formatSeconds({ cellValue }: { cellValue?: null | number }) {
-  if (cellValue === undefined || cellValue === null) {
-    return '';
-  }
-  return cellValue === -1
-    ? $t('system.client.unlimited')
-    : $t('system.client.secondsValue', { value: cellValue });
 }
 
 /** 表格列：不显示客户端密钥 */

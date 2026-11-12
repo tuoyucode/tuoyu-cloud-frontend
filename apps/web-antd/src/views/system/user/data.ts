@@ -5,26 +5,15 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
 import { getUserDeptTree } from '@tuoyu/shared/api/system/user';
+import { PASSWORD_MAX, PASSWORD_MIN } from '@tuoyu/shared/pages/system/user';
 
 import { z } from '#/adapter/form';
 import { $t } from '#/locales';
 
-/** 密码长度与登录接口一致 */
-const PASSWORD_MIN = 5;
-const PASSWORD_MAX = 30;
-
-/** 创建时间范围提交为 params[beginTime]、params[endTime]，结束日期包含当天 */
-export const searchFieldMappingTime: [
-  string,
-  [string, string],
-  [string, string],
-][] = [
-  [
-    'createTime',
-    ['params[beginTime]', 'params[endTime]'],
-    ['YYYY-MM-DD 00:00:00', 'YYYY-MM-DD 23:59:59'],
-  ],
-];
+export {
+  searchFieldMappingTime,
+  toUserForm,
+} from '@tuoyu/shared/pages/system/user';
 
 /** 查询条件：一行 4 个，创建时间折叠 */
 export function useSearchSchema(): VbenFormSchema[] {
@@ -279,23 +268,4 @@ export function useResetPasswordSchema(): VbenFormSchema[] {
       label: $t('system.user.confirmPassword'),
     },
   ];
-}
-
-/**
- * 表单值转为新增、修改用户的请求。
- * 角色、岗位都可以为空：修改时空数组表示清空（不传表示不修改），
- * 所以未选择时一律提交空数组；密码只在新增时提交
- */
-export function toUserForm(
-  values: Record<string, unknown>,
-  userId?: string,
-): UserApi.Form {
-  const ids = (value: unknown) =>
-    Array.isArray(value) ? value.map(String) : [];
-  const form = {
-    ...values,
-    postIds: ids(values.postIds),
-    roleIds: ids(values.roleIds),
-  } as UserApi.Form;
-  return userId ? { ...form, password: undefined, userId } : form;
 }
