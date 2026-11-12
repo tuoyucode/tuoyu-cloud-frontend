@@ -1,19 +1,17 @@
 <script lang="ts" setup>
+import type { KeyNode } from '@tuoyu/shared/pages/system/permission-tree';
 import type { TreeProps } from 'ant-design-vue';
 
-import type { KeyNode } from './tree-utils';
-
 import { computed, ref, watch } from 'vue';
-
-import { Button, Checkbox, Empty, Tooltip, Tree } from 'ant-design-vue';
-
-import { $t } from '#/locales';
 
 import {
   collectTreeKeys,
   withAncestors,
   withoutSelectedAncestors,
-} from './tree-utils';
+} from '@tuoyu/shared/pages/system/permission-tree';
+import { Button, Checkbox, Empty, Tooltip, Tree } from 'ant-design-vue';
+
+import { $t } from '#/locales';
 
 type TreeNode = KeyNode & { children?: TreeNode[]; label: string };
 

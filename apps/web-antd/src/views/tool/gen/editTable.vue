@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import type { DictApi } from '@tuoyu/shared/api/system/dict';
 import type { GenApi } from '@tuoyu/shared/api/tool/gen';
+import type { FlagField } from '@tuoyu/shared/pages/tool/gen-edit';
 import type { TableColumnsType } from 'ant-design-vue';
-
-import type { FlagField } from './edit-utils';
 
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -13,6 +12,20 @@ import { Page } from '@vben/common-ui';
 import { listDictTypeOptions } from '@tuoyu/shared/api/system/dict';
 import { listMenu } from '@tuoyu/shared/api/system/menu';
 import { getGenTable, updateGenTable } from '@tuoyu/shared/api/tool/gen';
+import {
+  buildSaveForm,
+  columnOptions,
+  FLAG_FIELDS,
+  HTML_TYPES,
+  isDictHtmlType,
+  isFlagOn,
+  JAVA_TYPES,
+  QUERY_TYPES,
+  readOptions,
+  toFlag,
+  toFrontendType,
+  validateOptions,
+} from '@tuoyu/shared/pages/tool/gen-edit';
 import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { listToTree } from '@tuoyu/shared/utils/tree';
 import {
@@ -36,24 +49,8 @@ import {
   useBasicFormSchema,
   useGenerateFormSchema,
 } from './data';
-import {
-  buildSaveForm,
-  columnOptions,
-  FLAG_FIELDS,
-  HTML_TYPES,
-  isDictHtmlType,
-  isFlagOn,
-  JAVA_TYPES,
-  QUERY_TYPES,
-  readOptions,
-  toFlag,
-  validateOptions,
-} from './edit-utils';
 
 defineOptions({ name: 'ToolGenEdit' });
-
-/** 前端模板：只提供与本前端页面约定一致的 vben 模板 */
-const FRONTEND_TYPE: GenApi.FrontendType = 'vben';
 
 const route = useRoute();
 const router = useRouter();
@@ -219,6 +216,7 @@ async function load() {
     await basicFormApi.setValues(detail.info);
     await generateFormApi.setValues({
       businessName: detail.info.businessName,
+      frontendType: toFrontendType(detail.info.frontendType),
       functionName: detail.info.functionName,
       moduleName: detail.info.moduleName,
       packageName: detail.info.packageName,
@@ -291,7 +289,7 @@ async function onSave() {
     ...info.value,
     ...basicValues,
     businessName: generateValues.businessName,
-    frontendType: FRONTEND_TYPE,
+    frontendType: toFrontendType(generateValues.frontendType),
     functionName: generateValues.functionName,
     moduleName: generateValues.moduleName,
     packageName: generateValues.packageName,

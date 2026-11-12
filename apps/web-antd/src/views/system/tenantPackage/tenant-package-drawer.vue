@@ -12,15 +12,15 @@ import {
   getTenantPackage,
   updateTenantPackage,
 } from '@tuoyu/shared/api/system/tenantPackage';
+import {
+  canShowWithLinkage,
+  withoutSelectedAncestors,
+} from '@tuoyu/shared/pages/system/permission-tree';
 import { Alert, message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 import PermissionTree from '#/views/system/role/permission-tree.vue';
-import {
-  canShowWithLinkage,
-  withoutSelectedAncestors,
-} from '#/views/system/role/tree-utils';
 
 import { loadFormOptions, useFormSchema } from './data';
 

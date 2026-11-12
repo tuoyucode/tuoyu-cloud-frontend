@@ -4,22 +4,21 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import {
+  EMAIL_PATTERN,
+  isRootDept,
+  STATUS_NORMAL,
+} from '@tuoyu/shared/pages/system/dept';
 
 import { z } from '#/adapter/form';
 import { $t } from '#/locales';
 
-/** 字典 sys_normal_disable：0 正常 */
-export const STATUS_NORMAL = '0';
-
-/** 根部门的上级 ID */
-export const ROOT_PARENT_ID = 0;
-
-/** 是否根部门（根部门没有上级，不能修改上级） */
-export function isRootDept(parentId: unknown) {
-  return String(parentId) === String(ROOT_PARENT_ID);
-}
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export {
+  isRootDept,
+  leaderLabel,
+  ROOT_PARENT_ID,
+  STATUS_NORMAL,
+} from '@tuoyu/shared/pages/system/dept';
 
 /** 查询条件：一行最多 4 个 */
 export function useSearchSchema(): VbenFormSchema[] {
@@ -190,14 +189,4 @@ export function useFormSchema(): VbenFormSchema[] {
       label: $t('crud.status'),
     },
   ];
-}
-
-/** 负责人选项的显示名称：昵称（账号） */
-export function leaderLabel(user: DeptApi.LeaderCandidate) {
-  return user.nickName && user.nickName !== user.userName
-    ? $t('system.dept.leaderOption', {
-        nickName: user.nickName,
-        userName: user.userName,
-      })
-    : user.userName;
 }

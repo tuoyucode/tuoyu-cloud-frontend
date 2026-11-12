@@ -4,44 +4,24 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import {
+  isIconifyName,
+  isJsonObject,
+  MenuType,
+  menuTypeOptions,
+  PERMISSION_PATTERN,
+  ROOT_PARENT_ID,
+} from '@tuoyu/shared/pages/system/menu';
 
 import { z } from '#/adapter/form';
 import { $t } from '#/locales';
 
-/** 菜单类型 */
-export const MenuType = {
-  /** 按钮：只有权限标识，不出现在菜单中 */
-  BUTTON: 'F',
-  /** 目录：包含下级菜单 */
-  DIR: 'M',
-  /** 菜单：打开一个页面 */
-  MENU: 'C',
-} as const satisfies Record<string, MenuApi.MenuType>;
-
-/** 顶级菜单的上级 ID */
-export const ROOT_PARENT_ID = 0;
-
-/** Iconify 图标名：图标集:图标，例如 lucide:user */
-const ICONIFY_PATTERN =
-  /^[a-z0-9]+(?:-[a-z0-9]+)*:[a-z0-9]+(?:[-_][a-z0-9]+)*$/;
-
-/** 与后端 RegexConstants.PERMISSION_STRING 一致 */
-const PERMISSION_PATTERN = /^[\w]+:[\w*]+:[\w*]+$/;
-
-/** 是否 Iconify 图标名（菜单图标只接受这种格式） */
-export function isIconifyName(icon?: null | string): icon is string {
-  return !!icon && ICONIFY_PATTERN.test(icon);
-}
-
-/** 是否 JSON 对象字符串（路由参数） */
-function isJsonObject(text: string) {
-  try {
-    const value = JSON.parse(text);
-    return typeof value === 'object' && value !== null && !Array.isArray(value);
-  } catch {
-    return false;
-  }
-}
+export {
+  isIconifyName,
+  MenuType,
+  menuTypeOptions,
+  ROOT_PARENT_ID,
+} from '@tuoyu/shared/pages/system/menu';
 
 /** 可选文本字段的校验：为空时通过 */
 function optionalText(test: (value: string) => boolean, message: string) {
@@ -59,15 +39,6 @@ function showFor(...types: MenuApi.MenuType[]) {
     }),
     triggerFields: ['menuType'],
   };
-}
-
-/** 菜单类型的选项 */
-export function menuTypeOptions() {
-  return [
-    { label: $t('system.menu.typeDir'), value: MenuType.DIR },
-    { label: $t('system.menu.typeMenu'), value: MenuType.MENU },
-    { label: $t('system.menu.typeButton'), value: MenuType.BUTTON },
-  ];
 }
 
 /** 查询条件：一行最多 4 个 */

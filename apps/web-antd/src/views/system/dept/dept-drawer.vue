@@ -14,20 +14,17 @@ import {
   updateDept,
 } from '@tuoyu/shared/api/system/dept';
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import {
+  toDeptParentTree,
+  toLeaderOptions,
+} from '@tuoyu/shared/pages/system/dept';
 import { hasPermission } from '@tuoyu/shared/utils/permission';
-import { listToTree } from '@tuoyu/shared/utils/tree';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 
-import {
-  isRootDept,
-  leaderLabel,
-  ROOT_PARENT_ID,
-  STATUS_NORMAL,
-  useFormSchema,
-} from './data';
+import { isRootDept, ROOT_PARENT_ID, useFormSchema } from './data';
 
 const emit = defineEmits<{ success: [] }>();
 
@@ -44,39 +41,20 @@ const [Form, formApi] = useVbenForm({
   wrapperClass: 'grid-cols-1 md:grid-cols-2 gap-x-4',
 });
 
-/**
- * 上级部门的可选树。编辑时排除本部门及其下级；停用的部门下不能新增部门，设为不可选
- */
+/** 上级部门的可选树：编辑时排除本部门及其下级 */
 async function loadParentTree() {
-  const depts = await (deptId.value
-    ? listDeptExcludeChild(deptId.value)
-    : listDept());
-  const nodes = depts.map((dept) => ({
-    ...dept,
-    disabled: dept.status !== STATUS_NORMAL,
-  }));
-  return listToTree(nodes, 'deptId', 'parentId');
+  return toDeptParentTree(
+    await (deptId.value ? listDeptExcludeChild(deptId.value) : listDept()),
+  );
 }
 
-/**
- * 负责人的可选用户：本部门的用户。没有查看用户的权限时，只保留当前负责人
- */
+/** 负责人的可选用户：本部门的用户。没有查看用户的权限时，只保留当前负责人 */
 async function loadLeaderOptions(record?: DeptApi.Dept) {
-  const options: { label: string; value: string }[] = [];
-  if (deptId.value && hasPermission('system:user:list')) {
-    const users = await listDeptUsers(deptId.value);
-    options.push(
-      ...users.map((user) => ({
-        label: leaderLabel(user),
-        value: user.userId,
-      })),
-    );
-  }
-  const leader = record?.leader;
-  if (leader && !options.some((option) => option.value === leader)) {
-    options.unshift({ label: record?.leaderName || leader, value: leader });
-  }
-  return options;
+  const users =
+    deptId.value && hasPermission('system:user:list')
+      ? await listDeptUsers(deptId.value)
+      : [];
+  return toLeaderOptions(users, record);
 }
 
 const [Drawer, drawerApi] = useVbenDrawer({

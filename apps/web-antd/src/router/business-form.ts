@@ -2,7 +2,7 @@ import type { Component } from 'vue';
 
 import { defineAsyncComponent } from 'vue';
 
-import { businessFormPath } from '#/views/workflow/task/task-utils';
+import { businessFormPath } from '@tuoyu/shared/pages/workflow/task-utils';
 
 /**
  * views 下的全部页面，按需加载。键统一为 ../views/<路径>.vue（与 access.ts 中菜单路由的写法相同；

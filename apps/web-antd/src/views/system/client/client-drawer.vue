@@ -10,6 +10,7 @@ import {
   getClient,
   updateClient,
 } from '@tuoyu/shared/api/system/client';
+import { toLines } from '@tuoyu/shared/pages/system/client';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
@@ -31,11 +32,6 @@ const [Form, formApi] = useVbenForm({
   showDefaultActions: false,
   wrapperClass: 'grid-cols-1 md:grid-cols-2 gap-x-4',
 });
-
-/** 规则列表在表单中每行一条 */
-function toLines(list?: string[]) {
-  return list?.join('\n') ?? '';
-}
 
 const [Drawer, drawerApi] = useVbenDrawer({
   async onConfirm() {

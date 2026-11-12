@@ -44,13 +44,16 @@ jobs:
         run: |
           pnpm -F @tuoyu/shared run typecheck
           pnpm -F @vben/web-antd run typecheck
+          pnpm -F @vben/web-ele run typecheck
 
       - name: Unit tests
         run: pnpm run test:unit
 
       # 端到端测试需要后端，在 e2e.yml 中手动触发；这里只确认测试文件能被 Playwright 正常加载
       - name: E2E tests load
-        run: pnpm -F @vben/web-antd exec playwright test --list
+        run: |
+          pnpm -F @vben/web-antd exec playwright test --list
+          pnpm -F @vben/web-ele exec playwright test --list
 
   build:
     name: 构建
@@ -63,5 +66,8 @@ jobs:
       - name: Setup Node
         uses: ./.github/actions/setup-node
 
-      - name: Build
+      - name: Build Ant Design Vue
         run: pnpm run build:antd
+
+      - name: Build Element Plus
+        run: pnpm run build:ele

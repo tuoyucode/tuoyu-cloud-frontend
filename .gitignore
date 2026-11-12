@@ -64,3 +64,4 @@ datalog
 
 # Playwright 端到端测试的输出（截图、trace、报告）
 **/e2e/.output
+

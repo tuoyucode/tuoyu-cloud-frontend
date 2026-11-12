@@ -1,0 +1,78 @@
+<script lang="ts" setup>
+import type { TaskApi } from '@tuoyu/shared/api/workflow/task';
+import type { ProcessDrawerData } from '@tuoyu/shared/pages/workflow/task-utils';
+
+import type { VxeTableGridOptions } from '#/adapter/vxe-table';
+
+import { Page, useVbenDrawer } from '@vben/common-ui';
+
+import { listMyWaitingTask } from '@tuoyu/shared/api/workflow/task';
+import { toPageQuery } from '@tuoyu/shared/utils/page-query';
+import { ElButton } from 'element-plus';
+
+import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { $t } from '#/locales';
+
+import ProcessDrawer from '../components/process-drawer.vue';
+import { useTaskSearchSchema, useWaitingColumns } from './data';
+
+defineOptions({ name: 'WorkflowTaskWaiting' });
+
+const [Drawer, drawerApi] = useVbenDrawer({
+  connectedComponent: ProcessDrawer,
+  destroyOnClose: true,
+});
+
+const [Grid, gridApi] = useVbenVxeGrid({
+  formOptions: {
+    schema: useTaskSearchSchema(),
+    submitOnChange: false,
+    wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
+  },
+  gridOptions: {
+    columns: useWaitingColumns(),
+    height: 'auto',
+    keepSource: true,
+    pagerConfig: { pageSize: 10, pageSizes: [10, 20, 50, 100] },
+    proxyConfig: {
+      ajax: {
+        query: async ({ page }, formValues) =>
+          await listMyWaitingTask({
+            ...toPageQuery(page),
+            ...formValues,
+          }),
+      },
+    },
+    rowConfig: { isHover: true, keyField: 'id' },
+    toolbarConfig: { custom: true, refresh: true, zoom: true },
+  } as VxeTableGridOptions<TaskApi.Task>,
+});
+
+function reload() {
+  gridApi.query();
+}
+
+function onHandle(row: TaskApi.Task) {
+  const data: ProcessDrawerData = {
+    approve: true,
+    businessId: row.businessId,
+    formPath: row.formPath,
+    instanceId: row.instanceId,
+    taskId: row.id,
+  };
+  drawerApi.setData(data).open();
+}
+</script>
+
+<template>
+  <Page auto-content-height>
+    <Drawer @success="reload" />
+    <Grid :table-title="$t('workflow.task.waitingList')">
+      <template #actions="{ row }">
+        <ElButton link size="small" type="primary" @click="onHandle(row)">
+          {{ $t('workflow.task.handle') }}
+        </ElButton>
+      </template>
+    </Grid>
+  </Page>
+</template>

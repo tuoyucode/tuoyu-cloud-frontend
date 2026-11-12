@@ -11,13 +11,13 @@ import {
   getRoleMenuTree,
   updateRolePermission,
 } from '@tuoyu/shared/api/system/role';
+import { withAncestors } from '@tuoyu/shared/pages/system/permission-tree';
 import { Alert, Descriptions, Form, message, Select } from 'ant-design-vue';
 
 import { $t } from '#/locales';
 
 import { DATA_SCOPE_CUSTOM, useDataScopeOptions } from './data';
 import PermissionTree from './permission-tree.vue';
-import { withAncestors } from './tree-utils';
 
 const emit = defineEmits<{ success: [] }>();
 

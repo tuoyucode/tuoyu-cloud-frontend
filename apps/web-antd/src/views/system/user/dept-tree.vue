@@ -5,6 +5,8 @@ import type { TreeProps } from 'ant-design-vue';
 import { computed, onMounted, ref, watch } from 'vue';
 
 import { getUserDeptTree } from '@tuoyu/shared/api/system/user';
+import { collectTreeKeys } from '@tuoyu/shared/pages/system/permission-tree';
+import { filterDeptTree } from '@tuoyu/shared/pages/system/user';
 import { Button, Empty, Input, Spin, Tree } from 'ant-design-vue';
 
 import { $t } from '#/locales';
@@ -19,35 +21,9 @@ const keyword = ref('');
 const tree = ref<TreeNode<string>[]>([]);
 const expandedKeys = ref<string[]>([]);
 
-/** 按名称筛选：保留名称匹配的部门及其上级 */
-function filterTree(
-  nodes: TreeNode<string>[],
-  text: string,
-): TreeNode<string>[] {
-  const result: TreeNode<string>[] = [];
-  for (const node of nodes) {
-    if (node.label.includes(text)) {
-      result.push(node);
-      continue;
-    }
-    const children = filterTree(node.children ?? [], text);
-    if (children.length > 0) {
-      result.push({ ...node, children });
-    }
-  }
-  return result;
-}
-
-function collectKeys(nodes: TreeNode<string>[]): string[] {
-  return nodes.flatMap((node) => [
-    node.id,
-    ...collectKeys(node.children ?? []),
-  ]);
-}
-
 const visibleTree = computed(() => {
   const text = keyword.value.trim();
-  return text ? filterTree(tree.value, text) : tree.value;
+  return text ? filterDeptTree(tree.value, text) : tree.value;
 });
 
 const selectedKeys = computed(() => (deptId.value ? [deptId.value] : []));
@@ -55,7 +31,7 @@ const selectedKeys = computed(() => (deptId.value ? [deptId.value] : []));
 // 筛选时展开全部结果，清空后恢复为只展开第一层
 watch(keyword, (value) => {
   expandedKeys.value = value.trim()
-    ? collectKeys(visibleTree.value)
+    ? collectTreeKeys(visibleTree.value)
     : tree.value.map((node) => node.id);
 });
 

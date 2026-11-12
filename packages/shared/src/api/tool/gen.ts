@@ -8,8 +8,8 @@ export namespace GenApi {
   /** 模板类型：crud 单表，tree 树表 */
   export type TplCategory = 'crud' | 'tree';
 
-  /** 前端模板：只有 vben，与本前端的页面约定一致 */
-  export type FrontendType = 'vben';
+  /** 前端模板：ele 生成 Element Plus 版（apps/web-ele）的页面，antd 生成 Ant Design Vue 版（apps/web-antd）的页面 */
+  export type FrontendType = 'antd' | 'ele';
 
   /**
    * 生成选项（保存在 gen_table.options 中）。

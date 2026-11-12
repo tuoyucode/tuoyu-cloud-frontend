@@ -4,12 +4,13 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import {
+  DICT_TYPE_PATTERN,
+  LIST_CLASSES,
+} from '@tuoyu/shared/pages/system/dict';
 
 import { z } from '#/adapter/form';
 import { $t } from '#/locales';
-
-/** 字典类型标识的格式，与后端 RegexConstants.DICTIONARY_TYPE 一致 */
-const DICT_TYPE_PATTERN = /^[a-z][a-z0-9_]*$/;
 
 /**
  * 字典数据的回显样式（listClass）对应的标签颜色，与字典标签组件的显示一致
@@ -22,16 +23,6 @@ export const LIST_CLASS_COLORS: Record<string, string> = {
   success: 'success',
   warning: 'warning',
 };
-
-/** 回显样式的可选值 */
-const LIST_CLASSES = [
-  'default',
-  'primary',
-  'success',
-  'info',
-  'warning',
-  'danger',
-] as const;
 
 /* ---------------------------- 字典类型 ---------------------------- */
 

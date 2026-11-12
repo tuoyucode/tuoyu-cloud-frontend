@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import type {
-  MessageCategory,
-  MessageItem,
-} from '@tuoyu/shared/utils/message-box';
+import type { MessageFilter } from '@tuoyu/shared/pages/message/message-center';
+import type { MessageItem } from '@tuoyu/shared/utils/message-box';
 
 import type { NotificationItem } from '@vben/layouts';
 
@@ -15,6 +13,12 @@ import { Notification } from '@vben/layouts';
 import { useAccessStore } from '@vben/stores';
 import { formatDateTime } from '@vben/utils';
 
+import {
+  canOpenMessagePath,
+  MESSAGE_CATEGORY_ICONS as CATEGORY_ICONS,
+  filterMessages,
+  messageFilterOptions,
+} from '@tuoyu/shared/pages/message/message-center';
 import { Button, Empty, Modal, Segmented } from 'ant-design-vue';
 
 import { $t } from '#/locales';
@@ -26,12 +30,6 @@ import { useMessageStore } from '#/store';
  */
 defineOptions({ name: 'MessageCenter' });
 
-const CATEGORY_ICONS: Record<MessageCategory, string> = {
-  notice: 'lucide:megaphone',
-  system: 'lucide:bell',
-  workflow: 'lucide:git-pull-request-arrow',
-};
-
 const router = useRouter();
 const accessStore = useAccessStore();
 const messageStore = useMessageStore();
@@ -40,7 +38,7 @@ const messageStore = useMessageStore();
 const detail = ref<MessageItem>();
 /** “查看全部”弹窗 */
 const listOpen = ref(false);
-const listFilter = ref<'all' | MessageCategory>('all');
+const listFilter = ref<MessageFilter>('all');
 
 const byId = computed(
   () => new Map(messageStore.messages.map((item) => [item.id, item])),
@@ -57,36 +55,15 @@ const notificationItems = computed<NotificationItem[]>(() =>
   })),
 );
 
-const filterOptions = computed(() =>
-  (['all', 'system', 'notice', 'workflow'] as const).map((value) => ({
-    label:
-      value === 'all'
-        ? $t('page.message.all')
-        : $t(`page.message.category.${value}`),
-    value,
-  })),
-);
+const filterOptions = computed(() => messageFilterOptions());
 
 const filteredMessages = computed(() =>
-  listFilter.value === 'all'
-    ? messageStore.messages
-    : messageStore.messages.filter(
-        (item) => item.category === listFilter.value,
-      ),
+  filterMessages(messageStore.messages, listFilter.value),
 );
 
 /** 消息中的路径是否对应当前用户可以访问的页面（没有菜单权限时路由不存在） */
 function canOpen(path?: string): path is string {
-  if (!path) {
-    return false;
-  }
-  try {
-    const resolved = router.resolve(path);
-    const last = resolved.matched.at(-1);
-    return !!last && last.name !== 'FallbackNotFound';
-  } catch {
-    return false;
-  }
+  return canOpenMessagePath(router, path);
 }
 
 function openPath(path: string) {

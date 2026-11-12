@@ -16,4 +16,22 @@ describe('nestNamespaces', () => {
     expect(messages.system.shared).toBe('共用');
     expect(messages.monitor.online.title).toBe('在线用户');
   });
+
+  it('多份文案按顺序合并，同一文件中后面的同名键优先，其余键保留', () => {
+    const messages = nestNamespaces(
+      {
+        crud: { deleted: '已删除', saved: '已保存' },
+        'system/post': { title: '岗位' },
+      },
+      {
+        crud: { saved: '保存成功' },
+        'mes/workorder': { title: '工单' },
+      },
+    );
+
+    expect(messages.crud.saved).toBe('保存成功');
+    expect(messages.crud.deleted).toBe('已删除');
+    expect(messages.system.post.title).toBe('岗位');
+    expect(messages.mes.workorder.title).toBe('工单');
+  });
 });
