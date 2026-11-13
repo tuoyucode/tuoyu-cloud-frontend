@@ -4,10 +4,9 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { equipmentEnumOptions } from '@tuoyu/shared/pages/mes/equipment-enums';
 
 import { $t } from '#/locales';
-
-import { equipmentEnumOptions } from '../common/enums';
 
 /** 保养工单的状态动作 */
 export type OrderAction = 'cancel' | 'complete' | 'start';

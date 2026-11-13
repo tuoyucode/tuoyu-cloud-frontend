@@ -2,9 +2,9 @@ import type { DashboardApi } from '@tuoyu/shared/api/mes/dashboard';
 
 import type { ECOption } from '@vben/plugins/echarts';
 
-import { $t } from '#/locales';
+import { enumLabel } from '@tuoyu/shared/pages/mes/enums';
 
-import { enumLabel } from '../_shared/enums';
+import { $t } from '#/locales';
 
 /** 可选的统计天数 */
 export const DAY_OPTIONS = [7, 14, 30, 90] as const;

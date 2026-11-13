@@ -5,11 +5,10 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
+import { equipmentEnumOptions } from '@tuoyu/shared/pages/mes/equipment-enums';
 
 import { $t } from '#/locales';
-
-import { trimDecimal } from '../../_shared/decimal';
-import { equipmentEnumOptions } from '../common/enums';
 
 /** 适用范围：指定设备，或按设备类型 */
 export type CheckItemScope = 'device' | 'type';

@@ -2,10 +2,10 @@ import type { EquipmentApi } from '@tuoyu/shared/api/mes/equipment';
 
 import type { ECOption } from '@vben/plugins/echarts';
 
-import { $t } from '#/locales';
+import { equipmentEnumLabel } from '@tuoyu/shared/pages/mes/equipment-enums';
+import { metricText, toNumber } from '@tuoyu/shared/pages/mes/equipment-utils';
 
-import { equipmentEnumLabel } from '../common/enums';
-import { metricText, toNumber } from '../common/utils';
+import { $t } from '#/locales';
 
 /** 四项指标（字段名前缀与后端 MesOeeStatVo 一致） */
 export const METRICS = [

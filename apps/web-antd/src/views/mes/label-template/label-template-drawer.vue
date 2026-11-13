@@ -10,12 +10,12 @@ import {
   getLabelTemplate,
   updateLabelTemplate,
 } from '@tuoyu/shared/api/mes/labelTemplate';
+import { labelLayout } from '@tuoyu/shared/pages/mes/label-layout';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 
-import { labelLayout } from '../_shared/label-layout';
 import LabelSheet from '../_shared/label-sheet.vue';
 import {
   DEFAULT_FIELDS,

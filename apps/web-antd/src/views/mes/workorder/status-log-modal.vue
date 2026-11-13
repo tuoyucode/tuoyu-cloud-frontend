@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { MesApi } from '@tuoyu/shared/api/mes/common';
-
-import type { MesEnumType } from '#/views/mes/_shared/enums';
+import type { MesEnumType } from '@tuoyu/shared/pages/mes/enums';
 
 import { ref } from 'vue';
 

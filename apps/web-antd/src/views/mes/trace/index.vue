@@ -6,6 +6,7 @@ import { computed, ref } from 'vue';
 import { Page } from '@vben/common-ui';
 
 import { traceByKeyword } from '@tuoyu/shared/api/mes/trace';
+import { enumLabel } from '@tuoyu/shared/pages/mes/enums';
 import { hasPermission } from '@tuoyu/shared/utils/permission';
 import {
   Alert,
@@ -19,7 +20,6 @@ import {
 
 import { $t } from '#/locales';
 
-import { enumLabel } from '../_shared/enums';
 import { deniedSectionsText, eventColor, eventText } from './data';
 import TraceWorkorder from './trace-workorder.vue';
 

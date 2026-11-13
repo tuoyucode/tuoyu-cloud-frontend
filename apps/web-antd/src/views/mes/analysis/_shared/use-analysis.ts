@@ -1,16 +1,14 @@
 import type { AnalysisApi } from '@tuoyu/shared/api/mes/analysis';
-
-import type { MesEnumType } from '../../_shared/enums';
-import type { AnalysisFilters, LabeledRow, RangeError } from './analysis-utils';
+import type {
+  AnalysisFilters,
+  LabeledRow,
+  RangeError,
+} from '@tuoyu/shared/pages/mes/analysis-utils';
+import type { MesEnumType } from '@tuoyu/shared/pages/mes/enums';
 
 import { ref, watch } from 'vue';
 
 import { exportAnalysis } from '@tuoyu/shared/api/mes/analysis';
-import { message } from 'ant-design-vue';
-
-import { $t } from '#/locales';
-
-import { enumLabel } from '../../_shared/enums';
 import {
   createFilters,
   exportFileName,
@@ -18,7 +16,11 @@ import {
   rangeError,
   rowLabel,
   toQuery,
-} from './analysis-utils';
+} from '@tuoyu/shared/pages/mes/analysis-utils';
+import { enumLabel } from '@tuoyu/shared/pages/mes/enums';
+import { message } from 'ant-design-vue';
+
+import { $t } from '#/locales';
 
 /** 统计期间错误的提示 */
 export function rangeMessage(error: RangeError) {

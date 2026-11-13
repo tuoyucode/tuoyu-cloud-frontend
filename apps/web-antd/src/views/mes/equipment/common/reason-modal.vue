@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ReasonModalData } from './utils';
+import type { ReasonModalData } from '@tuoyu/shared/pages/mes/equipment-utils';
 
 import { ref } from 'vue';
 

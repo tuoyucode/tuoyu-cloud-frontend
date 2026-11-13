@@ -5,11 +5,10 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
 import { getInspectionSchemeOptions } from '@tuoyu/shared/api/mes/inspectionScheme';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 
 import { $t } from '#/locales';
-import { enumOptions } from '#/views/mes/_shared/enums';
-
-import { trimDecimal } from '../_shared/decimal';
 
 /** 首检、巡检允许的工单状态；完工检另外允许已完工 */
 const RUNNING_STATUSES = 'released,in_progress,paused';

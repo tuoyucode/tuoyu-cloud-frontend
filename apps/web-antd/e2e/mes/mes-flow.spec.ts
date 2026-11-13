@@ -17,7 +17,7 @@ import {
 
 /**
  * 制造执行的主流程：主数据与草稿工单经接口准备，其余步骤在页面上操作
- * 工单下达 → 派工 → 工作台报工 → 确认报工 → 工单完工 → 完工检验 → 完工入库 → 追溯
+ * 工单下达 → 派工 → 工作台报工 → 确认报工 → 工单自动完工 → 完工检验 → 完工入库 → 追溯
  *
  * - 只在设置 E2E_MES=true 时执行（后端需要部署制造执行模块），否则跳过；
  * - 只对测试环境运行：会留下以 E2E- 开头的工厂、车间、物料、工艺、仓库与工单（工单入库后不能删除）。
@@ -114,15 +114,6 @@ async function clickRowAction(
     .locator(`.vxe-body--row[rowid="${rowId}"]`)
     .getByRole('button', { name })
     .first()
-    .click();
-}
-
-/** 行内“更多”菜单中的操作 */
-async function clickRowMenu(page: Page, text: string, action: string) {
-  await clickRowAction(page, text, '更多');
-  await page
-    .locator('.ant-dropdown:visible')
-    .getByRole('menuitem', { exact: true, name: action })
     .click();
 }
 
@@ -351,12 +342,19 @@ test.describe('制造执行主流程', () => {
     await confirmModal(page);
     await expectToast(page, '已确认');
 
-    // ---------------------------------------------------------------- 工单完工
+    // ---------------------------------------------------------------- 工单完工：全部工序完成后自动完工
+    const completed = await api(page, 'GET', `/mes/workorder/${workorderId}`);
+    expect(completed.workorderStatus).toBe('completed');
     await page.goto(appPath('/mes/plan/workorder'));
     await searchBy(page, '工单编号', workorderCode);
-    await clickRowMenu(page, workorderCode, '完工');
-    await confirmModal(page);
-    await expectToast(page, '已完工');
+    // 工单编号列固定在左侧，与状态列不在同一张表格中：按工单编号找到行的 rowid，再在同一 rowid 的各部分中找状态
+    await expect(row(page, workorderCode).first()).toBeVisible();
+    const rowId = await row(page, workorderCode).first().getAttribute('rowid');
+    await expect(
+      page
+        .locator(`.vxe-body--row[rowid="${rowId}"]`)
+        .filter({ hasText: '已完工' }),
+    ).toBeVisible();
 
     // ---------------------------------------------------------------- 完工检验
     await page.goto(appPath('/mes/quality/inspection'));

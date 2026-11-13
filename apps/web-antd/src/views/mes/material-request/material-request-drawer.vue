@@ -11,6 +11,7 @@ import {
   getMaterialRequest,
   updateMaterialRequest,
 } from '@tuoyu/shared/api/mes/materialRequest';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
 import {
   Button,
   Input,
@@ -23,7 +24,6 @@ import {
 import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 
-import { trimDecimal } from '../_shared/decimal';
 import { formatQty, loadLocationOptions, useFormSchema } from './data';
 
 interface SelectOption {

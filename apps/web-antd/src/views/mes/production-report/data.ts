@@ -3,8 +3,9 @@ import type { ProductionReportApi } from '@tuoyu/shared/api/mes/productionReport
 import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
+
 import { $t } from '#/locales';
-import { enumOptions } from '#/views/mes/_shared/enums';
 import { userOptions } from '#/views/mes/operation-task/data';
 import { formatQty } from '#/views/mes/workorder/data';
 

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { AnalysisApi } from '@tuoyu/shared/api/mes/analysis';
-
-import type { SummaryItem } from '../_shared/analysis-utils';
+import type { SummaryItem } from '@tuoyu/shared/pages/mes/analysis-utils';
 
 import { computed, onMounted } from 'vue';
 
@@ -9,6 +8,12 @@ import { Page } from '@vben/common-ui';
 import { usePreferences } from '@vben/preferences';
 
 import { getDefectAnalysis } from '@tuoyu/shared/api/mes/analysis';
+import {
+  formatQty,
+  formatRate,
+  PARETO_REFERENCE,
+  paretoData,
+} from '@tuoyu/shared/pages/mes/analysis-utils';
 import { Card, Table } from 'ant-design-vue';
 
 import { $t } from '#/locales';
@@ -16,12 +21,6 @@ import { $t } from '#/locales';
 import AnalysisChart from '../_shared/analysis-chart.vue';
 import AnalysisFilter from '../_shared/analysis-filter.vue';
 import AnalysisSummary from '../_shared/analysis-summary.vue';
-import {
-  formatQty,
-  formatRate,
-  PARETO_REFERENCE,
-  paretoData,
-} from '../_shared/analysis-utils';
 import { chartColors, comboOption, constantLine } from '../_shared/charts';
 import { labelOf, useAnalysis } from '../_shared/use-analysis';
 

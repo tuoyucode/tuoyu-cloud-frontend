@@ -4,10 +4,9 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 
 import { $t } from '#/locales';
-
-import { enumOptions } from '../_shared/enums';
 
 /** 允许的日期格式（空字符串表示不带日期，与后端校验一致） */
 export const DATE_PATTERNS = [

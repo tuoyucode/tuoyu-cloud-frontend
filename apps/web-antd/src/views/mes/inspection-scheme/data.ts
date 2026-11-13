@@ -5,11 +5,10 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 
 import { $t } from '#/locales';
-import { enumOptions } from '#/views/mes/_shared/enums';
-
-import { trimDecimal } from '../_shared/decimal';
 
 /** 检验方案适用的产品：成品与半成品 */
 async function loadProductOptions() {

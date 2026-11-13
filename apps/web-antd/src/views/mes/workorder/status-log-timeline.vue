@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import type { MesApi } from '@tuoyu/shared/api/mes/common';
+import type { MesEnumType } from '@tuoyu/shared/pages/mes/enums';
 
-import type { MesEnumType } from '#/views/mes/_shared/enums';
-
+import { enumLabel } from '@tuoyu/shared/pages/mes/enums';
 import { Empty, Timeline, TimelineItem } from 'ant-design-vue';
 
 import { $t } from '#/locales';
-import { enumLabel } from '#/views/mes/_shared/enums';
 
 /** 状态履历时间线：动作、状态变化、操作人、时间与原因 */
 const props = defineProps<{

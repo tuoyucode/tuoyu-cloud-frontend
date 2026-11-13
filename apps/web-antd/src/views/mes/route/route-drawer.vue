@@ -6,6 +6,7 @@ import { computed, ref } from 'vue';
 import { useVbenDrawer } from '@vben/common-ui';
 
 import { addRoute, getRoute, updateRoute } from '@tuoyu/shared/api/mes/route';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
 import {
   Alert,
   Button,
@@ -19,7 +20,6 @@ import {
 import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 
-import { trimDecimal } from '../_shared/decimal';
 import { loadFormOptions, NO, SEQ_STEP, useFormSchema, YES } from './data';
 
 const emit = defineEmits<{ success: [] }>();

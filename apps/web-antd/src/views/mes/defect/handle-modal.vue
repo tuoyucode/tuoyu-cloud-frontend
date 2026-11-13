@@ -6,12 +6,12 @@ import { ref } from 'vue';
 import { useVbenModal } from '@vben/common-ui';
 
 import { handleDefect } from '@tuoyu/shared/api/mes/defect';
+import { resultMessageKey } from '@tuoyu/shared/pages/mes/material-request';
 import { message } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
-import { resultMessageKey } from '#/views/mes/material-request/approval';
 
 import { useHandleSchema } from './data';
 

@@ -4,11 +4,10 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 
 import { $t } from '#/locales';
-import { enumOptions } from '#/views/mes/_shared/enums';
-
-import { trimDecimal } from '../_shared/decimal';
 
 /** 可以入库的工单：生产中、已完工 */
 async function loadWorkorderOptions() {

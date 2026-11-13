@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import type { MesEnumType } from './enums';
+import type { MesEnumType } from '@tuoyu/shared/pages/mes/enums';
 
 import { computed } from 'vue';
 
+import { enumColor, enumLabel } from '@tuoyu/shared/pages/mes/enums';
 import { Tag } from 'ant-design-vue';
-
-import { enumColor, enumLabel } from './enums';
 
 const props = defineProps<{
   type: MesEnumType;

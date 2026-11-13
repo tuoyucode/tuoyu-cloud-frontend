@@ -4,9 +4,9 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 
 import { $t } from '#/locales';
-import { enumOptions } from '#/views/mes/_shared/enums';
 
 /** 领料、补料只允许这些状态的工单；退料另外允许已完工 */
 const ISSUE_WORKORDER_STATUSES = 'released,in_progress,paused';

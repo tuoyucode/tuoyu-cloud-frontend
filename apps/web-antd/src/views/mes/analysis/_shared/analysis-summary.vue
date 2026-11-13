@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { SummaryItem } from './analysis-utils';
+import type { SummaryItem } from '@tuoyu/shared/pages/mes/analysis-utils';
 
 import { Alert, Button, Card } from 'ant-design-vue';
 

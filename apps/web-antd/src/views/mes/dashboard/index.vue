@@ -13,13 +13,13 @@ import { usePreferences } from '@vben/preferences';
 import { listAndon } from '@tuoyu/shared/api/mes/andon';
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
 import { getDashboardOverview } from '@tuoyu/shared/api/mes/dashboard';
+import { enumLabel } from '@tuoyu/shared/pages/mes/enums';
 import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, Card, Progress, Select, Table, Tag } from 'ant-design-vue';
 
 import { $t } from '#/locales';
 
 import EnumTag from '../_shared/enum-tag.vue';
-import { enumLabel } from '../_shared/enums';
 import { useAutoRefresh } from '../_shared/use-auto-refresh';
 import {
   andonOption,

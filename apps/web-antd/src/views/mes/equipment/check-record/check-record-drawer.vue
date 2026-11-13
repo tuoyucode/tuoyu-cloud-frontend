@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { EquipmentApi } from '@tuoyu/shared/api/mes/equipment';
-
-import type { CheckRow } from '../common/utils';
+import type { CheckRow } from '@tuoyu/shared/pages/mes/equipment-utils';
 
 import { computed, ref } from 'vue';
 
@@ -11,6 +10,14 @@ import {
   addCheckRecord,
   getApplicableCheckItems,
 } from '@tuoyu/shared/api/mes/equipment';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
+import {
+  abnormalCount,
+  limitsText,
+  missingMandatory,
+  rowResult,
+  toCheckRecordForm,
+} from '@tuoyu/shared/pages/mes/equipment-utils';
 import {
   Alert,
   Empty,
@@ -26,15 +33,7 @@ import {
 
 import { $t } from '#/locales';
 
-import { trimDecimal } from '../../_shared/decimal';
 import EquipmentTag from '../common/equipment-tag.vue';
-import {
-  abnormalCount,
-  limitsText,
-  missingMandatory,
-  rowResult,
-  toCheckRecordForm,
-} from '../common/utils';
 import { deviceOptions } from './data';
 
 /** 新增点检：选择设备后按适用的点检项目逐项填写，数值型按上下限即时显示判定结果 */

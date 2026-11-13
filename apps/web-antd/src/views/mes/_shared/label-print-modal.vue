@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { LabelTemplateApi } from '@tuoyu/shared/api/mes/labelTemplate';
-
-import type { LabelPrintRequest } from './label-print';
+import type { LabelPrintRequest } from '@tuoyu/shared/pages/mes/label-print';
 
 import { computed, nextTick, ref } from 'vue';
 
@@ -10,6 +9,14 @@ import { useVbenModal } from '@vben/common-ui';
 import { toSelectOptions } from '@tuoyu/shared/api/mes/common';
 import { getLabelTemplateOptions } from '@tuoyu/shared/api/mes/labelTemplate';
 import { getWorkorderOptions } from '@tuoyu/shared/api/mes/workorder';
+import {
+  expandCopies,
+  labelLayout,
+  maxCopies,
+  printCss,
+  printDocument,
+} from '@tuoyu/shared/pages/mes/label-layout';
+import { printHtml } from '@tuoyu/shared/pages/mes/label-print';
 import {
   Alert,
   Empty,
@@ -23,14 +30,6 @@ import {
 
 import { $t } from '#/locales';
 
-import {
-  expandCopies,
-  labelLayout,
-  maxCopies,
-  printCss,
-  printDocument,
-} from './label-layout';
-import { printHtml } from './label-print';
 import LabelSheet from './label-sheet.vue';
 
 /** 选择工单时的状态：生成过序列号的工单 */

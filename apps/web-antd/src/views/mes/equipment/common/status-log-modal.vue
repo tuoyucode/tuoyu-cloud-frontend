@@ -1,18 +1,19 @@
 <script lang="ts" setup>
 import type { MesApi } from '@tuoyu/shared/api/mes/common';
-
-import type { EquipmentEnumType } from './enums';
+import type { EquipmentEnumType } from '@tuoyu/shared/pages/mes/equipment-enums';
 
 import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import { equipmentEnumLabel } from '@tuoyu/shared/pages/mes/equipment-enums';
+import {
+  actionLabel,
+  statusChange,
+} from '@tuoyu/shared/pages/mes/equipment-utils';
 import { Empty, Timeline, TimelineItem } from 'ant-design-vue';
 
 import { $t } from '#/locales';
-
-import { equipmentEnumLabel } from './enums';
-import { actionLabel, statusChange } from './utils';
 
 /** 状态履历对话框。打开时传入 { title, statusType, load } */
 interface OpenData {

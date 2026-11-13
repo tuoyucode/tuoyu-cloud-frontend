@@ -6,12 +6,11 @@ import { ref } from 'vue';
 import { useVbenModal } from '@vben/common-ui';
 
 import { getOeeConfig, saveOeeConfig } from '@tuoyu/shared/api/mes/equipment';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
+import { toNumber } from '@tuoyu/shared/pages/mes/equipment-utils';
 import { Input, InputNumber, message } from 'ant-design-vue';
 
 import { $t } from '#/locales';
-
-import { trimDecimal } from '../../_shared/decimal';
-import { toNumber } from '../common/utils';
 
 /** OEE 配置：每日计划生产时间与标准节拍，两项都可以留空 */
 const emit = defineEmits<{ success: [] }>();

@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import type { EquipmentEnumType } from './enums';
+import type { EquipmentEnumType } from '@tuoyu/shared/pages/mes/equipment-enums';
 
 import { computed } from 'vue';
 
+import {
+  equipmentEnumColor,
+  equipmentEnumLabel,
+} from '@tuoyu/shared/pages/mes/equipment-enums';
 import { Tag } from 'ant-design-vue';
-
-import { equipmentEnumColor, equipmentEnumLabel } from './enums';
 
 const props = defineProps<{
   type: EquipmentEnumType;

@@ -9,12 +9,15 @@ import {
   completeMaterialRequest,
   getMaterialRequest,
 } from '@tuoyu/shared/api/mes/materialRequest';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
+import {
+  batchRequired,
+  firstMissingBatch,
+} from '@tuoyu/shared/pages/mes/material-request';
 import { Input, InputNumber, message, Select, Table } from 'ant-design-vue';
 
 import { $t } from '#/locales';
 
-import { trimDecimal } from '../_shared/decimal';
-import { batchRequired, firstMissingBatch } from './complete';
 import { formatQty, loadLocationOptions } from './data';
 
 /** 完成时逐行填写的实发（实退）数量，默认等于申请数量 */

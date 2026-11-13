@@ -5,10 +5,9 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
 import { listUserOptions } from '@tuoyu/shared/api/system/user';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 
 import { $t } from '#/locales';
-
-import { enumOptions } from '../_shared/enums';
 
 /** 对话框中的动作：派单（改派）、解决、关闭 */
 export type AndonAction = 'assign' | 'close' | 'resolve';

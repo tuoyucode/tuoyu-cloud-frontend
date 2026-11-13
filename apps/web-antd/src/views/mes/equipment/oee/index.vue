@@ -12,6 +12,12 @@ import { formatDate } from '@vben/utils';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
 import { exportOee, getOee } from '@tuoyu/shared/api/mes/equipment';
+import {
+  daysInRange,
+  formatDecimal,
+  MAX_OEE_DAYS,
+  recentRange,
+} from '@tuoyu/shared/pages/mes/equipment-utils';
 import { hasPermission } from '@tuoyu/shared/utils/permission';
 import {
   Button,
@@ -28,12 +34,6 @@ import {
 import { $t } from '#/locales';
 import { chartColors } from '#/views/mes/dashboard/data';
 
-import {
-  daysInRange,
-  formatDecimal,
-  MAX_OEE_DAYS,
-  recentRange,
-} from '../common/utils';
 import ConfigModal from './config-modal.vue';
 import {
   cycleText,

@@ -6,12 +6,15 @@ import { computed, ref } from 'vue';
 import { useVbenDrawer } from '@vben/common-ui';
 
 import { getCheckRecord } from '@tuoyu/shared/api/mes/equipment';
+import {
+  formatDecimal,
+  limitsText,
+} from '@tuoyu/shared/pages/mes/equipment-utils';
 import { Descriptions, DescriptionsItem, Table, Tag } from 'ant-design-vue';
 
 import { $t } from '#/locales';
 
 import EquipmentTag from '../common/equipment-tag.vue';
-import { formatDecimal, limitsText } from '../common/utils';
 
 /** 点检详情：基本信息与逐项结果 */
 const record = ref<EquipmentApi.CheckRecord>();

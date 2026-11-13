@@ -1,16 +1,15 @@
 <script lang="ts" setup>
 import type { LabelTemplateApi } from '@tuoyu/shared/api/mes/labelTemplate';
-
-import type { LabelLayout } from './label-layout';
+import type { LabelLayout } from '@tuoyu/shared/pages/mes/label-layout';
 
 import { computed } from 'vue';
 
+import { chunkRows, fieldValue } from '@tuoyu/shared/pages/mes/label-layout';
 import { QRCode } from 'ant-design-vue';
 
 import { $t } from '#/locales';
 
 import Code128Barcode from './code128-barcode.vue';
-import { chunkRows, fieldValue } from './label-layout';
 
 /**
  * 按模板排好的标签：一行标签为一页，尺寸以毫米为单位、样式全部写在元素上，

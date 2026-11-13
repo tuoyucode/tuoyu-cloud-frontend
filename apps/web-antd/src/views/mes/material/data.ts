@@ -4,10 +4,9 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 
 import { $t } from '#/locales';
-
-import { enumOptions } from '../_shared/enums';
 
 /** 查询条件：一行最多 4 个，多余的折叠 */
 export function useSearchSchema(): VbenFormSchema[] {

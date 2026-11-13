@@ -7,6 +7,7 @@ import { computed, ref } from 'vue';
 import { useVbenDrawer } from '@vben/common-ui';
 
 import { addBom, getBom, updateBom } from '@tuoyu/shared/api/mes/bom';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
 import {
   Alert,
   Button,
@@ -19,7 +20,6 @@ import {
 import { useVbenForm } from '#/adapter/form';
 import { $t } from '#/locales';
 
-import { trimDecimal } from '../_shared/decimal';
 import MaterialSelect from '../material/material-select.vue';
 import { loadFormOptions, useFormSchema } from './data';
 

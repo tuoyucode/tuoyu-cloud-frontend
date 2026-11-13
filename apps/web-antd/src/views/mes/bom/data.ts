@@ -6,10 +6,10 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 import { markRaw } from 'vue';
 
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
 
 import { $t } from '#/locales';
 
-import { trimDecimal } from '../_shared/decimal';
 import MaterialSelect from '../material/material-select.vue';
 
 /** 能建立物料清单的物料类型：成品、半成品 */

@@ -4,11 +4,10 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 
 import { $t } from '#/locales';
-import { enumOptions } from '#/views/mes/_shared/enums';
-
-import { trimDecimal } from '../_shared/decimal';
 
 /** 填写原因后执行的状态动作（暂停、取消、关闭工单，撤销报工），作为 reason-modal 的打开参数 */
 export interface ReasonModalData {

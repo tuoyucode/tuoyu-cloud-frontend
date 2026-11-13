@@ -6,10 +6,10 @@ import { ref } from 'vue';
 import { useVbenModal } from '@vben/common-ui';
 
 import { raiseCheckAndon } from '@tuoyu/shared/api/mes/equipment';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 import { Input, message, Select } from 'ant-design-vue';
 
 import { $t } from '#/locales';
-import { enumOptions } from '#/views/mes/_shared/enums';
 
 /** 点检异常发起安灯：选择紧急程度（默认紧急），可以补充说明 */
 const emit = defineEmits<{ success: [] }>();

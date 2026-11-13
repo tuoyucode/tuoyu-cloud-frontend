@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { $t } from '#/locales';
+import { code128Layout } from '@tuoyu/shared/pages/mes/code128';
 
-import { code128Layout } from './code128';
+import { $t } from '#/locales';
 
 /** Code 128 一维码：按模块宽度画成 SVG，宽高随外层区域缩放（条宽比例不变） */
 const props = defineProps<{

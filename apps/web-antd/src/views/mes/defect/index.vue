@@ -12,6 +12,11 @@ import {
   listDefect,
 } from '@tuoyu/shared/api/mes/defect';
 import { cancelInstance } from '@tuoyu/shared/api/workflow/instance';
+import {
+  approvalDrawerData,
+  hasApproval,
+  isApproving,
+} from '@tuoyu/shared/pages/mes/material-request';
 import { toPageQuery } from '@tuoyu/shared/utils/page-query';
 import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Modal } from 'ant-design-vue';
@@ -19,11 +24,6 @@ import { Button, message, Modal } from 'ant-design-vue';
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
-import {
-  approvalDrawerData,
-  hasApproval,
-  isApproving,
-} from '#/views/mes/material-request/approval';
 import StatusLogModal from '#/views/mes/material-request/status-log-modal.vue';
 import ProcessDrawer from '#/views/workflow/components/process-drawer.vue';
 

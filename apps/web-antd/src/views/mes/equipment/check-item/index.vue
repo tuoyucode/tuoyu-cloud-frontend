@@ -11,6 +11,7 @@ import {
   listCheckItem,
   removeCheckItem,
 } from '@tuoyu/shared/api/mes/equipment';
+import { limitsText } from '@tuoyu/shared/pages/mes/equipment-utils';
 import { toPageQuery } from '@tuoyu/shared/utils/page-query';
 import { hasPermission } from '@tuoyu/shared/utils/permission';
 import { Button, message, Modal, Popconfirm } from 'ant-design-vue';
@@ -19,7 +20,6 @@ import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { $t } from '#/locales';
 
 import EquipmentTag from '../common/equipment-tag.vue';
-import { limitsText } from '../common/utils';
 import CheckItemDrawer from './check-item-drawer.vue';
 import { useColumns, useSearchSchema } from './data';
 

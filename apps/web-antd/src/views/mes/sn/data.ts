@@ -4,10 +4,9 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 
 import { $t } from '#/locales';
-
-import { enumOptions } from '../_shared/enums';
 
 /** 可以生成序列号的工单状态 */
 export const GENERATABLE_WORKORDER_STATUSES = 'released,in_progress,paused';

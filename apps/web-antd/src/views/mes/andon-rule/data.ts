@@ -5,10 +5,9 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
 import { listUserOptions } from '@tuoyu/shared/api/system/user';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 
 import { $t } from '#/locales';
-
-import { enumOptions } from '../_shared/enums';
 
 /** 提醒人员下拉中一次加载的用户数（按姓名、账号筛选） */
 const USER_OPTION_LIMIT = 500;

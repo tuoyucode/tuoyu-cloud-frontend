@@ -15,6 +15,12 @@ import {
   submitMaterialRequest,
 } from '@tuoyu/shared/api/mes/materialRequest';
 import { cancelInstance } from '@tuoyu/shared/api/workflow/instance';
+import {
+  approvalDrawerData,
+  hasApproval,
+  isApproving,
+  resultMessageKey,
+} from '@tuoyu/shared/pages/mes/material-request';
 import { toPageQuery } from '@tuoyu/shared/utils/page-query';
 import { hasPermission } from '@tuoyu/shared/utils/permission';
 import {
@@ -32,12 +38,6 @@ import { $t } from '#/locales';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
 import ProcessDrawer from '#/views/workflow/components/process-drawer.vue';
 
-import {
-  approvalDrawerData,
-  hasApproval,
-  isApproving,
-  resultMessageKey,
-} from './approval';
 import CompleteModal from './complete-modal.vue';
 import { useColumns, useSearchSchema } from './data';
 import DetailDrawer from './detail-drawer.vue';

@@ -11,6 +11,7 @@ import {
   getWorkorder,
   getWorkorderLogs,
 } from '@tuoyu/shared/api/mes/workorder';
+import { enumLabel } from '@tuoyu/shared/pages/mes/enums';
 import {
   Button,
   Descriptions,
@@ -23,7 +24,6 @@ import {
 
 import { $t } from '#/locales';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
-import { enumLabel } from '#/views/mes/_shared/enums';
 
 import { formatQty } from './data';
 import ReasonModal from './reason-modal.vue';

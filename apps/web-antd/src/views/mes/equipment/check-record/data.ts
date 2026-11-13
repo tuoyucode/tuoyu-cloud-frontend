@@ -4,10 +4,9 @@ import type { VbenFormSchema } from '#/adapter/form';
 import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
+import { equipmentEnumOptions } from '@tuoyu/shared/pages/mes/equipment-enums';
 
 import { $t } from '#/locales';
-
-import { equipmentEnumOptions } from '../common/enums';
 
 export async function deviceOptions() {
   return toSelectOptions(await getMesOptions('device'));

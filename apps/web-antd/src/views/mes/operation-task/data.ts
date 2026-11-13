@@ -5,9 +5,9 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
 import { listUserOptions } from '@tuoyu/shared/api/system/user';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 
 import { $t } from '#/locales';
-import { enumOptions } from '#/views/mes/_shared/enums';
 import { formatQty, workshopOptions } from '#/views/mes/workorder/data';
 
 /** 可选择的用户（只要求登录的选项接口，不含联系方式），最多取前 200 个，下拉中按昵称或账号筛选 */

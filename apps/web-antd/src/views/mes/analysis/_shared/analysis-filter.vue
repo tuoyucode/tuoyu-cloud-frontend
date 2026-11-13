@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import type { AnalysisApi } from '@tuoyu/shared/api/mes/analysis';
 import type { MesApi } from '@tuoyu/shared/api/mes/common';
-
-import type { AnalysisFilters } from './analysis-utils';
+import type { AnalysisFilters } from '@tuoyu/shared/pages/mes/analysis-utils';
 
 import { computed, onMounted, ref, watch } from 'vue';
 

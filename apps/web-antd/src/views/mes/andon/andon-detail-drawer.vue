@@ -7,6 +7,7 @@ import { ref } from 'vue';
 import { useVbenDrawer } from '@vben/common-ui';
 
 import { getAndon, getAndonLogs } from '@tuoyu/shared/api/mes/andon';
+import { enumLabel } from '@tuoyu/shared/pages/mes/enums';
 import {
   Descriptions,
   DescriptionsItem,
@@ -18,7 +19,6 @@ import {
 import { $t } from '#/locales';
 
 import EnumTag from '../_shared/enum-tag.vue';
-import { enumLabel } from '../_shared/enums';
 import { formatMinutes } from './data';
 
 const event = ref<AndonApi.Event>();

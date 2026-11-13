@@ -6,10 +6,9 @@ import type { VxeTableGridOptions } from '#/adapter/vxe-table';
 
 import { getMesOptions, toSelectOptions } from '@tuoyu/shared/api/mes/common';
 import { DictType, getDictOptions } from '@tuoyu/shared/api/system/dict';
+import { enumOptions } from '@tuoyu/shared/pages/mes/enums';
 
 import { $t } from '#/locales';
-
-import { enumOptions } from '../_shared/enums';
 
 /** 启用的工厂（下拉选项） */
 async function factoryOptions() {

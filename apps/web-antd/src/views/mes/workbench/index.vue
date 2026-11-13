@@ -11,6 +11,8 @@ import {
   listProductionReport,
   submitProductionReport,
 } from '@tuoyu/shared/api/mes/productionReport';
+import { trimDecimal } from '@tuoyu/shared/pages/mes/decimal';
+import { enumLabel } from '@tuoyu/shared/pages/mes/enums';
 import { hasPermission } from '@tuoyu/shared/utils/permission';
 import {
   Alert,
@@ -25,10 +27,7 @@ import {
 
 import { $t } from '#/locales';
 import EnumTag from '#/views/mes/_shared/enum-tag.vue';
-import { enumLabel } from '#/views/mes/_shared/enums';
 import { formatQty } from '#/views/mes/workorder/data';
-
-import { trimDecimal } from '../_shared/decimal';
 
 defineOptions({ name: 'MesWorkbench' });
 
